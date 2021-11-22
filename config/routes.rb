@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  get 'evaluation/evaluation_form'
+  get '/evaluation_form', to: 'evaluation#evaluation_form'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -2,8 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+input {
+  &.custom-width {
+    width: 80%;
+  }
+}
+
 form {
-  &.custom-width-form {
+  &.custom-width {
     width: 65%;
   }
 }

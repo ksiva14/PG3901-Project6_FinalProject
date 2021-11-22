@@ -1,3 +1,4 @@
 class User < ApplicationRecord
-  has_many :students, :professors
+  has_many :students
+  has_many :professors
 end

@@ -2,8 +2,8 @@
 <p>Find me in app/views/static_pages/evaluation.html.erb</p>
 <%# ------------------------ grade scale description ------------------------- %>
 <div>
-  <input type="range" class="form-range m-auto custom-width" min="1" max="5" step="1" id="customRange3">
-  <div class="row justify-space-around">
+  <input type="range" class="form-range m-auto" min="1" max="5" step="1">
+  <div class="row">
     <% grading_scale.each do |item|%>
       <div class="col">
         <%= item[:grade] %> -- <%= item[:title] %>
@@ -16,25 +16,29 @@
     <% end %>
   </div>
   <%# ------------------------ evaluation form ------------------------- %>
-  <form class="container-fluid row g-3 custom-width m-auto mb-5 mt-5 border-light bg-light p-4 rounded">
+  <form class="container-fluid row g-3 w-75 m-auto mb-5 mt-5 border-light bg-light p-4 rounded ">
     <h2 class="text-center"><%= team.team_name %></h2>
     <%# loop based on how many people is in the team %>
     <% teammates.each do |student|%>
-      <div class="col-12 mb-3">
-        <div class="row mb-3 ">
-          <div class="col-6 g-3 text-center ">
-            <p><%= student.user.name %></p>
-          </div>
-          <div class="col-6 w-50">
-            <div class="row">
-              <span class="col-6 text-start">1</span>
-              <span class="col-6 text-end">5</span>
+      <div class="row m-auto">
+        <div class="col-12 mb-3 ">
+          <div class="row mb-3 ">
+            <div class="col-lg-6 col-12 g-3 text-center">
+              <p><%= student.user.name %></p>
             </div>
-            <input type="range" class="form-range row m-auto" min="1" max="5" step="1">
+            <div class="col-lg-6 col-12">
+              <div class="row">
+                <span class="col-6 text-start">1</span>
+                <span class="col-6 text-end">5</span>
+              </div>
+              <input type="range" class="form-range row m-auto" min="1" max="5" step="1">
+            </div>
           </div>
+          <textarea class="form-control col-12" id="exampleFormControlTextarea1" rows="3" placeholder="Include specific comments about <%= student.user.name %> that justify the quantitative evaluation given above." required></textarea>
         </div>
-        <textarea class="form-control col-12" id="exampleFormControlTextarea1" rows="3" placeholder="Include specific comments about <%= student.user.name %> that justify the quantitative evaluation given above." required></textarea>
       </div>
     <% end %>
-    <button type="submit" class="btn btn-primary w-25 m-auto">Submit</button>
+    <div class="row my-3 mx-0">
+      <button type="submit" class="btn btn-primary m-auto col-6">Submit</button>
+    </div>
   </form>

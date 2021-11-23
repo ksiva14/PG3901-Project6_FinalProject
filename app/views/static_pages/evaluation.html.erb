@@ -1,22 +1,21 @@
 <h1>StaticPages#evaluation</h1>
 <p>Find me in app/views/static_pages/evaluation.html.erb</p>
 <%# ------------------------ grade scale description ------------------------- %>
-<div>
-  <input type="range" class="form-range m-auto" min="1" max="5" step="1">
-  <div class="row">
-    <% grading_scale.each do |item|%>
-      <div class="col">
-        <%= item[:grade] %> -- <%= item[:title] %>
-        <ul>
-          <% item[:description].each do |line|%>
-            <li><%= line %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-  </div>
-  <%# ------------------------ evaluation form ------------------------- %>
-  <form class="container-fluid row g-3 w-75 m-auto mb-5 mt-5 border-light bg-light p-4 rounded ">
+<div class="row">
+  <% grading_scale.each do |item|%>
+    <div class="col-lg-12 col-xl">
+      <%= item[:grade] %> -- <%= item[:title] %>
+      <ul>
+        <% item[:description].each do |line|%>
+          <li><%= line %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
+<%# ------------------------ evaluation form ------------------------- %>
+<div class="row">
+  <form class="container-fluid g-3 m-auto mb-5 mt-5 border-light bg-light p-4 rounded col-lg-8 col-md-10 col-xs-12">
     <h2 class="text-center"><%= team.team_name %></h2>
     <%# loop based on how many people is in the team %>
     <% teammates.each do |student|%>
@@ -42,3 +41,4 @@
       <button type="submit" class="btn btn-primary m-auto col-6">Submit</button>
     </div>
   </form>
+</div>

@@ -16,15 +16,22 @@
     <% end %>
   </div>
   <%# ------------------------ evaluation form ------------------------- %>
-  <form class="row g-3 custom-width m-auto mb-5 mt-5 border-light bg-light p-4 rounded">
-    <h2 class="text-center">Group Name</h2>
+  <form class="container-fluid row g-3 custom-width m-auto mb-5 mt-5 border-light bg-light p-4 rounded">
+    <h2 class="text-center"><%= team.team_name %></h2>
     <%# loop based on how many people is in the team %>
     <% teammates.each do |student|%>
       <div class="col-12 mb-3">
-        <%# <label for="customRange3" class="form-label">Example range</label> %>
-        <div class="row mb-3 justify-content-evenly">
-          <p class="col-4"> <%= student.user.name %> </p>
-          <input type="range" class="form-range col-4 w-50" min="1" max="5" step="1" id="customRange3">
+        <div class="row mb-3 ">
+          <div class="col-6 g-3 text-center ">
+            <p><%= student.user.name %></p>
+          </div>
+          <div class="col-6 w-50">
+            <div class="row">
+              <span class="col-6 text-start">1</span>
+              <span class="col-6 text-end">5</span>
+            </div>
+            <input type="range" class="form-range row m-auto" min="1" max="5" step="1">
+          </div>
         </div>
         <textarea class="form-control col-12" id="exampleFormControlTextarea1" rows="3" placeholder="Include specific comments about <%= student.user.name %> that justify the quantitative evaluation given above." required></textarea>
       </div>

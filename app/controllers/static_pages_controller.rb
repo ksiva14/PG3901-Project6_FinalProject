@@ -33,10 +33,11 @@ class StaticPagesController < ApplicationController
     ]
 
     # TODO: change Student.find(1) to the current student that logged in
-    teammates = Student.find(1).team.students
+    team = Student.find(1).team
+    teammates = team.students
 
     respond_to do |format|
-      format.html { render :evaluation, locals: { grading_scale: grading_scale, teammates: teammates } }
+      format.html { render :evaluation, locals: { grading_scale: grading_scale, team: team, teammates: teammates } }
     end
   end
 end

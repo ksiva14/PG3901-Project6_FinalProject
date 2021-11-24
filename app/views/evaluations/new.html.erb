@@ -1,5 +1,20 @@
-<h1>New Evaluation</h1>
-
-<%= render 'form', evaluation: @evaluation %>
-
-<%= link_to 'Back', evaluations_path %>
+<%# -------------------- Team Name --------------------------%>
+<h1 class="text-center mt-5">Evaluation for Project -- (<%= @team.team_name %>)</h1>
+<%# ------------------------ grade scale description ------------------------- %>
+<div class="row">
+  <h2 class="text-center my-4">Grading Scale</h2>
+  <% @grading_scale.each do |item|%>
+    <div class="col-lg-12 col-xl">
+      <%= item[:grade] %> -- <%= item[:title] %>
+      <ul>
+        <% item[:description].each do |line|%>
+          <li><%= line %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
+<%# -------------------- Evaluation Form --------------------------%>
+<div class="row">
+  <%= render 'form', evaluation: @evaluation, locals:@team %>
+</div>

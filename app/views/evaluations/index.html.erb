@@ -1,7 +1,5 @@
 <p id="notice"><%= notice %></p>
-
 <h1>Evaluations</h1>
-
 <table>
   <thead>
     <tr>
@@ -12,7 +10,6 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @evaluations.each do |evaluation| %>
       <tr>
@@ -27,7 +24,5 @@
     <% end %>
   </tbody>
 </table>
-
 <br>
-
 <%= link_to 'New Evaluation', new_evaluation_path %>

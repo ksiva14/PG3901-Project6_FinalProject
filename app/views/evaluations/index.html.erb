@@ -1,13 +1,12 @@
 <p id="notice"><%= notice %></p>
-<h1>Evaluations</h1>
-<table>
-  <thead>
+<h1 class="text-center m-5">Evaluations for <%= Project.find(@project_id).project_name %></h1>
+<table class="table table-light table-striped table-bordered rounded">
+  <thead class="text-center">
     <tr>
-      <th>Student</th>
-      <th>Action</th>
-      <th>Score</th>
-      <th>Comment</th>
-      <th colspan="4"></th>
+      <th scope="col" class="col-2">Student</th>
+      <th scope="col" class="col-2">Action</th>
+      <th scope="col" class="col-1">Score</th>
+      <th scope="col" class="col-5">Comment</th>
     </tr>
   </thead>
   <tbody>
@@ -16,25 +15,25 @@
       <tr>
         <td><%= student.user.name %></td>
         <% if evaluation.score.nil? %>
-          <td><%= link_to 'Start Evaluation', new_evaluation_path(student.id) %></td>
+          <td class="text-center"><%= link_to 'Start Evaluation', new_evaluation_path(student.id) %></td>
         <% else %>
-          <td><%= link_to 'Start Evaluation', "#", class:"visually-hidden" %></td>
+          <td class="text-center"><%= link_to 'Start Evaluation', "#", class:"visually-hidden" %></td>
         <% end %>
-        <td><%= evaluation.score %></td>
+        <td class="text-center"><%= evaluation.score %></td>
         <td><%= evaluation.comment %></td>
-      </tr>
-    <% end %>
-    <% @evaluations.each do |evaluation| %>
-      <tr>
-        <td><%= evaluation.project_id %></td>
-        <td><%= evaluation.student_id %></td>
-        <td><%= evaluation.score %></td>
-        <td><%= evaluation.comment %></td>
-        <td><%= link_to 'Show', evaluation %></td>
-        <td><%= link_to 'Edit', edit_evaluation_path(evaluation) %></td>
-        <td><%= link_to 'Destroy', evaluation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<br>
+<%# TODO: can delete %>
+<% @evaluations.each do |evaluation| %>
+  <tr>
+    <td><%= evaluation.project_id %></td>
+    <td><%= evaluation.student_id %></td>
+    <td><%= evaluation.score %></td>
+    <td><%= evaluation.comment %></td>
+    <td><%= link_to 'Show', evaluation %></td>
+    <td><%= link_to 'Edit', edit_evaluation_path(evaluation) %></td>
+    <td><%= link_to 'Destroy', evaluation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>

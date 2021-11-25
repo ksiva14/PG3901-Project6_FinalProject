@@ -14,10 +14,9 @@
     </div>
   <% end %>
 </div>
+<%= @evaluation.score %>
+<%= @evaluation.student_id %>
 <%# -------------------- Evaluation Form --------------------------%>
 <div class="row">
   <%= render 'form', evaluation: @evaluation, locals: @student %>
 </div>
-<%# <button class="bg-btn btn-primary m-auto col-12 col-md-4 col-lg-3 mb-3 p-2 rounded">
-  <%= link_to 'Back', evaluations_path, class: "text-light text-decoration-none" %
-</button> %>

@@ -4,7 +4,6 @@ class EvaluationsController < ApplicationController
   # TODO: change to the correct id
   @@project_id = 1
   @@student_id = 1
-
   # GET /evaluations
   # GET /evaluations.json
   def index
@@ -27,8 +26,18 @@ class EvaluationsController < ApplicationController
 
   # GET /evaluations/new
   def new
+    # Get student_id from url
+    @@student_id = request.fullpath[/[0-9]+/]
+    # Pass @student to /new (allow usage in _form.html)
+    @student = Student.find(@@student_id)
+
+    # Pass @evaluation, @team, @grading_scale to /new (allow usage in new.html)
+    @team = @student.team
     # Get the correct evaluation for the student for a particular project
     @evaluation = Student.find(@@student_id).evaluations.find_by(project_id: @@project_id)
+    # Change to the correct student
+    @evaluation.student_id = @@student_id
+    # TODO: rmb to change to correct project as well
     @grading_scale = [
       {
         grade: '1',
@@ -60,20 +69,20 @@ class EvaluationsController < ApplicationController
                       'One of the **best** team-mates you have ever had for any project']
       }
     ]
-    @student = Student.find(@@student_id)
-    @team = @student.team
   end
 
   # GET /evaluations/1/edit
   def edit
+    # Pass @student to /edit (allow usage in _form.html)
     @student = Student.find(@@student_id)
   end
 
   # POST /evaluations
   # POST /evaluations.json
   def create
+    @student_id = request.fullpath[/[0-9]+/]
     # Get the correct evaluation for the student for a particular project
-    @evaluation = Student.find(@@student_id).evaluations.find_by(project_id: @@project_id)
+    @evaluation = Student.find(@student_id).evaluations.find_by(project_id: @@project_id)
 
     # render 'evaluations/new'
     respond_to do |format|

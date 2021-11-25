@@ -65,7 +65,9 @@ class EvaluationsController < ApplicationController
   end
 
   # GET /evaluations/1/edit
-  def edit; end
+  def edit
+    @student = Student.find(@@student_id)
+  end
 
   # POST /evaluations
   # POST /evaluations.json

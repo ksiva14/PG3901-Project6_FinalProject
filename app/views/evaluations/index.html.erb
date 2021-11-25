@@ -12,11 +12,15 @@
   </thead>
   <tbody>
     <% @teammates.each do |student|%>
+      <% evaluation = Student.find(student.id).evaluations.find_by(project_id: @project_id)%>
       <tr>
         <td><%= student.user.name %></td>
         <td><%= link_to 'Start Evaluation', new_evaluation_path %></td>
-        <td><%= Student.find(student.id).evaluations.find_by(project_id: @project_id).score %></td>
-        <td><%= Student.find(student.id).evaluations.find_by(project_id: @project_id).comment %></td>
+        <td><%= evaluation.score %></td>
+        <td><%= evaluation.comment %></td>
+        <td><%= link_to 'Show', evaluation %></td>
+        <td><%= link_to 'Edit', edit_evaluation_path(evaluation) %></td>
+        <td><%= link_to 'Destroy', evaluation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
     <% @evaluations.each do |evaluation| %>

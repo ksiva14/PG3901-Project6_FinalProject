@@ -4,6 +4,8 @@ class EvaluationsController < ApplicationController
   # TODO: change to the correct id
   @@project_id = 1
   @@student_id = 1
+  @@team_id
+
   # GET /evaluations
   # GET /evaluations.json
   def index
@@ -88,8 +90,8 @@ class EvaluationsController < ApplicationController
     respond_to do |format|
       # Update evaluation in database according to input
       if @evaluation.update(evaluation_params)
-        format.html { redirect_to @evaluation, notice: 'Evaluation was successfully created.' }
-        format.json { render :show, status: :created, location: @evaluation }
+        # format.html { redirect_to @evaluation, notice: 'Evaluation was successfully created.' }
+        # format.json { render :index, status: :created, location: @evaluation }
       else
         format.html { render :new }
         format.json { render json: @evaluation.errors, status: :unprocessable_entity }
@@ -102,7 +104,8 @@ class EvaluationsController < ApplicationController
   def update
     respond_to do |format|
       if @evaluation.update(evaluation_params)
-        format.html { redirect_to @evaluation, notice: 'Evaluation was successfully updated.' }
+        # format.html { redirect_to evaluations_url, notice: 'Evaluation was successfully updated.' }
+        format.html { redirect_to evaluations_url, notice: 'Evaluation was successfully updated.' }
         format.json { render :show, status: :ok, location: @evaluation }
       else
         format.html { render :edit }

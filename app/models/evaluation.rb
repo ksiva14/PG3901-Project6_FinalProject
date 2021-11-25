@@ -1,5 +1,5 @@
 class Evaluation < ApplicationRecord
-  belongs_to :project
-  belongs_to :team
-  belongs_to :student
+  belongs_to :project, optional: true
+  belongs_to :team, optional: true
+  belongs_to :student, optional: true
 end

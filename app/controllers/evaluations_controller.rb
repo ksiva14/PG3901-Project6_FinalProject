@@ -2,18 +2,22 @@ class EvaluationsController < ApplicationController
   before_action :set_evaluation, only: %i[show edit update destroy]
 
   # TODO: change to the correct id
-  @@project_id = 3
-  @@student_id = 3
+  @@project_id = 1
+  @@student_id = 1
 
   # GET /evaluations
   # GET /evaluations.json
   def index
     @evaluations = Evaluation.all
-    @student = Student.find(@@student_id)
-    @team = @student.team
-    @teammates = @team.students
+    @project_id = @@project_id
 
-    @teammates.each do
+    @teammates = Student.find(@@student_id).team.students
+    # Create a blank evaluation for each student in the team
+    @teammates.each do |student|
+      if Student.find(student.id).evaluations.find_by(project_id: 1).nil?
+        Evaluation.create project_id: @@project_id, student_id: student.id, team_id: Student.find(student.id).team.id,
+                          score: nil, comment: nil
+      end
     end
   end
 
@@ -23,7 +27,8 @@ class EvaluationsController < ApplicationController
 
   # GET /evaluations/new
   def new
-    @evaluation = Evaluation.new
+    # Get the correct evaluation for the student for a particular project
+    @evaluation = Student.find(@@student_id).evaluations.find_by(project_id: @@project_id)
     @grading_scale = [
       {
         grade: '1',
@@ -55,7 +60,6 @@ class EvaluationsController < ApplicationController
                       'One of the **best** team-mates you have ever had for any project']
       }
     ]
-    # TODO: change Student.find(1) to the current student that logged in
     @student = Student.find(@@student_id)
     @team = @student.team
   end
@@ -66,15 +70,13 @@ class EvaluationsController < ApplicationController
   # POST /evaluations
   # POST /evaluations.json
   def create
-    @evaluation = Evaluation.new(evaluation_params)
-    # TODO: change student_id
-    # TODO: change project_id
-    # set value to add to database
-    @evaluation[:student_id] = @@student_id
-    @evaluation[:project_id] = @@project_id
+    # Get the correct evaluation for the student for a particular project
+    @evaluation = Student.find(@@student_id).evaluations.find_by(project_id: @@project_id)
+
     # render 'evaluations/new'
     respond_to do |format|
-      if @evaluation.save
+      # Update evaluation in database according to input
+      if @evaluation.update(evaluation_params)
         format.html { redirect_to @evaluation, notice: 'Evaluation was successfully created.' }
         format.json { render :show, status: :created, location: @evaluation }
       else
@@ -117,6 +119,6 @@ class EvaluationsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def evaluation_params
-    params.require(:evaluation).permit(:project_id, :student_id, :score, :comment)
+    params.require(:evaluation).permit(:project_id, :student_id, :score, :comment, :team_id)
   end
 end

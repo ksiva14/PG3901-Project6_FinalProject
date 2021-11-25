@@ -15,8 +15,8 @@
       <tr>
         <td><%= student.user.name %></td>
         <td><%= link_to 'Start Evaluation', new_evaluation_path %></td>
-        <%  %>
-        <td><%= %></td>
+        <td><%= Student.find(student.id).evaluations.find_by(project_id: @project_id).score %></td>
+        <td><%= Student.find(student.id).evaluations.find_by(project_id: @project_id).comment %></td>
       </tr>
     <% end %>
     <% @evaluations.each do |evaluation| %>
@@ -33,3 +33,4 @@
   </tbody>
 </table>
 <br>
+<td><%= link_to 'Start Evaluation', new_evaluation_path %></td>

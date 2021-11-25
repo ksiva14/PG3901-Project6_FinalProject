@@ -1,14 +1,15 @@
 class EvaluationsController < ApplicationController
   before_action :set_evaluation, only: %i[show edit update destroy]
 
-  # TODO: change to the correct id
+  # TODO: change to the correct id of logged in
   @@project_id = 1
   @@student_id = 1
-  @@team_id
+  @@team_id = 1
 
   # GET /evaluations
   # GET /evaluations.json
   def index
+    # TODO: delete @evaluations later
     @evaluations = Evaluation.all
     @project_id = @@project_id
 
@@ -22,23 +23,24 @@ class EvaluationsController < ApplicationController
     end
   end
 
-  # GET /evaluations/1
-  # GET /evaluations/1.json
-  def show; end
+  # # GET /evaluations/1
+  # # GET /evaluations/1.json
+  # def show; end
 
   # GET /evaluations/new
   def new
     # Get student_id from url
-    @@student_id = request.fullpath[/[0-9]+/]
+    student_id = request.fullpath[/[0-9]+/]
     # Pass @student to /new (allow usage in _form.html)
-    @student = Student.find(@@student_id)
+    @student = Student.find(student_id)
 
     # Pass @evaluation, @team, @grading_scale to /new (allow usage in new.html)
     @team = @student.team
     # Get the correct evaluation for the student for a particular project
-    @evaluation = Student.find(@@student_id).evaluations.find_by(project_id: @@project_id)
+    # @evaluation = Student.find(@@student_id).evaluations.find_by(project_id: @@project_id)
+    @evaluation = Evaluation.all.find_by student_id: student_id, project_id: @@project_id, team_id: @@team_id
     # Change to the correct student
-    @evaluation.student_id = @@student_id
+    @evaluation.student_id = student_id
     # TODO: rmb to change to correct project as well
     @grading_scale = [
       {
@@ -73,31 +75,32 @@ class EvaluationsController < ApplicationController
     ]
   end
 
-  # GET /evaluations/1/edit
-  def edit
-    # Pass @student to /edit (allow usage in _form.html)
-    @student = Student.find(@@student_id)
-  end
+  # # TODO: can delete edit
+  # # GET /evaluations/1/edit
+  # def edit
+  #   # Pass @student to /edit (allow usage in _form.html)
+  #   @student = Student.find(@@student_id)
+  # end
 
-  # POST /evaluations
-  # POST /evaluations.json
-  def create
-    @student_id = request.fullpath[/[0-9]+/]
-    # Get the correct evaluation for the student for a particular project
-    @evaluation = Student.find(@student_id).evaluations.find_by(project_id: @@project_id)
+  # # POST /evaluations
+  # # POST /evaluations.json
+  # def create
+  #   student_id = request.fullpath[/[0-9]+/]
+  #   # Get the correct evaluation by finding the student and team for a particular project
+  #   @evaluation = Evaluations.all.find_by student_id: student_id, project_id: @@project_id, team_id: @@team_id
 
-    # render 'evaluations/new'
-    respond_to do |format|
-      # Update evaluation in database according to input
-      if @evaluation.update(evaluation_params)
-        # format.html { redirect_to @evaluation, notice: 'Evaluation was successfully created.' }
-        # format.json { render :index, status: :created, location: @evaluation }
-      else
-        format.html { render :new }
-        format.json { render json: @evaluation.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #   # render 'evaluations/new'
+  #   respond_to do |format|
+  #     # Update evaluation in database according to input
+  #     if @evaluation.update(evaluation_params)
+  #       format.html { redirect_to @evaluation, notice: 'Evaluation was successfully created.' }
+  #       format.json { render :index, status: :created, location: @evaluation }
+  #     else
+  #       # format.html { render :new }
+  #       format.json { render json: @evaluation.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /evaluations/1
   # PATCH/PUT /evaluations/1.json

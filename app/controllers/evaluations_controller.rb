@@ -1,12 +1,20 @@
 class EvaluationsController < ApplicationController
   before_action :set_evaluation, only: %i[show edit update destroy]
 
+  # TODO: change to the correct id
   @@project_id = 3
   @@student_id = 3
+
   # GET /evaluations
   # GET /evaluations.json
   def index
     @evaluations = Evaluation.all
+    @student = Student.find(@@student_id)
+    @team = @student.team
+    @teammates = @team.students
+
+    @teammates.each do
+    end
   end
 
   # GET /evaluations/1
@@ -50,7 +58,6 @@ class EvaluationsController < ApplicationController
     # TODO: change Student.find(1) to the current student that logged in
     @student = Student.find(@@student_id)
     @team = @student.team
-    @teammates = @team.students
   end
 
   # GET /evaluations/1/edit

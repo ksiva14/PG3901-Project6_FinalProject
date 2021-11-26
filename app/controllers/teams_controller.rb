@@ -10,6 +10,7 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
+    @studentIDs = Student.all.select{ |student| student.group == @team.id }
   end
 
   # GET /teams/new

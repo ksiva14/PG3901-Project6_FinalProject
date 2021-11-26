@@ -5,6 +5,7 @@ class Evaluation < ApplicationRecord
   belongs_to :team, optional: true
   belongs_to :student, optional: true
 
+  # TODO: delete later
   # validates :name, length: { minimum: 2 } # or { maximum: 500 } or { in: 6..20 } or { is: 6 }
   # validates :name, :login, :email, presence: true
   # validates :email, uniqueness: true

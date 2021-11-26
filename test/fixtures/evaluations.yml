@@ -3,11 +3,13 @@
 one:
   project_id: 1
   student_id: 1
+  team_id: 1
   score: 1
   comment: MyString
 
 two:
   project_id: 1
   student_id: 1
+  team_id: 1
   score: 1
   comment: MyString

@@ -40,4 +40,10 @@ class StaticPagesController < ApplicationController
       format.html { render :evaluation, locals: { grading_scale: grading_scale, team: team, teammates: teammates } }
     end
   end
+  def dashboard
+    student = Student.find(1)
+    respond_to do |format|
+      format.html { render :evaluation, locals: {  student: student } }
+    end
+  end
 end

@@ -2,8 +2,8 @@
 
 one:
   project_name: MyString
-  course_num: 1
+  course_id: 1
 
 two:
   project_name: MyString
-  course_num: 1
+  course_id: 1

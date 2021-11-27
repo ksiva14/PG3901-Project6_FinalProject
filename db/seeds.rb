@@ -7,9 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # 30 users - 29 students, 1 professor
-30.times do
-  User.create! name: Faker::Name.unique.name, email: Faker::Internet.unique.email,
-               password_digest: Faker::Alphanumeric.alphanumeric(number: 10)
+30.times do |i|
+  User.create! name: Faker::Name.unique.name, email: "name.#{i}@osu.edu",
+               password: Faker::Alphanumeric.alphanumeric(number: 15)
 end
 
 # 29 students

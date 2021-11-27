@@ -1,7 +1,11 @@
-require "test_helper"
+require 'test_helper'
 
 class CourseTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  def setup
+    @course = Course.new(course_name: '', course_num: 1, dept_name: '')
+  end
+
+  test 'should be valid' do
+    assert @course.valid?
+  end
 end

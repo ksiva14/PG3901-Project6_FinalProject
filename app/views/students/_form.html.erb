@@ -24,7 +24,7 @@
   
   <div class="field">
     <%= form.label :team %>
-    <%= collection_select(:student, :group, Team.all, :id, :team_name, :prompt => true)%>
+    <%= collection_select(:student, :teams_id, Team.all, :id, :team_name, :prompt => true)%>
   </div>
 
 

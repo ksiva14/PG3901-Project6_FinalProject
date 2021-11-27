@@ -34,35 +34,35 @@ ActiveRecord::Schema.define(version: 2021_11_25_035905) do
   create_table "professors", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
-    t.integer "course_id"
-    t.index ["course_id"], name: "index_professors_on_course_id"
-    t.index ["user_id"], name: "index_professors_on_user_id"
+    t.integer "users_id"
+    t.integer "courses_id"
+    t.index ["courses_id"], name: "index_professors_on_courses_id"
+    t.index ["users_id"], name: "index_professors_on_users_id"
   end
 
   create_table "projects", force: :cascade do |t|
     t.string "project_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "course_id"
-    t.index ["course_id"], name: "index_projects_on_course_id"
+    t.integer "courses_id"
+    t.index ["courses_id"], name: "index_projects_on_courses_id"
   end
 
   create_table "students", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
-    t.integer "team_id"
-    t.index ["team_id"], name: "index_students_on_team_id"
-    t.index ["user_id"], name: "index_students_on_user_id"
+    t.integer "users_id"
+    t.integer "teams_id"
+    t.index ["teams_id"], name: "index_students_on_teams_id"
+    t.index ["users_id"], name: "index_students_on_users_id"
   end
 
   create_table "teams", force: :cascade do |t|
     t.string "team_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "course_id"
-    t.index ["course_id"], name: "index_teams_on_course_id"
+    t.integer "courses_id"
+    t.index ["courses_id"], name: "index_teams_on_courses_id"
   end
 
   create_table "users", force: :cascade do |t|

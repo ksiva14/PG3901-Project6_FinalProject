@@ -4,7 +4,7 @@ class EvaluationsController < ApplicationController
   # TODO: change to the correct id of logged in
   @@project_id = 1
   @@student_id = 1
-  @@team_id = 1
+  @@team_id = Student.find(@@student_id).team_id
 
   # GET /evaluations
   # GET /evaluations.json
@@ -40,7 +40,7 @@ class EvaluationsController < ApplicationController
     # @evaluation = Student.find(@@student_id).evaluations.find_by(project_id: @@project_id)
     @evaluation = Evaluation.all.find_by student_id: student_id, project_id: @@project_id, team_id: @@team_id
     # Change to the correct student
-    @evaluation.student_id = student_id
+    # @evaluation[:student_id] = student_id
     # TODO: rmb to change to correct project as well
     @grading_scale = [
       {
@@ -109,7 +109,7 @@ class EvaluationsController < ApplicationController
       if @evaluation.update(evaluation_params)
         # format.html { redirect_to evaluations_url, notice: 'Evaluation was successfully updated.' }
         format.html { redirect_to evaluations_url, notice: 'Evaluation was successfully updated.' }
-        format.json { render :show, status: :ok, location: @evaluation }
+        format.json { render :index, status: :ok, location: @evaluation }
       else
         format.html { render :edit }
         format.json { render json: @evaluation.errors, status: :unprocessable_entity }

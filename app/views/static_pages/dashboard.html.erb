@@ -1,6 +1,6 @@
 <h1>StaticPages#dashboard</h1>
 <p>Find me in app/views/static_pages/dashboard.html.erb</p>
-<% student = Student.find(1)%>
+<% student = Student.find(2)%>
 <h2 class="text-center m-5">Summary for <%= student.user.name %></h2>
 <table class="table table-light table-striped table-bordered rounded">
   <thead class="text-center">
@@ -19,7 +19,7 @@
         <td><%=student.team.team_name %></td>
         <td><%=eval.project.project_name %></td>
         <% if eval.score.nil? %>
-          <td class="text-center"><%= link_to 'Start Evaluation', new_evaluation_path(student.id) %></td>
+          <td class="text-center"><%= link_to 'Start Evaluation', evals_path %></td>
         <% else %>
           <td class="text-center"><%= link_to 'Start Evaluation', "#", class:"visually-hidden" %></td>
         <% end %>

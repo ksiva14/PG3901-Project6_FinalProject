@@ -12,6 +12,8 @@
                password: Faker::Alphanumeric.alphanumeric(number: 15)
 end
 
+User.create! name: "Karthick", email: "siva.8@osu.edu", password: "baseball"
+
 # 29 students
 29.times do
   Student.create! user_id: Faker::Number.unique.between(from: 1, to: 29),

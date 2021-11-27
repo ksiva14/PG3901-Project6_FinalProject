@@ -12,6 +12,7 @@
                password: Faker::Alphanumeric.alphanumeric(number: 15)
 end
 
+#Test User for login
 User.create! name: "Karthick", email: "siva.8@osu.edu", password: "baseball"
 
 # 29 students

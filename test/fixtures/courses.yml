@@ -2,6 +2,10 @@
 
 one:
   course_name: MyString
+  course_num: 1
+  dept_name: MyString
 
 two:
   course_name: MyString
+  course_num: 1
+  dept_name: MyString

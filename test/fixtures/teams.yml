@@ -2,6 +2,8 @@
 
 one:
   team_name: MyString
+  course_id: 1
 
 two:
   team_name: MyString
+  course_id: 1

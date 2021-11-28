@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
-  root 'sessions#new'
-  get    '/login',   to: 'sessions#new'
-  post   '/login',   to: 'sessions#create'
-  delete '/logout',  to: 'sessions#destroy'
+  
+  resources :courses
+  get '/search', to: 'students#search'
+  post '/search', to: 'students#create'
+ 
+  resources :teams
+  resources :students
+  root 'students#index'
   resources :evaluations
   # resources :course
   # resources :professor

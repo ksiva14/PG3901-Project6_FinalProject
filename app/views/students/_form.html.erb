@@ -1,0 +1,34 @@
+<% if @student.team_id == -1 %>
+  <%= form_with(model: student) do |form| %>
+    <% if student.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+
+        <ul>
+          <% student.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+
+    
+    <div class="field">
+      <%= form.label :team_id %>
+      <%= collection_select(:student, :team_id, Team.all, :id, :team_name, :prompt => true)%>
+    </div>
+
+    
+
+
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>
+<% else %>
+  <form action="/search"> 
+            <input name="q" type="text">
+            <button type="submit">Search </button>
+  </form>
+<% end %>

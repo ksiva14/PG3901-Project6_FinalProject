@@ -15,7 +15,7 @@ end
 # 29 students
 29.times do
   Student.create! user_id: Faker::Number.unique.between(from: 1, to: 29),
-                  team_id: Faker::Number.between(from: 1, to: 5)
+                  team_id: 1
 end
 
 # 1 professor
@@ -29,9 +29,15 @@ num = 3901
 end
 
 # 5 teams and 5 projects for 3901 (courses_id: 1)
-index = 1
-5.times do
-  Team.create! team_name: Faker::Game.unique.title, course_id: 1
-  Project.create! project_name: "Project #{index}", course_id: 1
-  index += 1
+# index = 1
+# 5.times do
+#   Team.create! team_name: Faker::Game.unique.title, course_id: 1
+#   Project.create! project_name: "Project #{index}", course_id: 1
+#   index += 1
+# end
+
+Project.create! project_name: 'Project 1', course_id: 1
+
+15.times do |i|
+  Evaluation.create! project_id: 1, student_id: i + 1, score: 666, comment: 'Just a comment'
 end

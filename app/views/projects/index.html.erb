@@ -15,22 +15,25 @@
         <td><%= project.project_name %></td>
         <td><%= Course.find(project.course_id).course_name %></td>
         <td>
-          <a class="btn btn-primary" data-bs-toggle="collapse" href="#show<%= counter %>" role="button">
+          <a class="btn btn-primary" data-bs-toggle="collapse" href=<%= "\#show#{counter}" %> role="button">
             Show Evaluations
           </a>
-   
         </td>
       </tr>
-      <tr>
-      <div class="collapse" id="show<%= counter %>">
-          <div class="card card-body">
-            show<%= counter %>
-          </div>
-          </div>
-      </tr>
-      <% counter += 1%>
-    <% end %>
-  </tbody>
+      <tr >
+        <td colspan="3">
+          <div class="collapse" id=<%= "show#{counter}" %> >
+            <div class="card card-body">
+              <% project.evaluations.each do |evaluation|%>
+                <p><%= evaluation.score %> -- <%= evaluation.comment %></p>
+        <% end %>
+      </div>
+    </div>
+  </td>
+</tr>
+<% counter += 1 %>
+<% end %>
+</tbody>
 </table>
 <%= link_to 'New Project', new_project_path %>
 <br />

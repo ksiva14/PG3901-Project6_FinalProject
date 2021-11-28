@@ -1,25 +1,45 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Projects</h1>
-
-<table>
-  <thead>
+<h1 class="text-center m-5">Projects</h1>
+<table class="table table-light table-striped table-bordered rounded">
+  <thead class="text-center">
     <tr>
-      <th colspan="3"></th>
+      <th scope="col" class="col-2">Project Name</th>
+      <th scope="col" class="col-2">Course</th>
+      <th scope="col" class="col-2">Show Student Evaluations</th>
     </tr>
   </thead>
-
   <tbody>
+    <% counter = 1 %>
     <% @projects.each do |project| %>
       <tr>
-        <td><%= link_to 'Show', project %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= project.project_name %></td>
+        <td><%= Course.find(project.course_id).course_name %></td>
+        <td>
+          <a class="btn btn-primary" data-bs-toggle="collapse" href="#show<%= counter %>" role="button">
+            Show Evaluations
+          </a>
+   
+        </td>
       </tr>
+      <tr>
+      <div class="collapse" id="show<%= counter %>">
+          <div class="card card-body">
+            show<%= counter %>
+          </div>
+          </div>
+      </tr>
+      <% counter += 1%>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
 <%= link_to 'New Project', new_project_path %>
+<br />
+          <% @projects.each do |project| %>
+            <tr>
+              <td><%= project.project_name %></td>
+              <td><%= Course.find(project.course_id).course_name %></td>
+              <td><%= link_to 'Show', project %></td>
+              <td><%= link_to 'Edit', edit_project_path(project) %></td>
+              <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>

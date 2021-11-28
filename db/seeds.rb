@@ -11,13 +11,11 @@
   User.create! name: Faker::Name.unique.name, email: "name.#{i}@osu.edu",
                password: Faker::Alphanumeric.alphanumeric(number: 15)
 end
-
-# 29 students
-15.times do
+# 29 students - split into 2 teams
+29.times do
   Student.create! user_id: Faker::Number.unique.between(from: 1, to: 29),
-                  team_id: 1
+                  course_id: 1, team_id: Faker::Number.between(from: 1, to: 2)
 end
-
 # 1 professor
 Professor.create! user_id: 30, course_id: 1
 
@@ -28,23 +26,19 @@ num = 3901
   num += 1
 end
 
-# 5 teams and 5 projects for 3901 (courses_id: 1)
-# index = 1
-# 5.times do
-#   Team.create! team_name: Faker::Game.unique.title, course_id: 1
-#   Project.create! project_name: "Project #{index}", course_id: 1
-#   index += 1
-# end
-Team.create! team_name: Faker::Game.unique.title, course_id: 1
-Team.create! team_name: Faker::Game.unique.title, course_id: 1
-Project.create! project_name: 'Project 1', course_id: 1, team_id: 1
-Project.create! project_name: 'Project 1', course_id: 1, team_id: 2
+# 2 team, 2 project for 3901
+2.times do |i|
+  Team.create! team_name: Faker::Game.unique.title, course_id: 1
+  Project.create! project_name: "Project #{i}", course_id: 1, team_id: i
+end
+# create evaluation for each student in team 1
+count = 1
+Team.find(1).students.each do |_student|
+  Evaluation.create! team_id: 1, for_student: count, by_student: count, score: nil, comment: nil
+  count += 1
+end
 
-Team.create! team_name: Faker::Game.unique.title, course_id: 1
-Team.create! team_name: Faker::Game.unique.title, course_id: 1
-Project.create! project_name: 'Project 2', course_id: 1, team_id: 3
-Project.create! project_name: 'Project 2', course_id: 1, team_id: 4
-
-15.times do |i|
-  Evaluation.create! project_id: 1, student_id: i + 1, score: 666, comment: 'Just a comment', team_id: 1
+# 2 team for 3902
+2.times do
+  Team.create! team_name: Faker::Game.unique.title, course_id: 2
 end

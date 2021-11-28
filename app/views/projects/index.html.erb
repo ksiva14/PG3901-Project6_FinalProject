@@ -1,22 +1,7 @@
 <p id="notice"><%= notice %></p>
 <h1 class="text-center m-5">Projects</h1>
 <%# ----------------------------------- Create Project -------------------------------------%>
-<%= form_with(model: @project, class:"row") do |form| %>
-  <div class="col">
-    <input name="project[project_name]" type="text" class="form-control  form-control-lg" placeholder="Project Name">
-  </div>
-  <div class="col">
-    <select name="project[course_id]" class="form-select form-select-lg mb-3 col">
-      <option selected>Select a course</option>
-      <% Course.all.each do |course|%>
-        <option value=<%= course.id%>><%= course.course_name %></option>
-      <% end %>
-    </select>
-  </div>
-  <div class="actions col">
-    <%= form.submit "Create Project", class: "btn btn-primary btn-lg p-2 rounded" %>
-  </div>
-<% end %>
+<%= render 'create-project-form' %>
 <%# ----------------------------------- View Project -------------------------------------%>
 <table class="table table-light table-striped table-bordered rounded text-center">
   <thead class="">

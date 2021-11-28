@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  get '/groups', to: 'groups#index'
-  get '/users', to: 'users#index'
+  
+  resources :courses
+  get '/search', to: 'students#search'
+  post '/search', to: 'students#create'
+ 
   resources :teams
   resources :students
   root 'students#index'

@@ -10,7 +10,13 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
-    @studentIDs = Student.all.select{ |student| student.group == @team.id }
+    studentIDs = Student.all.select{ |student| student.team_id == @team.id }
+    @studentNames = []
+    studentIDs.each {|student| 
+      @studentNames << User.all.find(student.user_id).name
+    }
+    @courses = Course.all
+
   end
 
   # GET /teams/new
@@ -57,7 +63,7 @@ class TeamsController < ApplicationController
   def destroy
     indices = []
     Student.all.each { |student|
-    indices << student.id if (student.group == @team.id)
+    indices << student.id if (student.team_id == @team.id)
     }
 
     indices.each {|studentID|
@@ -80,6 +86,6 @@ class TeamsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def team_params
-      params.require(:team).permit(:team_name)
+      params.require(:team).permit(:team_name, :course_id)
     end
 end

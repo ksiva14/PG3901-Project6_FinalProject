@@ -7,14 +7,21 @@
   <table border="1px">
     <thead>
       <tr>
-        <th colspan="3"></th>
+        <th>Name</th>
+        <th>Team</th>
       </tr>
     </thead>
 
     <tbody>
       <% @students.each do |student| %>
         <tr>
-          <td><%= student.name %></td>
+          <td><%=@users.find(student.user_id).name %></td>
+          <td>
+          <% if Team.exists?(id: student.team_id) %>
+            <%= @teams.find(student.team_id).team_name%>
+          <% else %>
+            None 
+          <% end %></td>
           <td><%= link_to 'Show', student %></td>
           <td><%= link_to 'Edit', edit_student_path(student) %></td>
           <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -16,6 +16,12 @@
     <%= form.text_field :team_name %>
   </div>
 
+  <div class="field">
+      <%= form.label :course_id %>
+      <%= collection_select(:team, :course_id, Course.all, :id, :course_name, :prompt => true)%>
+    </div>
+
+
   <div class="actions">
     <%= form.submit %>
   </div>

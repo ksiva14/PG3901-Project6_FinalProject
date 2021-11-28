@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+<h1> <%= @course.course_name %> </h1>
+<h2> <%= @course.course_num %> </h2>
+
+<table>
+  <thead> <strong>Teams</strong>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <td> <%= team.team_name %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<table>
+  <thead> <strong>Students</strong>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td> <%= @users.find(student.user_id).name %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+<%= link_to 'Back', courses_path %>

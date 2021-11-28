@@ -1,17 +1,19 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
-
+  $studentUsers = "";
   # GET /students
   # GET /students.json
   def index
     @students = Student.all
     @teams = Team.all
+    @users = User.all
   end
 
   # GET /students/1
   # GET /students/1.json
   def show
     @teams = Team.all
+    @users = User.all
   end
 
   # GET /students/new
@@ -27,8 +29,12 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
+    
     @student = Student.new(student_params)
-    @teams = Team.all
+    @users = User.all
+    @student.user_id = $studentUsers[0].id;
+    @student.team_id = -1;
+    
 
     respond_to do |format|
       if @student.save
@@ -44,8 +50,9 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1
   # PATCH/PUT /students/1.json
   def update
+    
     respond_to do |format|
-      if @student.update(student_params)
+      if @student.update(student_params_edit)
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
         format.json { render :show, status: :ok, location: @student }
       else
@@ -65,6 +72,11 @@ class StudentsController < ApplicationController
     end
   end
 
+  def search
+   
+    $studentUsers = User.where("email LIKE ?", params[:q])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_student
@@ -73,6 +85,11 @@ class StudentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def student_params
-      params.require(:student).permit(:name, :email, :group)
+      params.permit(:user_id, :team_id)
+    end
+
+    # Only allow a list of trusted parameters through.
+    def student_params_edit
+      params.require(:student).permit(:user_id, :team_id)
     end
 end

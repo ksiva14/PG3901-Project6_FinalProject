@@ -8,10 +8,11 @@
 <p>
   <strong>Members:</strong>
   <% i = 0 %>
-  <% @studentIDs.each do |student|%>
-    <%=student.name%>
+  <% @studentNames.each do |student|%>
+    <%= student %>
   <%  end %>
 </p>
+
 
 <%= link_to 'Edit', edit_team_path(@team) %> |
 <%= link_to 'Back', teams_path %>

@@ -13,7 +13,7 @@
 end
 
 # 29 students
-29.times do
+15.times do
   Student.create! user_id: Faker::Number.unique.between(from: 1, to: 29),
                   team_id: 1
 end
@@ -35,9 +35,9 @@ end
 #   Project.create! project_name: "Project #{index}", course_id: 1
 #   index += 1
 # end
-
+Team.create! team_name: Faker::Game.unique.title, course_id: 1
 Project.create! project_name: 'Project 1', course_id: 1
 
 15.times do |i|
-  Evaluation.create! project_id: 1, student_id: i + 1, score: 666, comment: 'Just a comment'
+  Evaluation.create! project_id: 1, student_id: i + 1, score: 666, comment: 'Just a comment', team_id: 1
 end

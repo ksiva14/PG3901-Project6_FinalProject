@@ -1,11 +1,30 @@
 <p id="notice"><%= notice %></p>
 <h1 class="text-center m-5">Projects</h1>
-<table class="table table-light table-striped table-bordered rounded">
-  <thead class="text-center">
+<%# ----------------------------------- Create Project -------------------------------------%>
+<%= form_with(model: @project, class:"row") do |form| %>
+  <div class="col">
+    <input name="project[project_name]" type="text" class="form-control  form-control-lg" placeholder="Project Name">
+  </div>
+  <div class="col">
+    <select name="project[course_id]" class="form-select form-select-lg mb-3 col">
+      <option selected>Select a course</option>
+      <% Course.all.each do |course|%>
+        <option value=<%= course.id%>><%= course.course_name %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="actions col">
+    <%= form.submit "Create Project", class: "btn btn-primary btn-lg p-2 rounded" %>
+  </div>
+<% end %>
+<%# ----------------------------------- View Project -------------------------------------%>
+<table class="table table-light table-striped table-bordered rounded text-center">
+  <thead class="">
     <tr>
       <th scope="col" class="col-2">Project Name</th>
       <th scope="col" class="col-2">Course</th>
       <th scope="col" class="col-2">Show Student Evaluations</th>
+      <th scope="col" class="col-2">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -15,34 +34,44 @@
         <td><%= project.project_name %></td>
         <td><%= Course.find(project.course_id).course_name %></td>
         <td>
-          <a class="btn btn-primary" data-bs-toggle="collapse" href=<%= "\#show#{counter}" %> role="button">
+          <a class="btn btn-primary" data-bs-toggle="collapse" href=<%= "\#showEval#{counter}" %> role="button">
             Show Evaluations
           </a>
         </td>
+        <td>
+          <%= link_to 'Delete Project', project, class:"btn btn-primary", role:"button", method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
+      <%# Show Evaluations of student %>
       <tr >
-        <td colspan="3">
-          <div class="collapse" id=<%= "show#{counter}" %> >
+        <td colspan="4">
+          <div class="collapse" id=<%= "showEval#{counter}" %> >
             <div class="card card-body">
-              <% project.evaluations.each do |evaluation|%>
-                <p><%= evaluation.score %> -- <%= evaluation.comment %></p>
-        <% end %>
-      </div>
-    </div>
-  </td>
-</tr>
-<% counter += 1 %>
-<% end %>
-</tbody>
+              <table>
+                <% project.evaluations.each do |evaluation|%>
+                  <%# group according to teams and show evaluation for each student %>
+                  <tr>
+                    <td><%= %></td>
+                    <td><%= evaluation.score %></td>
+                    <td><%= evaluation.comment %></td>
+                  </tr>
+                <% end %>
+              </table>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <% counter += 1 %>
+    <% end %>
+  </tbody>
 </table>
-<%= link_to 'New Project', new_project_path %>
 <br />
-          <% @projects.each do |project| %>
-            <tr>
-              <td><%= project.project_name %></td>
-              <td><%= Course.find(project.course_id).course_name %></td>
-              <td><%= link_to 'Show', project %></td>
-              <td><%= link_to 'Edit', edit_project_path(project) %></td>
-              <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            </tr>
-          <% end %>
+<% @projects.each do |project| %>
+  <tr>
+    <td><%= project.project_name %></td>
+    <td><%= Course.find(project.course_id).course_name %></td>
+    <td><%= link_to 'Show', project %></td>
+    <td><%= link_to 'Edit', edit_project_path(project) %></td>
+    <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>

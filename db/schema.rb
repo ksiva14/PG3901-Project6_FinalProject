@@ -23,13 +23,13 @@ ActiveRecord::Schema.define(version: 2021_11_28_210240) do
   create_table "evaluations", force: :cascade do |t|
     t.integer "project_id"
     t.integer "team_id"
-    t.integer "student_id"
+    t.integer "for_student"
+    t.integer "by_student"
     t.integer "score"
     t.string "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_evaluations_on_project_id"
-    t.index ["student_id"], name: "index_evaluations_on_student_id"
     t.index ["team_id"], name: "index_evaluations_on_team_id"
   end
 
@@ -54,10 +54,12 @@ ActiveRecord::Schema.define(version: 2021_11_28_210240) do
 
   create_table "students", force: :cascade do |t|
     t.integer "user_id"
+    t.integer "team_id"
     t.integer "course_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["course_id"], name: "index_students_on_course_id"
+    t.index ["team_id"], name: "index_students_on_team_id"
     t.index ["user_id"], name: "index_students_on_user_id"
   end
 

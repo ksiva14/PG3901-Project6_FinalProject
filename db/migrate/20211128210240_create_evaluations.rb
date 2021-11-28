@@ -3,7 +3,8 @@ class CreateEvaluations < ActiveRecord::Migration[6.1]
     create_table :evaluations do |t|
       t.references :project, index: true
       t.references :team, index: true
-      t.references :student, index: true
+      t.integer :for_student
+      t.integer :by_student
       t.integer :score
       t.string :comment
 

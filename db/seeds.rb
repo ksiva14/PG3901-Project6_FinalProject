@@ -36,7 +36,14 @@ end
 #   index += 1
 # end
 Team.create! team_name: Faker::Game.unique.title, course_id: 1
-Project.create! project_name: 'Project 1', course_id: 1
+Team.create! team_name: Faker::Game.unique.title, course_id: 1
+Project.create! project_name: 'Project 1', course_id: 1, team_id: 1
+Project.create! project_name: 'Project 1', course_id: 1, team_id: 2
+
+Team.create! team_name: Faker::Game.unique.title, course_id: 1
+Team.create! team_name: Faker::Game.unique.title, course_id: 1
+Project.create! project_name: 'Project 2', course_id: 1, team_id: 3
+Project.create! project_name: 'Project 2', course_id: 1, team_id: 4
 
 15.times do |i|
   Evaluation.create! project_id: 1, student_id: i + 1, score: 666, comment: 'Just a comment', team_id: 1

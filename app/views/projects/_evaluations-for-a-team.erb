@@ -4,10 +4,8 @@
   <% num_evaluation_for_team = team.evaluations.where(project_id: project.id).length %>
   <%# n student in team. m evaluations %>
   <% team_rowspan = num_student_in_team + num_evaluation_for_team %>
-  <%= num_evaluation_for_team %>
   <td rowspan=<%= team_rowspan + 1 %>><%= team.team_name %></td>
   <% team.students.each do |student| %>
-    <%= student.user.name%>
     <tr>
       <td rowspan=<%= num_student_in_team %>>Evaluations for <%= student.user.name %></td>
       <% team.evaluations.where(project_id: project.id).each do |evaluation| %>

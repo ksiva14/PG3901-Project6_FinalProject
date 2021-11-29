@@ -11,7 +11,7 @@
   </thead>
   <tbody>
     <% @teammates.each do |student|%>
-      <% evaluation = Student.find(student.id).evaluations.find_by(project_id: @project_id)%>
+      <% evaluation = Student.find(student.id).evaluations.find_by(for_student: student.id) %>
       <tr>
         <td><%= student.user.name %></td>
         <% if evaluation.score.nil? %>
@@ -29,7 +29,6 @@
 <% @evaluations.each do |evaluation| %>
   <tr>
     <td><%= evaluation.project_id %></td>
-    <td><%= evaluation.student_id %></td>
     <td><%= evaluation.score %></td>
     <td><%= evaluation.comment %></td>
     <td><%= link_to 'Show', evaluation %></td>

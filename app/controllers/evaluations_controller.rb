@@ -13,13 +13,16 @@ class EvaluationsController < ApplicationController
     @evaluations = Evaluation.all
     @project_id = @@project_id
 
-    @teammates = Student.find(@@student_id).team.students
+    @teammates = Student.find(@@student_id).team.students.where.not(id: @@student_id)
     # Create a blank evaluation for each student in the team
     @teammates.each do |student|
-      if Student.find(student.id).evaluations.find_by(project_id: 1).nil?
-        Evaluation.create project_id: @@project_id, student_id: student.id, team_id: Student.find(student.id).team.id,
-                          score: nil, comment: nil
-      end
+      # do not create evaluation for yourself
+      # check if evaluation is already created
+      next unless Student.find(@@student_id) != student && Evaluation.all.find_by(project_id: @@project_id, team_id: @@team_id,
+                                                                                  for_student: student.id, by_student: @@student_id).nil?
+
+      Evaluation.create project_id: @@project_id, team_id: @@team_id,
+                        for_student: student.id, by_student: @@student_id, score: nil, comment: nil
     end
   end
 
@@ -37,10 +40,9 @@ class EvaluationsController < ApplicationController
     # Pass @evaluation, @team, @grading_scale to /new (allow usage in new.html)
     @team = @student.team
     # Get the correct evaluation for the student for a particular project
-    # @evaluation = Student.find(@@student_id).evaluations.find_by(project_id: @@project_id)
-    @evaluation = Evaluation.all.find_by student_id: student_id, project_id: @@project_id, team_id: @@team_id
+    @evaluation = Evaluation.all.find_by team_id: @@team_id, for_student: student_id
     # Change to the correct student
-    # @evaluation[:student_id] = student_id
+    # @evaluation.for_student = student_id
     # TODO: rmb to change to correct project as well
     @grading_scale = [
       {
@@ -136,6 +138,6 @@ class EvaluationsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def evaluation_params
-    params.require(:evaluation).permit(:project_id, :student_id, :score, :comment, :team_id)
+    params.require(:evaluation).permit(:project_id, :team_id, :for_student, :by_student, :score, :comment)
   end
 end

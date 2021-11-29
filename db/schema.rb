@@ -45,27 +45,23 @@ ActiveRecord::Schema.define(version: 2021_11_28_210240) do
   create_table "projects", force: :cascade do |t|
     t.string "project_name"
     t.integer "course_id"
-    t.integer "team_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["course_id"], name: "index_projects_on_course_id"
-    t.index ["team_id"], name: "index_projects_on_team_id"
   end
 
   create_table "students", force: :cascade do |t|
     t.integer "user_id"
     t.integer "team_id"
-    t.integer "course_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["course_id"], name: "index_students_on_course_id"
     t.index ["team_id"], name: "index_students_on_team_id"
     t.index ["user_id"], name: "index_students_on_user_id"
   end
 
   create_table "teams", force: :cascade do |t|
-    t.integer "course_id"
     t.string "team_name"
+    t.integer "course_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["course_id"], name: "index_teams_on_course_id"

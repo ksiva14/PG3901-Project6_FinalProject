@@ -1,7 +1,7 @@
-class ProfessorsController < ApplicationController
-  before_action :set_professor, only: [:show, :edit, :update, :destroy]
+class UsersController < ApplicationController
+  before_action :set_student, only: [:show, :edit, :update, :destroy]
   $studentUsers = "";
-  # GET /professors
+  # GET /students
   # GET /students.json
   def index
     @students = Student.all
@@ -12,12 +12,13 @@ class ProfessorsController < ApplicationController
   # GET /students/1
   # GET /students/1.json
   def show
-    #@professor = Professor.find(params[:id])
+    @teams = Team.all
+    @users = User.all
   end
 
   # GET /students/new
   def new
-    @student = Student.new
+    @user = User.new
   end
 
   # GET /students/1/edit
@@ -28,21 +29,11 @@ class ProfessorsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
-    
-    @student = Student.new(student_params)
-    @users = User.all
-    @student.user_id = $studentUsers[0].id;
-    @student.team_id = -1;
-    
+    @user = User.new(user_params)
+    if @user.save
 
-    respond_to do |format|
-      if @student.save
-        format.html { redirect_to @student, notice: 'Student was successfully created.' }
-        format.json { render :show, status: :created, location: @student }
-      else
-        format.html { render :new }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
-      end
+    else
+        render 'newStudent'
     end
   end
 
@@ -77,18 +68,9 @@ class ProfessorsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_professor
-      @professor = Professor.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def student_params
-      params.permit(:user_id, :team_id)
-    end
-
-    # Only allow a list of trusted parameters through.
-    def student_params_edit
-      params.require(:student).permit(:user_id, :team_id)
+    def user_params
+      params.require(:user).permit(:name, :email, :password,
+                                   :password_confirmation)
     end
 end

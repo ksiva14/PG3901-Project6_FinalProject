@@ -1,0 +1,26 @@
+<% provide(:title, 'Sign up') %>
+<h1 style="text-align:center;">Sign up For Peer Evaluation</h1>
+<p style="text-align:center;">Please Select If you are a Student or Professor</p>
+<input type="radio" id="user_Student" name="Student" value="Student">
+<label for="user_Student">Student</label><br>
+<%= radio_button_tag "user", "Professor" %>
+<label for="user_Professor">Professor</label><br>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_with( model: @user, local: true) do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.password_field :password_confirmation %>
+
+      <%= f.submit "Create my account", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

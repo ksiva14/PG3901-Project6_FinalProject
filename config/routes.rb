@@ -4,13 +4,13 @@ Rails.application.routes.draw do
   post '/search', to: 'students#create'
   get '/login', to: "sessions#new"
   post '/login', to: 'sessions#create'
-  get '/signupstudents', to: 'students#new'
-  get '/signupprofessors', to: 'professors#new'
+  get '/signup', to: 'users#new'
   resources :courses
   resources :teams
   resources :students
   resources :evaluations
-  resources :professors
+  resources :users
+  #resources :professors
   # resources :course
   # resources :professor
   # resources :project

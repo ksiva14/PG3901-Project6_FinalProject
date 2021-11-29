@@ -1,24 +1,14 @@
 class UsersController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
-  $studentUsers = "";
-  # GET /students
-  # GET /students.json
-  def index
-    @students = Student.all
-    @teams = Team.all
-    @users = User.all
-  end
-
-  # GET /students/1
-  # GET /students/1.json
-  def show
-    @teams = Team.all
-    @users = User.all
-  end
 
   # GET /students/new
-  def new
-    @user = User.new
+  def newStudent
+    @student = User.new
+  end
+
+
+  def newProfessor
+    @professor = User.new
   end
 
   # GET /students/1/edit
@@ -28,43 +18,28 @@ class UsersController < ApplicationController
 
   # POST /students
   # POST /students.json
-  def create
-    @user = User.new(user_params)
-    if @user.save
-
+  def createStudent
+    @student = User.new(user_params)
+    if @student.save
+        redirect_to root_path
     else
         render 'newStudent'
     end
   end
 
-  # PATCH/PUT /students/1
-  # PATCH/PUT /students/1.json
-  def update
-    
-    respond_to do |format|
-      if @student.update(student_params_edit)
-        format.html { redirect_to @student, notice: 'Student was successfully updated.' }
-        format.json { render :show, status: :ok, location: @student }
-      else
-        format.html { render :edit }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
-      end
+  def createProfessor
+    @professor = User.new(user_params)
+    if @professor.save
+        #Save professor details in professor table
+        @prof = Professor.new
+        @prof.user_id = @professor.id
+        @prof.course_id = -1
+        @prof.save
+        #redirect
+        redirect_to root_path
+    else
+        render 'newProfessor'
     end
-  end
-
-  # DELETE /students/1
-  # DELETE /students/1.json
-  def destroy
-    @student.destroy
-    respond_to do |format|
-      format.html { redirect_to students_url, notice: 'Student was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
-  def search
-   
-    $studentUsers = User.where("email LIKE ?", params[:q])
   end
 
   private
@@ -73,4 +48,5 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :password,
                                    :password_confirmation)
     end
+    
 end

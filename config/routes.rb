@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   post '/search', to: 'students#create'
   get '/login', to: "sessions#new"
   post '/login', to: 'sessions#create'
-  get '/signup', to: 'users#new'
+  get '/signupstudents', to: 'users#newStudent'
+  post '/signupstudents', to: 'users#createStudent'
+  get '/signupprofessors', to: 'users#newProfessor'
+  post '/signupprofessors', to: 'users#createProfessor'
   resources :courses
   resources :teams
   resources :students

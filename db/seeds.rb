@@ -11,7 +11,11 @@
   User.create! name: Faker::Name.unique.name, email: "name.#{i}@osu.edu",
                password: Faker::Alphanumeric.alphanumeric(number: 15)
 end
-# 29 students - split into 2 teams
+
+# 1 professor
+Professor.create! user_id: 30, course_id: 1
+
+# ------------------------------ For Testing out project page ---------------------------------------------
 3.times do
   Student.create! user_id: Faker::Number.unique.between(from: 1, to: 29),
                   course_id: 1, team_id: 1
@@ -20,17 +24,8 @@ end
   Student.create! user_id: Faker::Number.unique.between(from: 1, to: 29),
                   course_id: 1, team_id: 2
 end
-# 1 professor
-Professor.create! user_id: 30, course_id: 1
 
-# 3 courses
-num = 3901
-3.times do
-  Course.create! course_name: "CSE #{num}", course_num: num, dept_name: 'Computer Science & Engineering'
-  num += 1
-end
-
-# 2 team, 2 project for 3901
+Course.create! course_name: 'CSE 3901', course_num: num, dept_name: 'Computer Science & Engineering'
 
 Team.create! team_name: Faker::Game.unique.title, course_id: 1
 Team.create! team_name: Faker::Game.unique.title, course_id: 1
@@ -65,8 +60,3 @@ Evaluation.create! team_id: 2, for_student: 5, by_student: 4, score: 666, commen
 Evaluation.create! team_id: 2, for_student: 5, by_student: 6, score: 666, comment: 'Team 2', project_id: 2
 Evaluation.create! team_id: 2, for_student: 6, by_student: 4, score: 666, comment: 'Team 2', project_id: 2
 Evaluation.create! team_id: 2, for_student: 6, by_student: 5, score: 666, comment: 'Team 2', project_id: 2
-
-# 2 team for 3902
-2.times do
-  Team.create! team_name: Faker::Game.unique.title, course_id: 2
-end

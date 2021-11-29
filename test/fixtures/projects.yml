@@ -2,8 +2,10 @@
 
 one:
   project_name: MyString
-  course_id: 1
+  course: one
+  team: one
 
 two:
   project_name: MyString
-  course_id: 1
+  course: two
+  team: two

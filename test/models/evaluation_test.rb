@@ -1,11 +1,7 @@
-require 'test_helper'
+require "test_helper"
 
 class EvaluationTest < ActiveSupport::TestCase
-  def setup
-    @evaluation = Evaluation.new(project_id: 1, student_id: 1, team_id: 1, score: nil, comment: nil)
-  end
-
-  test 'should be valid' do
-    assert @evaluation.valid?
-  end
+  # test "the truth" do
+  #   assert true
+  # end
 end

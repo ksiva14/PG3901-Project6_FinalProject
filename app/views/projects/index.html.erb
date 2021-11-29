@@ -4,7 +4,7 @@
 <%= render 'create-project-form' %>
 <%# ----------------------------------- View Project -------------------------------------%>
 <table class="table table-light table-striped table-bordered rounded text-center">
-  <thead class="">
+  <thead>
     <tr>
       <th scope="col" class="col-2">Project Name</th>
       <th scope="col" class="col-2">Course</th>
@@ -30,19 +30,42 @@
       <%# Show Evaluations of student %>
       <tr >
         <td colspan="4">
-          <div class="collapse" id=<%= "showEval#{counter}" %> >
+          <div class="collapse" id=<%= "showEval#{counter}" %>>
             <div class="card card-body">
-              <table>
-                <% project.teams.each do |team|%>
-                  <%# group according to teams and show evaluation for each student %>
-                  <tr>
-                    <td><%= team.team_name %></td>
-                    <%= team.students.each do |student| %>
-                      <td><%= student.user.name %></td>
-                      <td><%= student.evaluations.find_by(project_id: project.id).score %></td>
-                      <td><%= student.evaluations.find_by(project_id: project.id).comment %></td>
-                    <% end %>
-                  </tr>
+              <table class="table table-light table-striped table-bordered rounded text-center">
+                <tr>
+                  <th>Team</th>
+                  <th>For Student</th>
+                  <th>Score</th>
+                  <th>Comment</th>
+                  <th>By Student</th>
+                </tr>
+                <% Team.all.each do |team| %>
+                  <%# this team is assigned the project %>
+                  <% if team.id == project.team_id%>
+                    <% num_student_in_team = team.students.length %>
+                    <% num_evaluation_for_team = team.evaluations.length %>
+                    <%# n student in team. m evaluations %>
+                    <% team_rowspan = num_student_in_team + num_evaluation_for_team %>
+                    <tr>
+                      <td rowspan=<%= team_rowspan + 1 %>><%= Team.find(project.team_id).team_name %></td>
+                      <% team.students.each do |student| %>
+                        <tr>
+                          <%# n-1 evaluations for each student %>
+                          <td rowspan=<%= num_student_in_team %>>Evaluations for <%= student.user.name %></td>
+                          <% team.evaluations.each do |evaluation| %>
+                            <% if evaluation.for_student == student.id %>
+                              <tr>
+                                <td><%= evaluation.score %></td>
+                                <td><%= evaluation.comment %></td>
+                                <td>By <%= Student.find(evaluation.by_student).user.name %></td>
+                              </tr>
+                            <% end %>
+                          <% end %>
+                        </tr>
+                      <% end %>
+                    </tr>
+                  <% end %>
                 <% end %>
               </table>
             </div>

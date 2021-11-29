@@ -12,9 +12,13 @@
                password: Faker::Alphanumeric.alphanumeric(number: 15)
 end
 # 29 students - split into 2 teams
-29.times do
+3.times do
   Student.create! user_id: Faker::Number.unique.between(from: 1, to: 29),
-                  course_id: 1, team_id: Faker::Number.between(from: 1, to: 2)
+                  course_id: 1, team_id: 1
+end
+3.times do
+  Student.create! user_id: Faker::Number.unique.between(from: 1, to: 29),
+                  course_id: 1, team_id: 2
 end
 # 1 professor
 Professor.create! user_id: 30, course_id: 1
@@ -27,16 +31,28 @@ num = 3901
 end
 
 # 2 team, 2 project for 3901
-2.times do |i|
+2.times do
   Team.create! team_name: Faker::Game.unique.title, course_id: 1
-  Project.create! project_name: "Project #{i}", course_id: 1, team_id: i
 end
+Project.create! project_name: 'Project 1', course_id: 1, team_id: 1
+Project.create! project_name: 'Project 1', course_id: 1, team_id: 2
+Project.create! project_name: 'Project 2', course_id: 1, team_id: 1
+Project.create! project_name: 'Project 2', course_id: 1, team_id: 2
 # create evaluation for each student in team 1
-count = 1
-Team.find(1).students.each do |_student|
-  Evaluation.create! team_id: 1, for_student: count, by_student: count, score: nil, comment: nil
-  count += 1
-end
+
+Evaluation.create! team_id: 1, for_student: 1, by_student: 2, score: 555, comment: 'Comment', project_id: 1
+Evaluation.create! team_id: 1, for_student: 1, by_student: 3, score: 555, comment: 'Comment', project_id: 1
+Evaluation.create! team_id: 1, for_student: 2, by_student: 1, score: 555, comment: 'Comment', project_id: 1
+Evaluation.create! team_id: 1, for_student: 2, by_student: 3, score: 555, comment: 'Comment', project_id: 1
+Evaluation.create! team_id: 1, for_student: 3, by_student: 1, score: 555, comment: 'Comment', project_id: 1
+Evaluation.create! team_id: 1, for_student: 3, by_student: 2, score: 555, comment: 'Comment', project_id: 1
+
+Evaluation.create! team_id: 2, for_student: 4, by_student: 5, score: 555, comment: 'Comment', project_id: 1
+Evaluation.create! team_id: 2, for_student: 4, by_student: 6, score: 555, comment: 'Comment', project_id: 1
+Evaluation.create! team_id: 2, for_student: 5, by_student: 4, score: 555, comment: 'Comment', project_id: 1
+Evaluation.create! team_id: 2, for_student: 5, by_student: 6, score: 555, comment: 'Comment', project_id: 1
+Evaluation.create! team_id: 2, for_student: 6, by_student: 4, score: 555, comment: 'Comment', project_id: 1
+Evaluation.create! team_id: 2, for_student: 6, by_student: 5, score: 555, comment: 'Comment', project_id: 1
 
 # 2 team for 3902
 2.times do

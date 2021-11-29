@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # get 'static_pages/dashboard'
   resources :evaluations
 
   # resources :course
@@ -7,6 +8,7 @@ Rails.application.routes.draw do
   # resources :student
   # resources :team
   # resources :user
-  # # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  root 'evaluations#index'
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root 'static_pages#dashboard'
+  get '/evaluations', to: 'static_pages#evaluations', as: :evals
 end

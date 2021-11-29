@@ -1,30 +1,29 @@
 <h1>StaticPages#dashboard</h1>
 <p>Find me in app/views/static_pages/dashboard.html.erb</p>
-<% student = Student.find(2)%>
-<h2 class="text-center m-5">Summary for <%= student.user.name %></h2>
-<table class="table table-light table-striped table-bordered rounded">
-  <thead class="text-center">
+<h2 class="text-center m-5">Summary for <%= @user.name %></h2>
+<table class="table table-light table-striped table-bordered rounded text-center">
+  <thead>
     <tr>
-      <th scope="col" class="col-2">Class</th>
-      <th scope="col" class="col-2">Team</th>
-      <th scope="col" class="col-2">Activity</th>
+      <th scope="col" class="col-1">Activity</th>
       <th scope="col" class="col-1">Action</th>
-      <th scope="col" class="col-5">Score</th>
+      <th scope="col" class="col-1">Class</th>
+      <th scope="col" class="col-1">Team</th>
     </tr>
   </thead>
   <tbody>
-    <% student.evaluations.each do |eval|%>
-      <tr>
-        <td><%=eval.project.course.course_name %></td>
-        <td><%=student.team.team_name %></td>
-        <td><%=eval.project.project_name %></td>
-        <% if eval.score.nil? %>
-          <td class="text-center"><%= link_to 'Start Evaluation', evals_path %></td>
-        <% else %>
-          <td class="text-center"><%= link_to 'Start Evaluation', "#", class:"visually-hidden" %></td>
-        <% end %>
-        <td class="text-center"><%= eval.score %></td>
-      </tr>
+    <% @students.each do |student|%>
+      <% student.team.projects.each do |project| %>
+        <tr>
+          <td><%= project.project_name %></td>
+          <% if project.assigned %>
+            <td class="text-center"><%= link_to 'Start Evaluation', evals_path(project_id: project.id, student_id: student.id) %></td>
+          <% else %>
+            <td class="text-center"><%= link_to 'Start Evaluation', "#", class:"visually-hidden" %></td>
+          <% end %>
+          <td><%= student.team.team_name %></td>
+          <td><%= Course.find(student.team.course_id).course_name %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

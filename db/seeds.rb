@@ -29,7 +29,7 @@ end
 # 2 team, 2 project for 3901
 2.times do |i|
   Team.create! team_name: Faker::Game.unique.title, course_id: 1
-  Project.create! project_name: "Project #{i}", course_id: 1
+  Project.create! project_name: "Project #{i + 1}", course_id: 1, assigned: true
 end
 
 # 2 team for 3902

@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2021_11_28_210240) do
 
   create_table "projects", force: :cascade do |t|
     t.string "project_name"
+    t.boolean "assigned"
     t.integer "course_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

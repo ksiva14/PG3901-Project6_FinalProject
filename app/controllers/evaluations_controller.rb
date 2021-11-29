@@ -1,48 +1,45 @@
 class EvaluationsController < ApplicationController
   before_action :set_evaluation, only: %i[show edit update destroy]
 
-  # TODO: change to the correct id of logged in
-  @@project_id = 1
-  @@student_id = 1
-  @@team_id = Student.find(@@student_id).team_id
-
   # GET /evaluations
   # GET /evaluations.json
   def index
-    # TODO: delete @evaluations later
-    @evaluations = Evaluation.all
-    @project_id = @@project_id
+    @project_id = params[:project_id]
+    student_id = params[:student_id]
+    team_id = Student.find(student_id).team_id
 
-    @teammates = Student.find(@@student_id).team.students.where.not(id: @@student_id)
+    @teammates = Student.find(student_id).team.students.where.not(id: student_id)
     # Create a blank evaluation for each student in the team
     @teammates.each do |student|
       # do not create evaluation for yourself
       # check if evaluation is already created
-      next unless Student.find(@@student_id) != student && Evaluation.all.find_by(project_id: @@project_id, team_id: @@team_id,
-                                                                                  for_student: student.id, by_student: @@student_id).nil?
+      next unless Student.find(student_id) != student && Evaluation.all.find_by(project_id: @project_id, team_id: team_id,
+                                                                                for_student: student.id, by_student: student_id).nil?
 
-      Evaluation.create project_id: @@project_id, team_id: @@team_id,
-                        for_student: student.id, by_student: @@student_id, score: nil, comment: nil
+      Evaluation.create project_id: @project_id, team_id: team_id,
+                        for_student: student.id, by_student: student_id, score: nil, comment: nil
     end
-  end
+    finished = true
+    Evaluation.where(project_id: @project_id, team_id: team_id, by_student: student_id).each do |evaluation|
+      finished = false if evaluation.nil?
+    end
 
-  # # GET /evaluations/1
-  # # GET /evaluations/1.json
-  # def show; end
+    # Project.find(@project_id).assigned = true if finished
+  end
 
   # GET /evaluations/new
   def new
     # Get student_id from url
-    student_id = request.fullpath[/[0-9]+/]
+    student_id = params[:student_id]
+    team_id = Student.find(student_id).team_id
+    @project_id = params[:project_id]
+
     # Pass @student to /new (allow usage in _form.html)
     @student = Student.find(student_id)
-
     # Pass @evaluation, @team, @grading_scale to /new (allow usage in new.html)
     @team = @student.team
     # Get the correct evaluation for the student for a particular project
-    @evaluation = Evaluation.all.find_by team_id: @@team_id, for_student: student_id
-    # Change to the correct student
-    # @evaluation.for_student = student_id
+    @evaluation = Evaluation.all.find_by team_id: team_id, for_student: student_id, project_id: @project_id
     # TODO: rmb to change to correct project as well
     @grading_scale = [
       {
@@ -77,40 +74,16 @@ class EvaluationsController < ApplicationController
     ]
   end
 
-  # # TODO: can delete edit
-  # # GET /evaluations/1/edit
-  # def edit
-  #   # Pass @student to /edit (allow usage in _form.html)
-  #   @student = Student.find(@@student_id)
-  # end
-
-  # # POST /evaluations
-  # # POST /evaluations.json
-  # def create
-  #   student_id = request.fullpath[/[0-9]+/]
-  #   # Get the correct evaluation by finding the student and team for a particular project
-  #   @evaluation = Evaluations.all.find_by student_id: student_id, project_id: @@project_id, team_id: @@team_id
-
-  #   # render 'evaluations/new'
-  #   respond_to do |format|
-  #     # Update evaluation in database according to input
-  #     if @evaluation.update(evaluation_params)
-  #       format.html { redirect_to @evaluation, notice: 'Evaluation was successfully created.' }
-  #       format.json { render :index, status: :created, location: @evaluation }
-  #     else
-  #       # format.html { render :new }
-  #       format.json { render json: @evaluation.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
-
   # PATCH/PUT /evaluations/1
   # PATCH/PUT /evaluations/1.json
   def update
     respond_to do |format|
       if @evaluation.update(evaluation_params)
         # format.html { redirect_to evaluations_url, notice: 'Evaluation was successfully updated.' }
-        format.html { redirect_to evaluations_url, notice: 'Evaluation was successfully updated.' }
+        format.html do
+          redirect_to evaluations_url(project_id: @evaluation.project_id, student_id: @evaluation.by_student),
+                      notice: 'Evaluation was successfully updated.'
+        end
         format.json { render :index, status: :ok, location: @evaluation }
       else
         format.html { render :edit }
@@ -124,7 +97,10 @@ class EvaluationsController < ApplicationController
   def destroy
     @evaluation.destroy
     respond_to do |format|
-      format.html { redirect_to evaluations_url, notice: 'Evaluation was successfully destroyed.' }
+      format.html do
+        redirect_to evaluations_url(project_id: @evaluation.project_id, student_id: @evaluation.by_student),
+                    notice: 'Evaluation was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end

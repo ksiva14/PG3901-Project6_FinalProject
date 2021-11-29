@@ -7,11 +7,6 @@ class ProjectsController < ApplicationController
     @projects = Project.all
   end
 
-  # GET /projects/new
-  def new
-    @project = Project.new
-  end
-
   # POST /projects
   # POST /projects.json
   def create

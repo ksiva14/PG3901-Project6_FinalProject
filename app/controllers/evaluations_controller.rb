@@ -10,6 +10,7 @@ class EvaluationsController < ApplicationController
 
     @teammates = Student.find(student_id).team.students.where.not(id: student_id)
     # Create a blank evaluation for each student in the team
+    # TODO: create evaluations when the project is created!
     @teammates.each do |student|
       # do not create evaluation for yourself
       # check if evaluation is already created
@@ -17,7 +18,7 @@ class EvaluationsController < ApplicationController
                                                                                 for_student: student.id, by_student: student_id).nil?
 
       Evaluation.create project_id: @project_id, team_id: team_id,
-                        for_student: student.id, by_student: student_id, score: nil, comment: nil
+                        for_student: student.id, by_student: student_id, score: nil, comment: nil, is_assigned: true
     end
     finished = true
     Evaluation.where(project_id: @project_id, team_id: team_id, by_student: student_id).each do |evaluation|

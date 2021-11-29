@@ -15,10 +15,14 @@
       <% student.team.projects.each do |project| %>
         <tr>
           <td><%= project.project_name %></td>
-          <% if project.assigned %>
-            <td class="text-center"><%= link_to 'Start Evaluation', evals_path(project_id: project.id, student_id: student.id) %></td>
+          <td><%= link_to 'View Evaluation' %></td>
+          <%# TODO: check if this works after linking the other pages %>
+          <% if evaluations_assigned?(student.team.evaluations) && !evaluations_all_filled?(student.team.evaluations)%>
+            <td><%= link_to 'Start Evaluation', evals_path(project_id: project.id, student_id: student.id) %></td>
+          <% elsif evaluations_all_filled?(student.team.evaluations) %>
+            <td>View Evaluation</td>
           <% else %>
-            <td class="text-center"><%= link_to 'Start Evaluation', "#", class:"visually-hidden" %></td>
+            <td><%= link_to 'Start Evaluation', "#", class:"visually-hidden" %></td>
           <% end %>
           <td><%= student.team.team_name %></td>
           <td><%= Course.find(student.team.course_id).course_name %></td>

@@ -9,6 +9,6 @@ Rails.application.routes.draw do
   # resources :team
   # resources :user
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get 'static_pages', to: 'static_pages#view', as: :view_evaluations
   root 'static_pages#dashboard'
-  get '/evaluations', to: 'static_pages#evaluations', as: :evals
 end

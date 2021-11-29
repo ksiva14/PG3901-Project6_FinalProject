@@ -1,6 +1,4 @@
-<h1>StaticPages#dashboard</h1>
-<p>Find me in app/views/static_pages/dashboard.html.erb</p>
-<h2 class="text-center m-5">Summary for <%= @user.name %></h2>
+<h2 class="text-center m-5">Student Dasboard for <%= @user.name %></h2>
 <table class="table table-light table-striped table-bordered rounded text-center">
   <thead>
     <tr>
@@ -15,12 +13,12 @@
       <% student.team.projects.each do |project| %>
         <tr>
           <td><%= project.project_name %></td>
-          <td><%= link_to 'View Evaluation' %></td>
+          <%= link_to 'View Evaluation', view_evaluations_path(project_id: project.id, student_id: student.id) %>
           <%# TODO: check if this works after linking the other pages %>
           <% if evaluations_assigned?(student.team.evaluations) && !evaluations_all_filled?(student.team.evaluations)%>
-            <td><%= link_to 'Start Evaluation', evals_path(project_id: project.id, student_id: student.id) %></td>
+            <td><%= link_to 'Start Evaluation', evaluations_path(project_id: project.id, student_id: student.id) %></td>
           <% elsif evaluations_all_filled?(student.team.evaluations) %>
-            <td>View Evaluation</td>
+            <%= link_to 'View Evaluation', view_evaluations_path(project_id: project.id, student_id: student.id) %>
           <% else %>
             <td><%= link_to 'Start Evaluation', "#", class:"visually-hidden" %></td>
           <% end %>

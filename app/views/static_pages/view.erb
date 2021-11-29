@@ -1,0 +1,17 @@
+<h2 class="text-center m-5">Evaluations for <%= @project.project_name %></h2>
+<table class="table table-light table-striped table-bordered rounded text-center">
+  <thead>
+    <tr>
+      <th scope="col" class="col-1">Score</th>
+      <th scope="col" class="col-2">Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @student.team.evaluations.each do |evaluation|%>
+      <tr>
+        <td><%= evaluation.score %></td>
+        <td><%= evaluation.comment %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

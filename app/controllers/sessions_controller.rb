@@ -1,8 +1,8 @@
 class SessionsController < ApplicationController
   def new
   end
+
   def create
-    flash.now[:danger] = "test"
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       log_in user
@@ -10,9 +10,11 @@ class SessionsController < ApplicationController
       if Student.find_by(user_id: user.id)
         #Route to Students Page
         #redirect_to student
-      else
+      elsif Professor.find_by(user_id: user.id)
         #Else Route to Professors Page
-        #redirect_to professor
+        redirect_to students_path
+      else
+        #redirect_to 
       end
     else 
       #Display Invalid Flash Message
@@ -20,8 +22,10 @@ class SessionsController < ApplicationController
       render 'new'
     end
   end
+
   def destroy
     log_out
     redirect_to root_url
   end
+
 end

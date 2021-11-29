@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_student, only: [:show, :edit, :update, :destroy]
+  #before_action :set_student, only: [:show, :edit, :update, :destroy]
 
   # GET /students/new
   def newStudent
@@ -11,16 +11,12 @@ class UsersController < ApplicationController
     @professor = User.new
   end
 
-  # GET /students/1/edit
-  def edit
-    @teams = Team.all
-  end
-
   # POST /students
   # POST /students.json
   def createStudent
     @student = User.new(user_params)
     if @student.save
+        flash[:success] = "Welcome: Login to Evaluation App!"
         redirect_to root_path
     else
         render 'newStudent'
@@ -36,6 +32,7 @@ class UsersController < ApplicationController
         @prof.course_id = -1
         @prof.save
         #redirect
+        flash[:success] = "Welcome: Login to Evaluation App!"
         redirect_to root_path
     else
         render 'newProfessor'

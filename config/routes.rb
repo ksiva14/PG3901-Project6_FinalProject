@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'students#index'
+  root 'sessions#new'
   get '/search', to: 'students#search'
   post '/search', to: 'students#create'
   get '/login', to: "sessions#new"

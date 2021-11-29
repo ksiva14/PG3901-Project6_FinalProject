@@ -1,4 +1,4 @@
-<% if @student.team_id == -1 %>
+<% if @student.team_id.is_a? Numeric %>
   <%= form_with(model: student) do |form| %>
     <% if student.errors.any? %>
       <div id="error_explanation">

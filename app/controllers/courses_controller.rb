@@ -11,7 +11,13 @@ class CoursesController < ApplicationController
   # GET /courses/1.json
   def show
     @teams = Team.all.select {|team| team.course_id == @course.id}
-    @students = Student.all.select {|student| Team.all.find(student.team_id).course_id == @course.id}
+    @students = Student.all.select {|student| 
+      if (student.team_id != -1) 
+        Team.all.find(student.team_id).course_id == @course.id
+      else 
+        false
+      end
+    }
     @users = User.all
   end
 
@@ -62,6 +68,12 @@ class CoursesController < ApplicationController
       format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def navigation
+    @teams = Team.all.select {|team| team.course_id == @course.id}
+    @students = Student.all.select {|student| Team.all.find(student.team_id).course_id == @course.id}
+    @users = User.all
   end
 
   private

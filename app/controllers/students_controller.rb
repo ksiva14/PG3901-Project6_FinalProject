@@ -1,6 +1,7 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
   $studentUsers = "";
+  @@newStudent = 1;
   # GET /students
   # GET /students.json
   def index
@@ -29,10 +30,11 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
-    
+    @@newStudent = 1;
     @student = Student.new(student_params)
+    @@newStudent = 0
     @users = User.all
-    @student.user_id = $studentUsers[0].id;
+    @student.user_id = $studentUsers[0].id
     @student.team_id = -1;
     
 
@@ -50,7 +52,7 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1
   # PATCH/PUT /students/1.json
   def update
-    
+   
     respond_to do |format|
       if @student.update(student_params_edit)
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }

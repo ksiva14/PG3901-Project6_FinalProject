@@ -1,6 +1,7 @@
 class Team < ApplicationRecord
-  
-  has_many :students
-  has_many :evaluations
   belongs_to :course, optional: true
+
+  has_many :evaluations
+  has_many :projects, through: :course
+  has_many :students
 end

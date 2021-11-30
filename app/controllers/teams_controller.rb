@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
-
+  $currentCourse = 0;
   # GET /teams
   # GET /teams.json
   def index
@@ -11,9 +11,11 @@ class TeamsController < ApplicationController
   # GET /teams/1.json
   def show
     studentIDs = Student.all.select{ |student| student.team_id == @team.id }
-    @studentNames = []
+    @teamMembers = []
+    @students = Student.all
+    @users = User.all
     studentIDs.each {|student| 
-      @studentNames << User.all.find(student.user_id).name
+      @teamMembers << User.all.find(student.user_id)
     }
     @courses = Course.all
 
@@ -22,6 +24,7 @@ class TeamsController < ApplicationController
   # GET /teams/new
   def new
     @team = Team.new
+    @team.course_id = params[:id]
   end
 
   # GET /teams/1/edit
@@ -32,7 +35,7 @@ class TeamsController < ApplicationController
   # POST /teams.json
   def create
     @team = Team.new(team_params)
-
+    @team.course_id = $currentCourse
     respond_to do |format|
       if @team.save
         format.html { redirect_to @team, notice: 'Team was successfully created.' }
@@ -69,11 +72,12 @@ class TeamsController < ApplicationController
     indices.each {|studentID|
       Student.all.find(studentID).destroy
     }
+    redirectLink =  "/courses/" + @team.course_id.to_s + "/course_navigation" 
     @team.destroy
     
 
     respond_to do |format|
-      format.html { redirect_to teams_url, notice: 'Team was successfully destroyed.' }
+      format.html { redirect_to redirectLink, notice: 'Team was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -1,0 +1,68 @@
+<p id="notice"><%= notice %></p>
+<h1 class="text-center m-5">Projects</h1>
+<%# ----------------------------------- Create Project -------------------------------------%>
+<%= render 'create-project-form' %>
+<%# ----------------------------------- View Project -------------------------------------%>
+<table class="table table-light table-striped table-bordered rounded text-center">
+  <thead>
+    <tr>
+      <th scope="col" class="col-2">Project Name</th>
+      <th scope="col" class="col-2">Course</th>
+      <th scope="col" class="col-2">Show Student Evaluations</th>
+      <th scope="col" class="col-2">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% counter = 1 %>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.project_name %></td>
+        <td><%= Course.find(project.course_id).course_name %></td>
+        <td>
+          <a class="btn btn-primary" data-bs-toggle="collapse" href=<%= "\#showEval#{counter}" %> role="button">
+            Show Evaluations
+          </a>
+        </td>
+        <td>
+          <%= link_to 'Delete Project', project, class:"btn btn-primary", role:"button", method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+      <%# Show Evaluations of student %>
+      <tr >
+        <td colspan="4">
+          <div class="collapse" id=<%= "showEval#{counter}" %>>
+            <div class="card card-body">
+              <table class="table table-light table-striped table-bordered rounded text-center">
+                <tr>
+                  <th>Team</th>
+                  <th>For Student</th>
+                  <th>Score</th>
+                  <th>Comment</th>
+                  <th>By Student</th>
+                </tr>
+                <% project.teams.each do |team| %>
+                  <%# this team is assigned the project %>
+                  <%= render 'evaluations-for-a-team', team: team, project: project %>
+                <% end %>
+              </table>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <% counter += 1 %>
+    <% end %>
+  </tbody>
+</table>
+<br />
+<% @projects.each do |project| %>
+  <tr>
+    <td><%= project.project_name %></td>
+    <td><%= Course.find(project.course_id).course_name %></td>
+    <td><%= link_to 'Show', project %></td>
+    <td><%= link_to 'Edit', edit_project_path(project) %></td>
+    <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+
+<%= link_to 'View Courses', "/courses" %>
+

@@ -1,4 +1,4 @@
-<% if @student.team_id == -1 %>
+<% if @student.team_id.is_a? Numeric %>
   <%= form_with(model: student) do |form| %>
     <% if student.errors.any? %>
       <div id="error_explanation">
@@ -11,23 +11,32 @@
         </ul>
       </div>
     <% end %>
-    
 
-    
+    <% courseTeams = [] %>
+    <% if @student.team_id > 0 %>
+            <% courseTeams = Team.all.select {|team| Team.all.find(student.team_id).course_id == team.course_id} %>
+    <% else %>
+            <% courseTeams = Team.all.select{|team| team.course.id == $courseID.to_i} %>
+    <% end %>
+
+  
+
     <div class="field">
       <%= form.label :team_id %>
-      <%= collection_select(:student, :team_id, Team.all, :id, :team_name, :prompt => true)%>
+      <%= collection_select(:student, :team_id, courseTeams, :id, :team_name, :prompt => true)%>
     </div>
 
     
 
 
     <div class="actions">
-      <%= form.submit %>
+      <%= form.submit "Submit"%>
     </div>
   <% end %>
 <% else %>
-  <form action="/search"> 
+
+  <form action="/<%=params[:id].to_s%>/search"> 
+            <h5> Search for student by entering their email: </h5>
             <input name="q" type="text">
             <button type="submit">Search </button>
   </form>

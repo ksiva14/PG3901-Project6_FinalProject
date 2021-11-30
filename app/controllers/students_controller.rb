@@ -1,6 +1,7 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
   $studentUsers = "";
+  $courseID = 0
   # GET /students
   # GET /students.json
   def index
@@ -29,16 +30,18 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
-    
+   
     @student = Student.new(student_params)
+    
     @users = User.all
-    @student.user_id = $studentUsers[0].id;
+    @student.user_id = $studentUsers[0].id
     @student.team_id = -1;
     
 
     respond_to do |format|
       if @student.save
-        format.html { redirect_to @student, notice: 'Student was successfully created.' }
+        redirectLink = "/students/" + @student.id.to_s + "/edit"
+        format.html { redirect_to redirectLink, notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
         format.html { render :new }
@@ -50,7 +53,7 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1
   # PATCH/PUT /students/1.json
   def update
-    
+   
     respond_to do |format|
       if @student.update(student_params_edit)
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
@@ -65,9 +68,10 @@ class StudentsController < ApplicationController
   # DELETE /students/1
   # DELETE /students/1.json
   def destroy
+    redirectLink = helpers.course_link(Course.all.find(Team.all.find(@student.team_id).course_id).id)
     @student.destroy
     respond_to do |format|
-      format.html { redirect_to students_url, notice: 'Student was successfully destroyed.' }
+      format.html { redirect_to redirectLink, notice: 'Student was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

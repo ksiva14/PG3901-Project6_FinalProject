@@ -12,17 +12,17 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :team_name %>
-    <%= form.text_field :team_name %>
+    <%= form.label :team_name, "Team Name:" %>
+    <span class="border"><%= form.text_field :team_name %></span>
   </div>
 
-  <div class="field">
-      <%= form.label :course_id %>
-      <%= collection_select(:team, :course_id, Course.all, :id, :course_name, :prompt => true)%>
-    </div>
+ 
+
+  
 
 
   <div class="actions">
     <%= form.submit %>
   </div>
+  <% $currentCourse = params[:id]%>
 <% end %>

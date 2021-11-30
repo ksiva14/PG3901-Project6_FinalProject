@@ -14,14 +14,12 @@
     <%# navbar shown only for student %>
     <%= render 'layouts/student_navbar' %>
     <!-- Displays flash messages (for example when invalid email/password)-->
-    <div class="container">
+    <div class="w-75 m-auto">
       <% flash.each do |message_type, message| %>
         <div class="alert alert-<%= message_type %>"><%= message %></div>
       <% end %>
+      <%= yield %>
     </div>
-    <body class="">
-      <div class="w-75 m-auto">
-        <%= yield %>
-      </div>
-    </body>
-  </html>
+  </div>
+</body>
+</html>

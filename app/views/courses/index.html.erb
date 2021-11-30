@@ -16,7 +16,7 @@
         <td> <%= course.course_name %>
         <td><%= link_to 'Enter Course', navigation_path(course.id) %></td>
         <td><%= link_to 'Edit', edit_course_path(course) %></td>
-        <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure? Deleting this course will also delete all related data, including students and teams.' } %></td>
       </tr>
     <% end %>
   </tbody>

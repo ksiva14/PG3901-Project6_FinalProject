@@ -7,7 +7,7 @@
     <% $courseID = params[:id] %>
     <%= button_to "Add Student to Course", :method=> "create" %>
     <% createLink = "/" + params[:id].to_s + "/students/" + $studentUsers[0].id.to_s + "/edit" %>
-    <%= link_to '<button type="button">Add Student to Class</button>'.html_safe, createLink %>
+ 
 
 <% else %>
     <p> No user with that email was found </p>

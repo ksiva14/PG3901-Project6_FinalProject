@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
   $studentUsers = "";
- 
+  $courseID = 0
   # GET /students
   # GET /students.json
   def index
@@ -68,9 +68,10 @@ class StudentsController < ApplicationController
   # DELETE /students/1
   # DELETE /students/1.json
   def destroy
+    redirectLink = helpers.course_link(Course.all.find(Team.all.find(@student.team_id).course_id).id)
     @student.destroy
     respond_to do |format|
-      format.html { redirect_to students_url, notice: 'Student was successfully destroyed.' }
+      format.html { redirect_to redirectLink, notice: 'Student was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

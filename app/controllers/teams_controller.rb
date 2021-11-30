@@ -11,9 +11,11 @@ class TeamsController < ApplicationController
   # GET /teams/1.json
   def show
     studentIDs = Student.all.select{ |student| student.team_id == @team.id }
-    @studentNames = []
+    @teamMembers = []
+    @students = Student.all
+    @users = User.all
     studentIDs.each {|student| 
-      @studentNames << User.all.find(student.user_id).name
+      @teamMembers << User.all.find(student.user_id)
     }
     @courses = Course.all
 

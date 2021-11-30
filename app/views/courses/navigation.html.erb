@@ -15,7 +15,7 @@
     <% @teams.each do |team| %>
       <tr>
         <td class="text-center"> <%= team.team_name %>
-        <td class="text-center"><%= link_to 'Show', team %></td>
+        <td class="text-center"><%= link_to 'View Team', team %></td>
         <td class="text-center"><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure? Destroying the team will also destroy all students assigned to this team.' } %></td>
       </tr>
     <% end %>
@@ -26,6 +26,8 @@
   <thead class="text-center"> 
     <tr>
       <th  scope="col" class="col-2">Students</th>
+      <th  scope="col" class="col-2"></th>
+      <th  scope="col" class="col-2"></th>
     </tr>
   </thead>
 
@@ -33,6 +35,8 @@
     <% @students.each do |student| %>
       <tr>
         <td class="text-center"> <%= @users.find(student.user_id).name  %>
+        <td class="text-center"><%= link_to 'View Student', student %></td>
+        <td class="text-center"><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

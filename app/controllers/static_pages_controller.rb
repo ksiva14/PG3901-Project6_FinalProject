@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
   def dashboard
-    @user = User.find(1)
+    @user = current_user
     # each user can be students in many diff course
     @students = @user.students
   end

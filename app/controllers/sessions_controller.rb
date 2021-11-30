@@ -8,11 +8,11 @@ class SessionsController < ApplicationController
       log_in user
       #Check if user is student
       if Student.find_by(user_id: user.id)
-        #Route to Students Page
-        #redirect_to student
+        #Route to Students Dashboard
+        redirect_to student_dashboard_path
       elsif Professor.find_by(user_id: user.id)
         #Else Route to Professors Page
-        redirect_to students_path
+        #redirect_to students_path
       else
         #redirect_to 
       end

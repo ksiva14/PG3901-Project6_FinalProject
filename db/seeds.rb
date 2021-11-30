@@ -11,6 +11,8 @@
   User.create! name: Faker::Name.unique.name, email: "name.#{i}@osu.edu",
                password: Faker::Alphanumeric.alphanumeric(number: 15)
 end
+User.create! name: "Karthick", email: "siva.8@osu.edu", password: "baseball"
+Student.create! user_id: 31, team_id: 2
 # 29 students - split into 2 teams
 15.times do
   Student.create! user_id: Faker::Number.unique.between(from: 1, to: 15),

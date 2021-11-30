@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   resources :evaluations
   resources :users
 
-  # get 'static_pages/dashboard'
   root 'sessions#new'
   get '/search', to: 'students#search'
   post '/search', to: 'students#create'
@@ -19,5 +18,6 @@ Rails.application.routes.draw do
   get '/signupprofessors', to: 'users#newProfessor'
   post '/signupprofessors', to: 'users#createProfessor'
   # ----------------------- evaluation ----------------------------
+  get 'static_pages', to: 'static_pages#dashboard', as: :student_dashboard
   get 'static_pages', to: 'static_pages#view', as: :view_evaluations
 end

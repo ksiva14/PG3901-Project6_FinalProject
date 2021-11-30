@@ -5,23 +5,24 @@
   <%= @team.team_name %>
 </p>
 
-
-<table class="table table-light table-striped table-bordered rounded">
-  <thead class="text-center"> 
-    <tr>
-      <th  scope="col" class="col-2">Members</th>
-      <th  scope="col" class="col-2"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @teamMembers.each do |member|%>
+<% if @teamMembers.length != 0 %>
+  <table class="table table-light table-striped table-bordered rounded">
+    <thead class="text-center"> 
       <tr>
-        <td class="text-center"> <%= member.name %>
-        <td class="text-center"><%= link_to 'View Student', "/students/" + member.id.to_s %></td>
+        <th  scope="col" class="col-2">Members</th>
+        <th  scope="col" class="col-2"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @teamMembers.each do |member|%>
+        <tr>
+          <td class="text-center"> <%= member.name %>
+          <td class="text-center"><%= link_to 'View Student', "/students/" + member.id.to_s %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 
 
 

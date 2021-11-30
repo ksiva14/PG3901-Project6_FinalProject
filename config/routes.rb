@@ -13,7 +13,6 @@ Rails.application.routes.draw do
  
   resources :teams
   resources :students
-  root 'students#index'
   resources :projects
   resources :evaluations
 
@@ -27,5 +26,5 @@ Rails.application.routes.draw do
   # resources :team
   # resources :user
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  root 'projects#index'
+  root 'courses#index'
 end

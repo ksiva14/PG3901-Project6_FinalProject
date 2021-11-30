@@ -13,57 +13,57 @@
 end
 
 
-# 29 students
-29.times do
-  Student.create! user_id: Faker::Number.unique.between(from: 1, to: 29),
-                  team_id: Faker::Number.between(from: 1, to: 5)
-end
+# # 29 students
+# 29.times do
+#   Student.create! user_id: Faker::Number.unique.between(from: 1, to: 29),
+#                   team_id: Faker::Number.between(from: 1, to: 5)
+# end
 
-# 1 professor
-Professor.create! user_id: 30, course_id: 1
+# # 1 professor
+# Professor.create! user_id: 30, course_id: 1
 
-# ------------------------------ For Testing out project page ---------------------------------------------
-3.times do
-  Student.create! user_id: Faker::Number.unique.between(from: 1, to: 29),
-                  course_id: 1, team_id: 1
-end
-3.times do
-  Student.create! user_id: Faker::Number.unique.between(from: 1, to: 29),
-                  course_id: 1, team_id: 2
-end
+# # ------------------------------ For Testing out project page ---------------------------------------------
+# 3.times do
+#   Student.create! user_id: Faker::Number.unique.between(from: 1, to: 29),
+#                   course_id: 1, team_id: 1
+# end
+# 3.times do
+#   Student.create! user_id: Faker::Number.unique.between(from: 1, to: 29),
+#                   course_id: 1, team_id: 2
+# end
 
-Course.create! course_name: 'CSE 3901', course_num: num, dept_name: 'Computer Science & Engineering'
+# Course.create! course_name: 'CSE 3901', course_num: num, dept_name: 'Computer Science & Engineering'
 
-Team.create! team_name: Faker::Game.unique.title, course_id: 1
-Team.create! team_name: Faker::Game.unique.title, course_id: 1
+# Team.create! team_name: Faker::Game.unique.title, course_id: 1
+# Team.create! team_name: Faker::Game.unique.title, course_id: 1
 
-Project.create! project_name: 'Project 1', course_id: 1
-Project.create! project_name: 'Project 2', course_id: 1
+# Project.create! project_name: 'Project 1', course_id: 1
+# Project.create! project_name: 'Project 2', course_id: 1
 
-Evaluation.create! team_id: 1, for_student: 1, by_student: 2, score: 555, comment: 'Team 1', project_id: 1
-Evaluation.create! team_id: 1, for_student: 1, by_student: 3, score: 555, comment: 'Team 1', project_id: 1
-Evaluation.create! team_id: 1, for_student: 2, by_student: 1, score: 555, comment: 'Team 1', project_id: 1
-Evaluation.create! team_id: 1, for_student: 2, by_student: 3, score: 555, comment: 'Team 1', project_id: 1
-Evaluation.create! team_id: 1, for_student: 3, by_student: 1, score: 555, comment: 'Team 1', project_id: 1
-Evaluation.create! team_id: 1, for_student: 3, by_student: 2, score: 555, comment: 'Team 1', project_id: 1
+# Evaluation.create! team_id: 1, for_student: 1, by_student: 2, score: 555, comment: 'Team 1', project_id: 1
+# Evaluation.create! team_id: 1, for_student: 1, by_student: 3, score: 555, comment: 'Team 1', project_id: 1
+# Evaluation.create! team_id: 1, for_student: 2, by_student: 1, score: 555, comment: 'Team 1', project_id: 1
+# Evaluation.create! team_id: 1, for_student: 2, by_student: 3, score: 555, comment: 'Team 1', project_id: 1
+# Evaluation.create! team_id: 1, for_student: 3, by_student: 1, score: 555, comment: 'Team 1', project_id: 1
+# Evaluation.create! team_id: 1, for_student: 3, by_student: 2, score: 555, comment: 'Team 1', project_id: 1
 
-Evaluation.create! team_id: 2, for_student: 4, by_student: 5, score: 555, comment: 'Team 2', project_id: 1
-Evaluation.create! team_id: 2, for_student: 4, by_student: 6, score: 555, comment: 'Team 2', project_id: 1
-Evaluation.create! team_id: 2, for_student: 5, by_student: 4, score: 555, comment: 'Team 2', project_id: 1
-Evaluation.create! team_id: 2, for_student: 5, by_student: 6, score: 555, comment: 'Team 2', project_id: 1
-Evaluation.create! team_id: 2, for_student: 6, by_student: 4, score: 555, comment: 'Team 2', project_id: 1
-Evaluation.create! team_id: 2, for_student: 6, by_student: 5, score: 555, comment: 'Team 2', project_id: 1
+# Evaluation.create! team_id: 2, for_student: 4, by_student: 5, score: 555, comment: 'Team 2', project_id: 1
+# Evaluation.create! team_id: 2, for_student: 4, by_student: 6, score: 555, comment: 'Team 2', project_id: 1
+# Evaluation.create! team_id: 2, for_student: 5, by_student: 4, score: 555, comment: 'Team 2', project_id: 1
+# Evaluation.create! team_id: 2, for_student: 5, by_student: 6, score: 555, comment: 'Team 2', project_id: 1
+# Evaluation.create! team_id: 2, for_student: 6, by_student: 4, score: 555, comment: 'Team 2', project_id: 1
+# Evaluation.create! team_id: 2, for_student: 6, by_student: 5, score: 555, comment: 'Team 2', project_id: 1
 
-Evaluation.create! team_id: 1, for_student: 1, by_student: 2, score: 666, comment: 'Team 1', project_id: 2
-Evaluation.create! team_id: 1, for_student: 1, by_student: 3, score: 666, comment: 'Team 1', project_id: 2
-Evaluation.create! team_id: 1, for_student: 2, by_student: 1, score: 666, comment: 'Team 1', project_id: 2
-Evaluation.create! team_id: 1, for_student: 2, by_student: 3, score: 666, comment: 'Team 1', project_id: 2
-Evaluation.create! team_id: 1, for_student: 3, by_student: 1, score: 666, comment: 'Team 1', project_id: 2
-Evaluation.create! team_id: 1, for_student: 3, by_student: 2, score: 666, comment: 'Team 1', project_id: 2
+# Evaluation.create! team_id: 1, for_student: 1, by_student: 2, score: 666, comment: 'Team 1', project_id: 2
+# Evaluation.create! team_id: 1, for_student: 1, by_student: 3, score: 666, comment: 'Team 1', project_id: 2
+# Evaluation.create! team_id: 1, for_student: 2, by_student: 1, score: 666, comment: 'Team 1', project_id: 2
+# Evaluation.create! team_id: 1, for_student: 2, by_student: 3, score: 666, comment: 'Team 1', project_id: 2
+# Evaluation.create! team_id: 1, for_student: 3, by_student: 1, score: 666, comment: 'Team 1', project_id: 2
+# Evaluation.create! team_id: 1, for_student: 3, by_student: 2, score: 666, comment: 'Team 1', project_id: 2
 
-Evaluation.create! team_id: 2, for_student: 4, by_student: 5, score: 666, comment: 'Team 2', project_id: 2
-Evaluation.create! team_id: 2, for_student: 4, by_student: 6, score: 666, comment: 'Team 2', project_id: 2
-Evaluation.create! team_id: 2, for_student: 5, by_student: 4, score: 666, comment: 'Team 2', project_id: 2
-Evaluation.create! team_id: 2, for_student: 5, by_student: 6, score: 666, comment: 'Team 2', project_id: 2
-Evaluation.create! team_id: 2, for_student: 6, by_student: 4, score: 666, comment: 'Team 2', project_id: 2
-Evaluation.create! team_id: 2, for_student: 6, by_student: 5, score: 666, comment: 'Team 2', project_id: 2
+# Evaluation.create! team_id: 2, for_student: 4, by_student: 5, score: 666, comment: 'Team 2', project_id: 2
+# Evaluation.create! team_id: 2, for_student: 4, by_student: 6, score: 666, comment: 'Team 2', project_id: 2
+# Evaluation.create! team_id: 2, for_student: 5, by_student: 4, score: 666, comment: 'Team 2', project_id: 2
+# Evaluation.create! team_id: 2, for_student: 5, by_student: 6, score: 666, comment: 'Team 2', project_id: 2
+# Evaluation.create! team_id: 2, for_student: 6, by_student: 4, score: 666, comment: 'Team 2', project_id: 2
+# Evaluation.create! team_id: 2, for_student: 6, by_student: 5, score: 666, comment: 'Team 2', project_id: 2

@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
   
   resources :courses
-  get '/search', to: 'students#search'
-  post '/search', to: 'students#create'
-  get '/:id/navigation', to: 'courses#navigation'
+  get '/:id/search', to: 'students#search'
+  post '/:id/search', to: 'students#create'
+  get '/:id/students/22/edit', to: 'students#create'
+  get '/courses/:id/course_navigation', to: 'courses#navigation'
+  get '/courses/:id/course_navigation/new_team', to: 'teams#new'
+  get '/courses/:id/course_navigation/new_student', to: 'students#new'
+
+
   
  
   resources :teams

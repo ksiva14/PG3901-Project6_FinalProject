@@ -71,9 +71,18 @@ class CoursesController < ApplicationController
   end
 
   def navigation
+    @courseID = params[:id]
+    @course = Course.all.find(params[:id])
     @teams = Team.all.select {|team| team.course_id == @course.id}
-    @students = Student.all.select {|student| Team.all.find(student.team_id).course_id == @course.id}
+    @students = Student.all.select {|student| 
+      if (student.team_id != -1) 
+        Team.all.find(student.team_id).course_id == @course.id
+      else 
+        false
+      end
+    }
     @users = User.all
+    
   end
 
   private

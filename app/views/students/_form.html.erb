@@ -11,23 +11,25 @@
         </ul>
       </div>
     <% end %>
-    
 
-    
+  
+
     <div class="field">
       <%= form.label :team_id %>
-      <%= collection_select(:student, :team_id, Team.all, :id, :team_name, :prompt => true)%>
+      <%= collection_select(:student, :team_id, Team.all.select{|team| team.course.id == $courseID.to_i}, :id, :team_name, :prompt => true)%>
     </div>
 
     
 
 
     <div class="actions">
-      <%= form.submit %>
+      <%= form.submit "Create Student"%>
     </div>
   <% end %>
 <% else %>
-  <form action="/search"> 
+
+  <form action="/<%=params[:id].to_s%>/search"> 
+            <h5> Search for student by entering their email: </h5>
             <input name="q" type="text">
             <button type="submit">Search </button>
   </form>

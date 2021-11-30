@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
   $studentUsers = "";
-  @@newStudent = 1;
+ 
   # GET /students
   # GET /students.json
   def index
@@ -30,9 +30,9 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
-    @@newStudent = 1;
+   
     @student = Student.new(student_params)
-    @@newStudent = 0
+    
     @users = User.all
     @student.user_id = $studentUsers[0].id
     @student.team_id = -1;
@@ -40,7 +40,8 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.save
-        format.html { redirect_to @student, notice: 'Student was successfully created.' }
+        redirectLink = "/students/" + @student.id.to_s + "/edit"
+        format.html { redirect_to redirectLink, notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
         format.html { render :new }

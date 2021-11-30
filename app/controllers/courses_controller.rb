@@ -28,7 +28,9 @@ class CoursesController < ApplicationController
   end
 
   # GET /courses/1/edit
-  def edit; end
+  def edit
+    @course = Course.find(params[:id])
+  end
 
   # POST /courses
   # POST /courses.json
@@ -63,9 +65,8 @@ class CoursesController < ApplicationController
   # DELETE /courses/1
   # DELETE /courses/1.json
   def destroy
-    @teams = Team.all.select { |team| team.course_id == @course.id }
-    @teams.each { |team| team.destroy }
-    @course = Course.find(param[:course_id])
+    # @teams = Team.all.select { |team| team.course_id == @course.id }
+    # @teams.each { |team| team.destroy }
     @course.destroy
     respond_to do |format|
       format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }

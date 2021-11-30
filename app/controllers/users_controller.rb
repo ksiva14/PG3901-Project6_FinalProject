@@ -15,6 +15,8 @@ class UsersController < ApplicationController
   def createStudent
     @student = User.new(user_params)
     if @student.save
+      # creates a professor without course_id to allow login
+      Student.create user_id: @student.id
       flash[:success] = 'Welcome: Login to Evaluation App!'
       redirect_to root_path
     else
@@ -30,6 +32,8 @@ class UsersController < ApplicationController
       @prof.user_id = @professor.id
       @prof.course_id = -1
       @prof.save
+      # creates a professor without course_id to allow login
+      Professor.create user_id: @professor.id
       # redirect
       flash[:success] = 'Welcome: Login to Evaluation App!'
       redirect_to root_path

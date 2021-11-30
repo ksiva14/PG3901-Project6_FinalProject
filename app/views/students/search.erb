@@ -1,0 +1,10 @@
+<h1> Search Results: </h1>
+<% if $studentUsers.length > 0 %>
+    <p><%= $studentUsers[0].name %></p>
+    <p><%= $studentUsers[0].email %></p>
+    <%= button_to "Add Student to Course", :method=> "create" %>
+<% else %>
+    <p> No user with that email was found </p>
+<% end %>
+
+<p>Back to <%= link_to "Search", "students/new" %></p>

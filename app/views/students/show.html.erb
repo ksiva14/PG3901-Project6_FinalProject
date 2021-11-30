@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @users.find(@student.user_id).name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @users.find(@student.user_id).email %>
+</p>
+
+<p>
+  <strong>Team:</strong>
+  <% if Team.exists?(id: @student.team_id) %>
+    <%= @teams.find(@student.team_id).team_name%>
+  <% else %>
+      None 
+  <% end %>
+</p>
+
+
+<%= link_to 'Edit', edit_student_path(@student) %> |
+<%= link_to 'Back', students_path %>

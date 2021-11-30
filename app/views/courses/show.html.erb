@@ -1,15 +1,27 @@
 <p id="notice"><%= notice %></p>
-</br>
-<p>
-  <strong>Course Name:</strong>
-  <%= @course.course_name %>
-</p>
-
-<p>
-  <strong>Course Number:</strong>
-  <%= @course.course_num %>
-</p>
-
-
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>
+<h1>Courses</h1>
+<%= render 'courses/create_course' %>
+<table class="table table-light table-striped table-bordered rounded">
+  <thead>
+    <tr>
+      <th colspan="1">Course Name</th>
+      <th colspan="1"></th>
+      <th colspan="1"></th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%# <% @courses.each do |course| %>
+      <% Course.all.each do |course| %>
+        <tr>
+          <td> <%= course.course_name %>
+            <td class="text-center"><%= link_to 'Enter Course', navigation_path(course.id) %></td>
+            <td class="text-center"><%= link_to 'Edit', edit_courses_path(course) %></td>
+            <td class="text-center"><%= link_to 'Destroy', courses_path(course_id: course.id), method: :delete, data: { confirm: 'Are you sure? Deleting this course will also delete all related data, including students and teams.' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+    <%= link_to 'New Course', new_courses_path %>
+    <%= link_to 'View Projects', "/projects" %>

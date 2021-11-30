@@ -1,0 +1,11 @@
+<%= form_with(model: @course, class:"row") do |form| %>
+  <div class="col">
+    <input name="course[course_name]" type="text" class="form-control form-control-lg" placeholder="Course Name">
+  </div>
+  <div class="col">
+    <input name="course[course_num]" type="text" class="form-control form-control-lg" placeholder="Course Number">
+  </div>
+  <div class="actions col">
+    <%= form.submit "Create Project", class: "btn btn-primary btn-lg p-2 rounded" %>
+  </div>
+<% end %>

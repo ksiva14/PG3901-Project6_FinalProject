@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  # before_action :set_course, only: %i[show edit update destroy]
+  before_action :set_course, only: %i[edit update destroy]
 
   # GET /courses
   # GET /courses.json
@@ -9,17 +10,17 @@ class CoursesController < ApplicationController
 
   # GET /courses/1
   # GET /courses/1.json
-  def show
-    @teams = Team.all.select {|team| team.course_id == @course.id}
-    @students = Student.all.select {|student| 
-      if (student.team_id != -1) 
-        Team.all.find(student.team_id).course_id == @course.id
-      else 
-        false
-      end
-    }
-    @users = User.all
-  end
+  # def show
+  #   @teams = Team.all.select {|team| team.course_id == @course.id}
+  #   @students = Student.all.select {|student|
+  #     if (student.team_id != -1)
+  #       Team.all.find(student.team_id).course_id == @course.id
+  #     else
+  #       false
+  #     end
+  #   }
+  #   @users = User.all
+  # end
 
   # GET /courses/new
   def new
@@ -27,8 +28,7 @@ class CoursesController < ApplicationController
   end
 
   # GET /courses/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /courses
   # POST /courses.json
@@ -37,8 +37,8 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       if @course.save
-        format.html { redirect_to @course, notice: 'Course was successfully created.' }
-        format.json { render :show, status: :created, location: @course }
+        format.html { redirect_to courses_url, notice: 'Course was successfully created.' }
+        # format.json { render :show, status: :created, location: @course }
       else
         format.html { render :new }
         format.json { render json: @course.errors, status: :unprocessable_entity }
@@ -51,7 +51,7 @@ class CoursesController < ApplicationController
   def update
     respond_to do |format|
       if @course.update(course_params)
-        format.html { redirect_to @course, notice: 'Course was successfully updated.' }
+        format.html { redirect_to courses_url, notice: 'Course was successfully updated.' }
         format.json { render :show, status: :ok, location: @course }
       else
         format.html { render :edit }
@@ -63,8 +63,9 @@ class CoursesController < ApplicationController
   # DELETE /courses/1
   # DELETE /courses/1.json
   def destroy
-    @teams = Team.all.select{|team| team.course_id == @course.id}
-    @teams.each {|team| team.destroy}
+    @teams = Team.all.select { |team| team.course_id == @course.id }
+    @teams.each { |team| team.destroy }
+    @course = Course.find(param[:course_id])
     @course.destroy
     respond_to do |format|
       format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
@@ -75,26 +76,26 @@ class CoursesController < ApplicationController
   def navigation
     @courseID = params[:id]
     @course = Course.all.find(params[:id])
-    @teams = Team.all.select {|team| team.course_id == @course.id}
-    @students = Student.all.select {|student| 
-      if (student.team_id != -1) 
+    @teams = Team.all.select { |team| team.course_id == @course.id }
+    @students = Student.all.select do |student|
+      if student.team_id != -1
         Team.all.find(student.team_id).course_id == @course.id
-      else 
+      else
         false
       end
-    }
+    end
     @users = User.all
-    
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_course
-      @course = Course.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def course_params
-      params.require(:course).permit(:course_name, :course_num)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_course
+    @course = Course.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def course_params
+    params.require(:course).permit(:course_num, :course_name)
+  end
 end

@@ -10,21 +10,23 @@
   </thead>
   <tbody>
     <% @students.each do |student|%>
-      <% student.team.projects.each do |project| %>
-        <tr>
-          <td><%= project.project_name %></td>
-          <%= link_to 'View Evaluation', view_evaluations_path(project_id: project.id, student_id: student.id) %>
-          <%# TODO: check if this works after linking the other pages %>
-          <% if evaluations_assigned?(student.team.evaluations) && !evaluations_all_filled?(student.team.evaluations)%>
-            <td><%= link_to 'Start Evaluation', evaluations_path(project_id: project.id, student_id: student.id) %></td>
-          <% elsif evaluations_all_filled?(student.team.evaluations) %>
+      <% if !student.team.nil? %>
+        <% student.team.projects.each do |project| %>
+          <tr>
+            <td><%= project.project_name %></td>
             <%= link_to 'View Evaluation', view_evaluations_path(project_id: project.id, student_id: student.id) %>
-          <% else %>
-            <td><%= link_to 'Start Evaluation', "#", class:"visually-hidden" %></td>
-          <% end %>
-          <td><%= student.team.team_name %></td>
-          <td><%= Course.find(student.team.course_id).course_name %></td>
-        </tr>
+            <%# TODO: check if this works after linking the other pages %>
+            <% if evaluations_assigned?(student.team.evaluations) && !evaluations_all_filled?(student.team.evaluations)%>
+              <td><%= link_to 'Start Evaluation', evaluations_path(project_id: project.id, student_id: student.id) %></td>
+            <% elsif evaluations_all_filled?(student.team.evaluations) %>
+              <%= link_to 'View Evaluation', view_evaluations_path(project_id: project.id, student_id: student.id) %>
+            <% else %>
+              <td><%= link_to 'Start Evaluation', "#", class:"visually-hidden" %></td>
+            <% end %>
+            <td><%= student.team.team_name %></td>
+            <td><%= Course.find(student.team.course_id).course_name %></td>
+          </tr>
+        <% end %>
       <% end %>
     <% end %>
   </tbody>

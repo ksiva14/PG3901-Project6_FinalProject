@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   # before_action :set_course, only: %i[show edit update destroy]
-  before_action :set_course, only: %i[edit update destroy]
+  before_action :set_course, only: %i[update destroy]
 
   # GET /courses
   # GET /courses.json
@@ -28,9 +28,7 @@ class CoursesController < ApplicationController
   end
 
   # GET /courses/1/edit
-  def edit
-    @course = Course.find(params[:id])
-  end
+  def edit; end
 
   # POST /courses
   # POST /courses.json
@@ -53,7 +51,7 @@ class CoursesController < ApplicationController
   def update
     respond_to do |format|
       if @course.update(course_params)
-        format.html { redirect_to courses_url, notice: 'Course was successfully updated.' }
+        format.html { redirect_to @course, notice: 'Course was successfully updated.' }
         format.json { render :show, status: :ok, location: @course }
       else
         format.html { render :edit }

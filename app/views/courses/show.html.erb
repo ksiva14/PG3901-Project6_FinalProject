@@ -1,5 +1,5 @@
+<%# TODO: remove this later. might be the cause of double posting messages %>
 <%# <p id="notice"><%= notice %></p>
-%>
 <h1>Courses</h1>
 <%= render 'courses/create_course' %>
 <table class="table table-light table-striped table-bordered rounded">
@@ -17,7 +17,7 @@
         <tr>
           <td> <%= course.course_name %>
             <td class="text-center"><%= link_to 'Enter Course', navigation_path(course.id) %></td>
-            <td class="text-center"><%= link_to 'Edit', edit_courses_path(id: course.id) %></td>
+            <td class="text-center"><%= link_to 'Edit', edit_courses_path(course) %></td>
             <td class="text-center"><%= link_to 'Destroy', courses_path(id: course.id), method: :delete, data: { confirm: 'Are you sure? Deleting this course will also delete all related data, including students and teams.' } %></td>
           </tr>
         <% end %>

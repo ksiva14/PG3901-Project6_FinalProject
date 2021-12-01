@@ -12,9 +12,11 @@
     </tr>
   </thead>
   <tbody>
+    <%=  %>
     <%# check if there are any students for the course%>
     <% if @students.present? %>
-      <% @students.each do |student| %>
+      <%# get unique users added to the course %>
+      <% @students.uniq(&:user_id).each do |student| %>
         <tr>
           <td class="text-center"> <%= User.find(student.user_id).name  %></td>
           <td class="text-center"><%= User.find(student.user_id).email %></td>

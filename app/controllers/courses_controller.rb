@@ -57,8 +57,13 @@ class CoursesController < ApplicationController
   def navigation
     @course = Course.find(params[:id])
     @teams = Team.all.where(course_id: @course.id)
-    # checks if there is any teams for the course
-    @students = Team.all.find_by(course_id: @course.id).students if @teams.present?
+    # get students in the course
+    @students = []
+    Course.find(@course.id).teams.all.each do |team|
+      team.students.each do |student|
+        @students << student
+      end
+    end
   end
 
   private

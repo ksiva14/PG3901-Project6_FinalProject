@@ -13,13 +13,36 @@
   </thead>
   <tbody>
     <%# <% @courses.each do |course| %>
+      <% counter = 1 %>
       <% Course.all.each do |course| %>
         <tr>
           <td> <%= course.course_name %>
             <td class="text-center"><%= link_to 'Enter Course', navigation_path(course.id) %></td>
-            <td class="text-center"><%= link_to 'Edit', edit_courses_path(course) %></td>
+            <%# <td class="text-center"><%= link_to 'Edit', edit_courses_path(course) </td> %>
+            <td class="text-center"><a class="btn btn-primary" data-bs-toggle="collapse" href="#update<%= counter %>" role="button" aria-expanded="false" aria-controls="update<%= counter %>">
+                Edit
+              </a></td>
             <td class="text-center"><%= link_to 'Destroy', courses_path(id: course.id), method: :delete, data: { confirm: 'Are you sure? Deleting this course will also delete all related data, including students and teams.' } %></td>
           </tr>
+          <tr>
+            <div class="collapse" id="update<%= counter %>">
+              <div class="card card-body">
+                update<%= counter %>
+                <%= form_with(url: "/courses/edit.14") do |form| %>
+                  <div class="col">
+                    <input name="course[course_name]" type="text" class="form-control form-control-lg" placeholder="Course Name">
+                  </div>
+                  <div class="col">
+                    <input name="course[course_num]" type="text" class="form-control form-control-lg" placeholder="Course Number">
+                  </div>
+                  <div class="actions col">
+                    <%= form.submit "Update Course", class: "btn btn-primary btn-lg p-2 rounded" %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </tr>
+          <% counter += 1 %>
         <% end %>
       </tbody>
     </table>

@@ -5,7 +5,7 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all
+    @courses = User.find(current_user.id).professors.all
   end
 
   # GET /courses/1
@@ -34,9 +34,14 @@ class CoursesController < ApplicationController
   # POST /courses.json
   def create
     @course = Course.new(course_params)
+    @user = User.find(current_user.id)
 
     respond_to do |format|
       if @course.save
+        # tag professor to a new course
+        Professor.create user_id: current_user.id, course_id: @course.id
+        # delete all professor for this user without a course_id
+        @user.professors.all.where(course_id: nil).destroy_all
         format.html { redirect_to courses_url, notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
       else

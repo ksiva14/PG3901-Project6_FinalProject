@@ -1,4 +1,4 @@
-<%= form_with(url:create_team_courses_path, method:"post", model: @team) do |form| %>
+<%= form_with(url:create_team_courses_path, method:"post", model: @team, class:"row") do |form| %>
   <% if @team.present? && @team.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>
@@ -9,11 +9,11 @@
       </ul>
     </div>
   <% end %>
-  <div class="col">
+  <div class="col-5">
     <%= form.text_field :team_name, class:"form-control form-control-lg", placeholder:"Team Name"%>
   </div>
   <%= form.hidden_field :course_id, value:@course.id %>
-  <div class="actions col">
+  <div class="actions col-2">
     <%= form.submit "Create Team", class: "btn btn-primary btn-lg p-2 rounded" %>
   </div>
 <% end %>

@@ -58,16 +58,7 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
     @teams = Team.all.where(course_id: @course.id)
     # checks if there is any teams for the course
-    if @teams.present? && @students.present?
-      @students = Student.all.select do |student|
-        if student.team_id != -1
-          Team.all.find(student.team_id).course_id == @course.id
-        else
-          false
-        end
-      end
-      @users = User.all
-    end
+    @students = Team.all.find_by(course_id: @course.id).students if @teams.present?
   end
 
   private

@@ -30,10 +30,8 @@ class UsersController < ApplicationController
       # Save professor details in professor table
       @prof = Professor.new
       @prof.user_id = @professor.id
-      @prof.course_id = -1
+      @prof.course_id = nil
       @prof.save
-      # creates a professor without course_id to allow login
-      Professor.create user_id: @professor.id
       # redirect
       flash[:success] = 'Welcome: Login to Evaluation App!'
       redirect_to root_path

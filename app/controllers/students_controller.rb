@@ -65,23 +65,15 @@ class StudentsController < ApplicationController
   # DELETE /students/1
   # DELETE /students/1.json
   def destroy
-    course_id = Team.all.find(@student.team_id).course_id
-
     # remove all students of user from the course/team
-    if params[:from] == 'course'
-      Student.where(user_id: @student.user_id).each do |student|
-        student.destroy if student.team.course.id == course_id
-      end
-      respond_to do |format|
-        format.html { redirect_to navigation_courses_path(id: course_id), notice: 'Student was successfully removed.' }
-        # format.json { head :no_content }
-      end
-    elsif params[:from] == 'team'
+    case params[:from]
+    when 'course'
+      course_id = Team.all.find(@student.team_id).course_id
+      helpers.remove_from_course @student.user_id, course_id
+      redirect_to navigation_courses_path(id: course_id), notice: 'Student was successfully removed.'
+    when 'team'
       @student.destroy
-      respond_to do |format|
-        format.html { redirect_to team_path(@student.team_id), notice: 'Student was successfully removed.' }
-        # format.json { head :no_content }
-      end
+      redirect_to team_path(@student.team_id), notice: 'Student was successfully removed.'
     end
   end
 

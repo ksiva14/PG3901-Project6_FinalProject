@@ -1,1 +1,39 @@
-
+<%# TODO: remove this later. might be the cause of double posting messages %>
+<%# <p id="notice"><%= notice %></p>
+<h1>Courses</h1>
+<%= render 'courses/create_course_form' %>
+<table class="table table-light table-striped table-bordered rounded">
+  <thead>
+    <tr>
+      <th colspan="1">Course Name</th>
+      <th colspan="1"></th>
+      <th colspan="1"></th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%# <% @courses.each do |course| %>
+      <% counter = 1 %>
+      <% Course.all.each do |course| %>
+        <tr>
+          <td> <%= course.course_name %></td>
+          <td class="text-center"><%= link_to 'Enter Course', navigation_path(course.id) %></td>
+          <%# <td class="text-center"><%= link_to 'Edit', edit_courses_path(course) </td> %>
+          <td class="text-center"><a class="btn btn-primary" data-bs-toggle="collapse" href="#update<%= counter %>" role="button" aria-expanded="false" aria-controls="update<%= counter %>">
+              Edit
+            </a></td>
+          <td class="text-center"><%= link_to 'Destroy', delete_courses_path(id: course.id), method: :delete, data: { confirm: 'Are you sure? Deleting this course will also delete all related data, including students and teams.' } %></td>
+        </tr>
+        <tr>
+          <div class="collapse" id="update<%= counter %>">
+            <div class="card card-body">
+              <%= render 'update_course_form', course: course%>
+            </div>
+          </div>
+        </tr>
+        <% counter += 1 %>
+      <% end %>
+    </tbody>
+  </table>
+  <br>
+  <%= link_to 'View Projects', "/projects" %>

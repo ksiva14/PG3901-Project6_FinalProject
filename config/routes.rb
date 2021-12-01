@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resource :courses do
+    get 'index'
+    post 'index', to: 'courses#create', as: 'create'
+    put 'index', to: 'courses#update', as: 'update'
+    delete 'index', to: 'courses#destroy', as: 'delete'
     get 'navigation'
   end
   resources :teams

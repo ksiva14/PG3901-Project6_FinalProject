@@ -6,9 +6,12 @@ Rails.application.routes.draw do
     put 'index', to: 'courses#update', as: 'update'
     delete 'index', to: 'courses#destroy', as: 'delete'
     get 'navigation'
+    # put 'navigation', to: 'teams#update', as: 'update_team'
     post 'navigation', to: 'teams#create', as: 'create_team'
   end
-  resources :teams
+  resources :teams do
+    put 'update', to: 'teams#update', as: 'update'
+  end
   resources :students
   resources :projects
   resources :evaluations

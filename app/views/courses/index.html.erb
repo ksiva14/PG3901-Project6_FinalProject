@@ -13,15 +13,15 @@
     <% Course.all.each do |course| %>
       <tr>
         <td class="align-middle"><%= course.course_name %></td>
-        <td class="align-middle"><%= link_to 'Enter Course', navigation_courses_path(id: course.id) %></td>
+        <td class="align-middle"><%= link_to 'View Course', navigation_courses_path(id: course.id) %></td>
         <td class="align-middle">
-          <%= link_to 'Edit Course', "#update#{counter}", "data-bs-toggle":"collapse", "aria-expanded":"false", "aria-controls":"update course #{counter}" %>
+          <%= link_to 'Edit Course', "#updateCourse#{counter}", "data-bs-toggle":"collapse", "aria-expanded":"false", "aria-controls":"update course #{counter}" %>
         </td>
         <td class="align-middle"><%= link_to 'Delete Course', delete_courses_path(id: course.id), method: :delete, data: { confirm: 'Are you sure? Deleting this course will also delete all related data, including students and teams.' } %></td>
       </tr>
       <tr>
         <td colspan="4">
-          <div class="collapse" id="update<%= counter %>">
+          <div class="collapse" id="updateCourse<%= counter %>">
             <div class="card card-body">
               <%= render '/courses/index_partials/update_course_form', course: course%>
             </div>

@@ -46,7 +46,9 @@ class TeamsController < ApplicationController
   def update
     respond_to do |format|
       if @team.update(team_params)
-        format.html { redirect_to @team, notice: 'Team was successfully updated.' }
+        format.html do
+          redirect_to navigation_courses_path(id: @team.course_id), notice: 'Team was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @team }
       else
         format.html { render :edit }

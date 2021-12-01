@@ -12,7 +12,6 @@
     </tr>
   </thead>
   <tbody>
-    <%=  %>
     <%# check if there are any students for the course%>
     <% if @students.present? %>
       <%# get unique users added to the course %>
@@ -22,11 +21,12 @@
           <td class="text-center"><%= User.find(student.user_id).email %></td>
           <td class="text-center">
             <% Student.all.where(user_id: student.user_id).each do |s| %>
-              <%# <td class="text-center"><%= link_to 'View Student', student</td> %>
-              <%= link_to "#{s.team.team_name}", s.team %> | 
+              <% if s.team.course.id == @course.id%>
+                <%= link_to "#{s.team.team_name}", s.team %> | 
+              <% end %>
             <% end %>
           </td>
-          <td class="text-center"><%= link_to 'Remove Student From Course', remove_student_path(from: "course", id: student.id), method: :delete, data: { confirm: 'Are you sure you want to remove this student from the course?' } %></td>
+          <td class="text-center"><%= link_to 'Remove Student', remove_student_path(from: "course", id: student.id), method: :delete, data: { confirm: 'Are you sure you want to remove this student from the course?' } %></td>
         </tr>
       <% end %>
     <% end %>

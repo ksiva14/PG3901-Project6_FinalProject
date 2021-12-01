@@ -1,18 +1,32 @@
 <table class="table table-light table-striped table-bordered rounded mt-3">
   <thead class="text-center">
     <tr>
-      <th  scope="col" class="col-2">Teams</th>
-      <th  scope="col" class="col-2"></th>
-      <th  scope="col" class="col-2"></th>
+      <th  scope="col" class="col-2">Team</th>
+      <th  scope="col" class="col-4" colspan="3">Actions</th>
     </tr>
   </thead>
   <tbody>
+    <td colspan="4"><%# for aesthetic purposes %></td>
+    <% counter = 1 %>
     <% @teams.each do |team| %>
       <tr>
         <td class="text-center"> <%= team.team_name %></td>
         <td class="text-center"><%= link_to 'View Team', team %></td>
+        <td class="text-center">
+          <%= link_to 'Edit Team', "#updateTeam#{counter}", "data-bs-toggle":"collapse", "aria-expanded":"false", "aria-controls":"update course #{counter}" %>
+        </td>
         <td class="text-center"><%= link_to 'Delete Team', team, method: :delete, data: { confirm: 'Are you sure? Destroying the team will also destroy all students assigned to this team.' } %></td>
       </tr>
+      <tr>
+        <td colspan="4">
+          <div class="collapse" id="updateTeam<%= counter %>">
+            <div class="card card-body">
+              <%= render '/courses/navigation_partials/update_team_form', team: team %>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <% counter += 1 %>
     <% end %>
   </tbody>
 </table>

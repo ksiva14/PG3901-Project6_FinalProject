@@ -28,6 +28,7 @@
       </tr>
     </thead>
     <tbody>
+      <%# check if there are any students for the course%>
       <% if @students.present? %>
         <% @students.each do |student| %>
           <tr>
@@ -39,6 +40,6 @@
       <% end %>
     </tbody>
   </table>
-  <%= link_to 'New Team', new_course_team(@courseID) %>
-  <%= link_to 'New Student', new_course_student(@courseID) %>
+  <%= link_to 'New Team', new_course_team(@course.id) %>
+  <%= link_to 'New Student', new_course_student(@course.id) %>
   <%= link_to 'Back', courses_path %>

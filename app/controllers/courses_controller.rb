@@ -1,34 +1,11 @@
 class CoursesController < ApplicationController
-  # before_action :set_course, only: %i[show edit update destroy]
-  before_action :set_course, only: %i[edit update destroy]
+  before_action :set_course, only: %i[update destroy]
 
   # GET /courses
   # GET /courses.json
   def index
     @courses = User.find(current_user.id).professors.all
   end
-
-  # GET /courses/1
-  # GET /courses/1.json
-  # def show
-  #   @teams = Team.all.select {|team| team.course_id == @course.id}
-  #   @students = Student.all.select {|student|
-  #     if (student.team_id != -1)
-  #       Team.all.find(student.team_id).course_id == @course.id
-  #     else
-  #       false
-  #     end
-  #   }
-  #   @users = User.all
-  # end
-
-  # # GET /courses/new
-  # def new
-  #   @course = Course.new
-  # end
-
-  # GET /courses/1/edit
-  def edit; end
 
   # POST /courses
   # POST /courses.json
@@ -70,8 +47,6 @@ class CoursesController < ApplicationController
   # DELETE /courses/1
   # DELETE /courses/1.json
   def destroy
-    # @teams = Team.all.select { |team| team.course_id == @course.id }
-    # @teams.each { |team| team.destroy }
     @course.destroy
     respond_to do |format|
       format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
@@ -80,17 +55,20 @@ class CoursesController < ApplicationController
   end
 
   def navigation
-    @courseID = params[:id]
-    @course = Course.all.find(params[:id])
-    @teams = Team.all.select { |team| team.course_id == @course.id }
-    @students = Student.all.select do |student|
-      if student.team_id != -1
-        Team.all.find(student.team_id).course_id == @course.id
-      else
-        false
+    # @courseID = params[:id]
+    @course = Course.find(params[:id])
+    @teams = Team.all.where(course_id: @course.id)
+    # checks if there is any teams for the course
+    if @teams.present?
+      @students = Student.all.select do |student|
+        if student.team_id != -1
+          Team.all.find(student.team_id).course_id == @course.id
+        else
+          false
+        end
       end
+      @users = User.all
     end
-    @users = User.all
   end
 
   private

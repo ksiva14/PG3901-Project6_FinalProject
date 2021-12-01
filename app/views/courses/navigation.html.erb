@@ -1,44 +1,34 @@
 <h1> <%= @course.course_name %> </h1>
 <h2> <%= @course.course_num %> </h2>
-<%= render '/teams/create_team_form' %>
+<%= render '/teams/navigation_create_team_form' %>
+<%= render 'courses/navigation_teams_table'%>
 <table class="table table-light table-striped table-bordered rounded">
   <thead class="text-center">
     <tr>
-      <th  scope="col" class="col-2">Teams</th>
-      <th  scope="col" class="col-2"></th>
-      <th  scope="col" class="col-2"></th>
+      <th scope="col" class="col-2">Student Name</th>
+      <th scope="col" class="col-2">Email</th>
+      <th scope="col" class="col-2">Teams</th>
+      <th scope="col" class="col-2">Action</th>
     </tr>
   </thead>
   <tbody>
-    <% @teams.each do |team| %>
-      <tr>
-        <td class="text-center"> <%= team.team_name %>
-          <td class="text-center"><%= link_to 'View Team', team %></td>
-          <td class="text-center"><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure? Destroying the team will also destroy all students assigned to this team.' } %></td>
+    <%# check if there are any students for the course%>
+    <% if @students.present? %>
+      <% @students.each do |student| %>
+        <tr>
+          <td class="text-center"> <%= User.find(student.user_id).name  %></td>
+          <td class="text-center"><%= User.find(student.user_id).email %></td>
+          <td class="text-center">
+            <% Student.all.where(user_id: student.user_id).each do |s| %>
+              <%# <td class="text-center"><%= link_to 'View Student', student</td> %>
+              <%= link_to "#{s.team.team_name}", s.team %> | 
+            <% end %>
+          </td>
+          <td class="text-center"><%= link_to 'Remove Student From Course', remove_student_path(from: "course", id: student.id), method: :delete, data: { confirm: 'Are you sure you want to remove this student from the course?' } %></td>
         </tr>
       <% end %>
-    </tbody>
-  </table>
-  <table class="table table-light table-striped table-bordered rounded">
-    <thead class="text-center">
-      <tr>
-        <th scope="col" class="col-2">Students</th>
-        <th scope="col" class="col-2"></th>
-        <th scope="col" class="col-2"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <%# check if there are any students for the course%>
-      <% if @students.present? %>
-        <% @students.each do |student| %>
-          <tr>
-            <td class="text-center"> <%= User.find(student.user_id).name  %></td>
-            <td class="text-center"><%= link_to 'View Student', student %></td>
-            <td class="text-center"><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
-  <%= link_to 'New Student', new_course_student(@course.id) %>
-  <%= link_to 'Back', courses_path %>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'New Student', new_course_student(@course.id) %>
+<%= link_to 'Back', courses_path %>

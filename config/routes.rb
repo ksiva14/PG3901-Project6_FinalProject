@@ -8,8 +8,7 @@ Rails.application.routes.draw do
     get 'navigation'
     post 'navigation', to: 'teams#create', as: 'create_team'
   end
-  resources :teams do
-  end
+  resources :teams
   resources :students
   resources :projects
   resources :evaluations
@@ -40,4 +39,6 @@ Rails.application.routes.draw do
   get '/courses/:id/course_navigation', to: 'courses#navigation'
   get '/courses/:id/course_navigation/new_team', to: 'teams#new'
   get '/courses/:id/course_navigation/new_student', to: 'students#new'
+  # route to remove student from team - teams/show.html.erb
+  delete '/student/:id', to: 'students#destroy', as: 'remove_student'
 end

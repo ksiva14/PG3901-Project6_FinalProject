@@ -1,31 +1,23 @@
-<p id="notice"><%= notice %></p>
-</br>
-<p>
-  <h2>Name:</h2>
-  <%= @team.team_name %>
-</p>
-
-<% if @teamMembers.length != 0 %>
-  <table class="table table-light table-striped table-bordered rounded">
-    <thead class="text-center"> 
-      <tr>
-        <th  scope="col" class="col-2">Members</th>
-        <th  scope="col" class="col-2"></th>
-      </tr>
-    </thead>
-    <tbody>
+<h2>Team: <%= @team.team_name %></h2>
+<table class="table table-light table-striped table-bordered rounded">
+  <thead class="text-center">
+    <tr>
+      <th  scope="col" class="col-2">Students</th>
+      <th  scope="col" class="col-2">Email</th>
+      <th  scope="col" class="col-2">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @teamMembers.length != 0 %>
       <% @teamMembers.each do |member|%>
         <tr>
-          <td class="text-center"> <%= member.name %>
-          <td class="text-center"><%= link_to 'View Student', "/students/" + member.id.to_s %></td>
+          <td class="text-center"> <%= member.name %></td>
+          <td class="text-center"> <%= member.email %></td>
+          <td class="text-center"><%= link_to 'Remove Student', remove_student_path(from: "team", id: Student.find_by(user_id: member.id, team_id: @team.id).id), method: :delete, data: { confirm: 'Are you sure you want to remove this student from the team?' } %></td>
         </tr>
       <% end %>
-    </tbody>
-  </table>
-<% end %>
-
-
-
-
+    <% end %>
+  </tbody>
+</table>
 <%= link_to 'Edit', edit_team_path(@team) %> |
 <%= link_to 'Back', course_link(@team.course_id) %>

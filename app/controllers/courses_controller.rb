@@ -55,7 +55,6 @@ class CoursesController < ApplicationController
   end
 
   def navigation
-    # @courseID = params[:id]
     @course = Course.find(params[:id])
     @teams = Team.all.where(course_id: @course.id)
     # checks if there is any teams for the course

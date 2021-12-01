@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: [:show, :edit, :update, :destroy]
-  $currentCourse = 0;
+  before_action :set_team, only: %i[show edit update destroy]
+  $currentCourse = 0
+
   # GET /teams
   # GET /teams.json
   def index
@@ -10,35 +11,28 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
-    studentIDs = Student.all.select{ |student| student.team_id == @team.id }
+    studentIDs = Student.all.select { |student| student.team_id == @team.id }
     @teamMembers = []
     @students = Student.all
     @users = User.all
-    studentIDs.each {|student| 
+    studentIDs.each do |student|
       @teamMembers << User.all.find(student.user_id)
-    }
+    end
     @courses = Course.all
-
-  end
-
-  # GET /teams/new
-  def new
-    @team = Team.new
-    @team.course_id = params[:id]
   end
 
   # GET /teams/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /teams
   # POST /teams.json
   def create
     @team = Team.new(team_params)
-    @team.course_id = $currentCourse
     respond_to do |format|
       if @team.save
-        format.html { redirect_to @team, notice: 'Team was successfully created.' }
+        format.html do
+          redirect_to navigation_courses_url(id: @team.course_id), notice: 'Team was successfully created.'
+        end
         format.json { render :show, status: :created, location: @team }
       else
         format.html { render :new }
@@ -65,16 +59,15 @@ class TeamsController < ApplicationController
   # DELETE /teams/1.json
   def destroy
     indices = []
-    Student.all.each { |student|
-    indices << student.id if (student.team_id == @team.id)
-    }
+    Student.all.each do |student|
+      indices << student.id if student.team_id == @team.id
+    end
 
-    indices.each {|studentID|
+    indices.each do |studentID|
       Student.all.find(studentID).destroy
-    }
-    redirectLink =  "/courses/" + @team.course_id.to_s + "/course_navigation" 
+    end
+    redirectLink = '/courses/' + @team.course_id.to_s + '/course_navigation'
     @team.destroy
-    
 
     respond_to do |format|
       format.html { redirect_to redirectLink, notice: 'Team was successfully destroyed.' }
@@ -83,13 +76,16 @@ class TeamsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_team
-      @team = Team.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def team_params
-      params.require(:team).permit(:team_name, :course_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_team
+    @team = Team.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def team_params
+    # TODO: error with param.require(:team)
+    # params.require(:teams).permit(:team_name, :course_id)
+    params.permit(:team_name, :course_id)
+  end
 end

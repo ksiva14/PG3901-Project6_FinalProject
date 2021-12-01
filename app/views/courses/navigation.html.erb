@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 <h1> <%= @course.course_name %> </h1>
 <h2> <%= @course.course_num %> </h2>
+<%= render '/teams/create_team_form' %>
 <table class="table table-light table-striped table-bordered rounded">
   <thead class="text-center">
     <tr>
@@ -40,6 +41,5 @@
       <% end %>
     </tbody>
   </table>
-  <%= link_to 'New Team', new_course_team(@course.id) %>
   <%= link_to 'New Student', new_course_student(@course.id) %>
   <%= link_to 'Back', courses_path %>

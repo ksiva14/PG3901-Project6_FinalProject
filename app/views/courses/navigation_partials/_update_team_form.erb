@@ -1,0 +1,11 @@
+<%= form_with(url: team_update_path(id: team.id, team_id: team.id), method: 'put') do |form| %>
+  <div class="row">
+    <div class="col">
+      <%= form.text_field :team_name, class:"form-control form-control", placeholder:"Team Name", value: team.team_name %>
+    </div>
+    <%= form.hidden_field :course_id, value:team.course_id %>
+    <div class="actions col">
+      <%= form.submit "Update", class: "btn btn-primary btn p-2 rounded" %>
+    </div>
+  </div>
+<% end %>

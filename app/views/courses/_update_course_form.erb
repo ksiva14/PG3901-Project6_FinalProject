@@ -1,12 +1,15 @@
 <%= form_with(url: update_courses_path(id: course.id), method: 'put') do |form| %>
-  <div class="col">
-    <input name="course[course_name]" type="text" class="form-control form-control-lg" placeholder="Course Name">
-  </div>
-  <div class="col">
-    <%= form.text_field "course[course_num]", class:"form-control form-control-lg", placeholder:"Course Number" %>
-    <%# <input name="course[course_num]" type="text" class="form-control form-control-lg" placeholder="Course Number"> %>
-  </div>
-  <div class="actions col">
-    <%= form.submit "Update Course", class: "btn btn-primary btn-lg p-2 rounded" %>
+  <div class="row">
+    <div class="col">
+      <%# <input name="course[course_name]" type="text" class="form-control form-control-lg" placeholder="Course Name"> %>
+      <%= form.text_field :"course[course_name]", class:"form-control form-control", placeholder:"Course Name", value: course.course_name %>
+    </div>
+    <div class="col">
+      <%= form.text_field :"course[course_num]", class:"form-control form-control", placeholder:"Course Number", value: course.course_num %>
+      <%# <input name="course[course_num]" type="text" class="form-control form-control-lg" placeholder="Course Number"> %>
+    </div>
+    <div class="actions col">
+      <%= form.submit "Update Course", class: "btn btn-primary btn p-2 rounded" %>
+    </div>
   </div>
 <% end %>

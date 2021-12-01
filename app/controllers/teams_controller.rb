@@ -21,9 +21,6 @@ class TeamsController < ApplicationController
     @courses = Course.all
   end
 
-  # GET /teams/1/edit
-  def edit; end
-
   # POST /teams
   # POST /teams.json
   def create

@@ -1,6 +1,6 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: [:show, :edit, :update, :destroy]
-  $studentUsers = "";
+  before_action :set_student, only: %i[show edit update destroy]
+  $studentUsers = ''
   $courseID = 0
   # GET /students
   # GET /students.json
@@ -30,17 +30,15 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
-   
     @student = Student.new(student_params)
-    
+
     @users = User.all
     @student.user_id = $studentUsers[0].id
-    @student.team_id = -1;
-    
+    @student.team_id = -1
 
     respond_to do |format|
       if @student.save
-        redirectLink = "/students/" + @student.id.to_s + "/edit"
+        redirectLink = '/students/' + @student.id.to_s + '/edit'
         format.html { redirect_to redirectLink, notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
@@ -53,7 +51,6 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1
   # PATCH/PUT /students/1.json
   def update
-   
     respond_to do |format|
       if @student.update(student_params_edit)
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
@@ -68,8 +65,14 @@ class StudentsController < ApplicationController
   # DELETE /students/1
   # DELETE /students/1.json
   def destroy
-    redirectLink = helpers.course_link(Course.all.find(Team.all.find(@student.team_id).course_id).id)
-    @student.destroy
+    course_id = Team.all.find(@student.team_id).course_id
+    redirectLink = helpers.course_link(Course.all.find(course_id).id)
+
+    # remove all students of user from the course
+    Student.where(user_id: @student.user_id).each do |student|
+      student.destroy if student.team.course.id == course_id
+    end
+
     respond_to do |format|
       format.html { redirect_to redirectLink, notice: 'Student was successfully destroyed.' }
       format.json { head :no_content }
@@ -77,23 +80,23 @@ class StudentsController < ApplicationController
   end
 
   def search
-   
-    $studentUsers = User.where("email LIKE ?", params[:q])
+    $studentUsers = User.where('email LIKE ?', params[:q])
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_student
-      @student = Student.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def student_params
-      params.permit(:user_id, :team_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_student
+    @student = Student.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def student_params_edit
-      params.require(:student).permit(:user_id, :team_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def student_params
+    params.permit(:user_id, :team_id)
+  end
+
+  # Only allow a list of trusted parameters through.
+  def student_params_edit
+    params.require(:student).permit(:user_id, :team_id)
+  end
 end

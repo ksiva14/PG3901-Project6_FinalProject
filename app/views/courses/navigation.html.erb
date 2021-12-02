@@ -1,8 +1,9 @@
 <h1> <%= @course.course_name %> </h1>
-<h2> <%= @course.course_num %> </h2>
+<h2 class="mb-5"> <%= @course.course_num %> </h2>
 <%= render '/courses/navigation_partials/create_team_form' %>
 <%= render '/courses/navigation_partials/teams_table'%>
-<table class="table table-light table-striped table-bordered rounded mt-5">
+<%= render '/courses/navigation_partials/search_student'%>
+<table class="table table-light table-striped table-bordered rounded">
   <thead class="text-center">
     <tr>
       <th scope="col" class="col-2">Student Name</th>
@@ -20,8 +21,9 @@
           <td class="text-center"> <%= User.find(student.user_id).name  %></td>
           <td class="text-center"><%= User.find(student.user_id).email %></td>
           <td class="text-center">
+            <%# get unique users %>
             <% Student.all.where(user_id: student.user_id).each do |s| %>
-              <% if s.team.course.id == @course.id%>
+              <% if !s.team.nil? && s.team.course.id == @course.id %>
                 <%= link_to "#{s.team.team_name}", s.team %> | 
               <% end %>
             <% end %>
@@ -32,5 +34,4 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to 'New Student', new_course_student(@course.id) %>
 <%= link_to 'Back', courses_path %>

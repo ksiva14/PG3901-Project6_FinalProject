@@ -10,5 +10,4 @@
   <%= render '/courses/navigation_partials/select_student_team', student: Student.find(params[:student_id]) %>
 <% end %>
 <%= render '/courses/navigation_partials/students_table'%>
-<%= link_to 'New Student', new_course_student(@course.id) %>
 <%= link_to 'Back', courses_path %>

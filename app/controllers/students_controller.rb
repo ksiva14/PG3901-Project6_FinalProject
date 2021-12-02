@@ -31,20 +31,20 @@ class StudentsController < ApplicationController
   # POST /students.json
   def create
     @student = Student.new(student_params)
-
-    @users = User.all
-    @student.user_id = $studentUsers[0].id
-    @student.team_id = -1
-
-    respond_to do |format|
-      if @student.save
-        redirectLink = '/students/' + @student.id.to_s + '/edit'
-        format.html { redirect_to redirectLink, notice: 'Student was successfully created.' }
-        format.json { render :show, status: :created, location: @student }
-      else
-        format.html { render :new }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
-      end
+    # Student.all.where(user_id: @student.user_id, team_id: nil).destroy_all
+    # @users = User.all
+    # remove all instances of $studentUsers
+    $studentUsers = User.where('email LIKE ?', params[:q])
+    @student.user_id = $studentUsers[0].id unless $studentUsers[0].nil?
+    $courseID = params[:course_id]
+    if !@student.user_id.nil? && @student.save
+      # edit_student_path
+      redirect_link = "/students/#{@student.id}/edit?course_id=#{params[:course_id]}"
+      redirect_to redirect_link, notice: 'Student was successfully created.'
+      # redirect_to navigation_courses_path(id: params[:course_id], found: 'success'),
+      #             notice: 'User found. Please select a team.'
+    else
+      redirect_to navigation_courses_path(id: params[:course_id]), notice: 'No user with that email was found.'
     end
   end
 
@@ -53,7 +53,9 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update(student_params_edit)
-        format.html { redirect_to @student, notice: 'Student was successfully updated.' }
+        format.html do
+          redirect_to navigation_courses_path(id: params[:course_id]), notice: 'Student was successfully added.'
+        end
         format.json { render :show, status: :ok, location: @student }
       else
         format.html { render :edit }
@@ -77,9 +79,9 @@ class StudentsController < ApplicationController
     end
   end
 
-  def search
-    $studentUsers = User.where('email LIKE ?', params[:q])
-  end
+  # def search
+  #   $studentUsers = User.where('email LIKE ?', params[:q])
+  # end
 
   private
 

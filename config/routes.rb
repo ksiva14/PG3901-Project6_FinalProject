@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   resources :teams do
     put 'update', to: 'teams#update', as: 'update'
   end
-  resources :students
+  resources :students do
+    put 'edit', to: 'students#update'
+  end
   resources :projects
   resources :evaluations
   resources :users
@@ -36,8 +38,10 @@ Rails.application.routes.draw do
   get 'static_pages', to: 'static_pages#dashboard', as: :student_dashboard
   get 'static_pages', to: 'static_pages#view', as: :view_evaluations
   # ----------------------- admin ----------------------------
-  get '/:id/search', to: 'students#search'
+  get '/:id/search', to: 'students#search' # TODO: i think can delete
+  # adding student to course - search bar in navigation.html.erb
   post '/:id/search', to: 'students#create'
+
   get '/:id/students/22/edit', to: 'students#create'
   get '/courses/:id/course_navigation', to: 'courses#navigation'
   get '/courses/:id/course_navigation/new_team', to: 'teams#new'

@@ -1,4 +1,4 @@
-  <%= form_with(url: "/#{params[:id].to_s}/search", method:"get", class:"mt-5 mb-3") do |form| %>
+  <%= form_with(url: "/#{params[:id]}/search?course_id=#{@course.id}", method:"post", class:"mt-5 mb-3") do |form| %>
   <div class="row">
     <h2 class="col-3 text-end align-middle mb-0 inline" >Add Student: </h2>
     <div class="col-7">

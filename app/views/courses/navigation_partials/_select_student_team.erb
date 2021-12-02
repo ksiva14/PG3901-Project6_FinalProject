@@ -1,17 +1,17 @@
 <h1>Select Team</h1>
-<%= form_with(model: @student, class:"row") do |form| %>
-  <% if @student.errors.any? %>
+<%= form_with(model: student, class:"row") do |form| %>
+  <% if student.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
       <ul>
-        <% @student.errors.each do |error| %>
+        <% student.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
   <select class="form-select col-1" aria-label="Select a team" name="student[team_id]">
-    <option selected>Select a team for <%= User.find(@student.user_id).name %></option>
+    <option selected>Select a team for <%= User.find(student.user_id).name %></option>
     <% Team.all.where(course_id: params[:course_id]).each do |team| %>
       <option value=<%= team.id %>><%= team.team_name %></option>
     <% end %>

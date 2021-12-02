@@ -39,10 +39,10 @@ class StudentsController < ApplicationController
     $courseID = params[:course_id]
     if !@student.user_id.nil? && @student.save
       # edit_student_path
-      redirect_link = "/students/#{@student.id}/edit?course_id=#{params[:course_id]}"
-      redirect_to redirect_link, notice: 'Student was successfully created.'
-      # redirect_to navigation_courses_path(id: params[:course_id], found: 'success'),
-      #             notice: 'User found. Please select a team.'
+      # redirect_link = "/students/#{@student.id}/edit?course_id=#{params[:course_id]}"
+      # redirect_to redirect_link, notice: 'Student was successfully created.'
+      redirect_to navigation_courses_path(id: params[:course_id], found: 'success', student_id: @student.id,
+                                          course_id: params[:course_id]), notice: 'User found. Please select a team.'
     else
       redirect_to navigation_courses_path(id: params[:course_id]), notice: 'No user with that email was found.'
     end
@@ -54,7 +54,7 @@ class StudentsController < ApplicationController
     respond_to do |format|
       if @student.update(student_params_edit)
         format.html do
-          redirect_to navigation_courses_path(id: params[:course_id]), notice: 'Student was successfully added.'
+          redirect_to navigation_courses_path(id: @student.team.course.id), notice: 'Student was successfully added.'
         end
         format.json { render :show, status: :ok, location: @student }
       else

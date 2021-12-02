@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     delete 'index', to: 'courses#destroy', as: 'delete'
     get 'navigation'
     # put 'navigation', to: 'teams#update', as: 'update_team'
+    patch 'navigation', to: 'students#update', as: 'update_student'
     post 'navigation', to: 'teams#create', as: 'create_team'
   end
   resources :teams do

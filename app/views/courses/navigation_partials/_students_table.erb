@@ -1,0 +1,31 @@
+<table class="table table-light table-striped table-bordered rounded">
+  <thead class="text-center">
+    <tr>
+      <th scope="col" class="col-2">Student Name</th>
+      <th scope="col" class="col-2">Email</th>
+      <th scope="col" class="col-2">Teams</th>
+      <th scope="col" class="col-2">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%# check if there are any students for the course%>
+    <% if @students.present? %>
+      <%# get unique users added to the course %>
+      <% @students.uniq(&:user_id).each do |student| %>
+        <tr>
+          <td class="text-center"> <%= User.find(student.user_id).name  %></td>
+          <td class="text-center"><%= User.find(student.user_id).email %></td>
+          <td class="text-center">
+            <%# get unique users %>
+            <% Student.all.where(user_id: student.user_id).each do |s| %>
+              <% if !s.team.nil? && s.team.course.id == @course.id %>
+                <%= link_to "#{s.team.team_name}", s.team %> | 
+              <% end %>
+            <% end %>
+          </td>
+          <td class="text-center"><%= link_to 'Remove Student', remove_student_path(from: "course", id: student.id), method: :delete, data: { confirm: 'Are you sure you want to remove this student from the course?' } %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

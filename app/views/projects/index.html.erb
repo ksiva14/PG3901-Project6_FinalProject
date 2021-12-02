@@ -53,13 +53,4 @@
   </tbody>
 </table>
 <br />
-<% @projects.each do |project| %>
-  <tr>
-    <td><%= project.project_name %></td>
-    <td><%= Course.find(project.course_id).course_name %></td>
-    <td><%= link_to 'Show', project %></td>
-    <td><%= link_to 'Edit', edit_project_path(project) %></td>
-    <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-<%= link_to 'View Courses', "/courses" %>
+<%= link_to 'Back', courses_path %>

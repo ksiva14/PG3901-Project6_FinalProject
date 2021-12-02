@@ -4,7 +4,8 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    # get all projects for a particular course
+    @projects = Project.all.where(course_id: params[:course_id])
   end
 
   # POST /projects
@@ -14,7 +15,9 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to projects_url, notice: 'Project was successfully created.' }
+        format.html do
+          redirect_to projects_url(course_id: @project.course_id), notice: 'Project was successfully created.'
+        end
         # format.json { render :show, status: :created, location: @project }
       end
     end

@@ -6,8 +6,6 @@ Rails.application.routes.draw do
     put 'index', to: 'courses#update', as: 'update'
     delete 'index', to: 'courses#destroy', as: 'delete'
     get 'navigation'
-    # put 'navigation', to: 'teams#update', as: 'update_team'
-    patch 'navigation', to: 'students#update', as: 'update_student'
     post 'navigation', to: 'teams#create', as: 'create_team'
   end
   resources :teams do
@@ -39,8 +37,6 @@ Rails.application.routes.draw do
   get 'static_pages', to: 'static_pages#dashboard', as: :student_dashboard
   get 'static_pages', to: 'static_pages#view', as: :view_evaluations
   # ----------------------- admin ----------------------------
-  get '/:id/search', to: 'students#search' # TODO: i think can delete
-  # adding student to course - search bar in navigation.html.erb
   post '/:id/search', to: 'students#create'
 
   get '/:id/students/22/edit', to: 'students#create'

@@ -5,6 +5,7 @@
 <%= render '/courses/navigation_partials/teams_table'%>
 <%#----------------------------- Students Table -----------------------------%>
 <%= render '/courses/navigation_partials/search_student'%>
+<%# show the select team only if email is found %>
 <% if !params[:found].nil? && params[:found] = "success" %>
   <%= render '/courses/navigation_partials/select_student_team', student: Student.find(params[:student_id]) %>
 <% end %>

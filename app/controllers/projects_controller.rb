@@ -52,6 +52,15 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def remove_team
+    # delete all evaluations related to this team in the project
+    Evaluation.where(project_id: params[:project_id], team_id: params[:team]).destroy_all
+    # remove team from project
+    ProjectTeam.find_by(project_id: params[:project_id], team_id: params[:team]).destroy
+
+    redirect_to projects_url(course_id: params[:course_id])
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

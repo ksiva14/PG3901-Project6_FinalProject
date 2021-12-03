@@ -18,7 +18,7 @@
         <td><%= project.project_name %></td>
         <td><%= Course.find(project.course_id).course_name %></td>
         <td>
-          <%= link_to 'Add Team', "\#addTeam#{counter}", "data-bs-toggle":"collapse"%>
+          <%= link_to 'Add/Remove Team', "\#addTeam#{counter}", "data-bs-toggle":"collapse"%>
         </td>
         <td>
           <%= link_to 'Show Evaluations', "\#showEval#{counter}", "data-bs-toggle":"collapse"%>
@@ -31,6 +31,10 @@
           <div class="collapse" id=<%= "addTeam#{counter}" %>>
             <div class="card card-body">
               <%= render 'projects/add_team', project: project %>
+              <%# show teams currently in this project if there is any%>
+              <% if ProjectTeam.where(project_id: project.id).present? %>
+                <%= render '/projects/show_teams_table', project: project, course_id: project.course_id %>
+              <% end %>
             </div>
           </div>
           <%# Show Evaluations of student %>

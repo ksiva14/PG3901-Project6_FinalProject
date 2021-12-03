@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 2021_11_28_210240) do
   create_table "courses", force: :cascade do |t|
     t.integer "course_num"
     t.string "course_name"
-    t.string "dept_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -28,6 +27,7 @@ ActiveRecord::Schema.define(version: 2021_11_28_210240) do
     t.integer "score"
     t.string "comment"
     t.boolean "is_assigned"
+    t.boolean "can_view"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_evaluations_on_project_id"

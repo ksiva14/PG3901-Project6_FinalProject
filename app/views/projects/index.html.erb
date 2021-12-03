@@ -44,9 +44,9 @@
                   <th>Comment</th>
                   <th>By Student</th>
                 </tr>
-                <% project.teams.each do |team| %>
+                <% project.project_teams.each do |project_team| %>
                   <%# this team is assigned the project %>
-                  <%= render 'evaluations-for-a-team', team: team, project: project %>
+                  <%= render 'evaluations-for-a-team', team: Team.find(project_team.team_id), project: project %>
                 <% end %>
               </table>
             </div>

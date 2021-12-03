@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
     # get all projects for a particular course
     @projects = Project.all.where(course_id: params[:course_id])
     # create evaluations if not already created
-    # helpers.create_evaluations_for_project(params[:course_id])
+    helpers.create_evaluations_for_all_project_teams(params[:course_id])
   end
 
   # POST /projects
@@ -31,7 +31,7 @@ class ProjectsController < ApplicationController
       if @project_team.save
         project = Project.find(@project_team.project_id)
         # create evaluations for the team for this project
-        # helpers.create_evaluations_for_project(@project)
+        helpers.create_evaluations_for_project(@project_team)
         format.html do
           redirect_to projects_url(course_id: project.course_id), notice: 'Team was successfully added to project.'
         end

@@ -17,9 +17,15 @@
           <td class="text-center"><%= User.find(student.user_id).email %></td>
           <td class="text-center">
             <%# get unique users %>
+            <% i = 0 %>
             <% Student.all.where(user_id: student.user_id).each do |s| %>
               <% if !s.team.nil? && s.team.course.id == @course.id %>
-                <%= link_to "#{s.team.team_name}", s.team %> | 
+                <% if i != 0 %>
+                  |
+                <% end %>
+                <%= link_to "#{s.team.team_name}", s.team %> 
+                <% i = i + 1 %>
+              
               <% end %>
             <% end %>
           </td>

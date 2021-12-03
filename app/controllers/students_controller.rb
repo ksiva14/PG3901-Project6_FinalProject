@@ -29,8 +29,15 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1
   # PATCH/PUT /students/1.json
   def update
-    if @student.update(student_params_edit)
-      redirect_to navigation_courses_path(id: @student.team.course.id), notice: 'Student was successfully added.'
+    if @student.update(student_params_edit) 
+      stuList = @student.team.students.select{ |student| User.all.find(student.user_id).email == User.all.find(@student.user_id).email}
+      if stuList.length > 1
+          Team.all.find(@student.team_id).students[0].destroy
+          courseNum = Team.all.find(@student.team_id).course_id.to_s
+          redirect_to "/courses/navigation?id=" + courseNum , notice: 'User already exists in team.'
+      else
+        redirect_to navigation_courses_path(id: @student.team.course.id), notice: 'Student was successfully added.'
+      end 
     end
   end
 

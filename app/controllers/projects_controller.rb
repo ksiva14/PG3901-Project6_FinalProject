@@ -15,10 +15,22 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
+        # create blank evaluations for each student in the course.
+        Course.find(@project.course_id).teams.each do |team|
+          Student.where(team_id: team.id).each do |by_student|
+            Student.where(team_id: team.id).where.not(id: by_student.id).each do |for_student|
+              # do not create the evaluation if it is already created
+              next unless Evaluation.all.find_by(project_id: @project.id, team_id: team.id, for_student: for_student.id,
+                                                 by_student: by_student.id).nil?
+
+              Evaluation.create project_id: @project.id, team_id: team.id, for_student: for_student.id,
+                                by_student: by_student.id, score: nil, comment: nil, is_assigned: true
+            end
+          end
+        end
         format.html do
           redirect_to projects_url(course_id: @project.course_id), notice: 'Project was successfully created.'
         end
-        # format.json { render :show, status: :created, location: @project }
       end
     end
   end

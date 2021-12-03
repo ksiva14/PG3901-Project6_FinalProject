@@ -7,25 +7,33 @@
     <tr>
       <th scope="col" class="col-2">Project Name</th>
       <th scope="col" class="col-2">Course</th>
-      <th scope="col" class="col-2">Show Student Evaluations</th>
-      <th scope="col" class="col-2">Action</th>
+      <th scope="col" class="col-4" colspan="3">Actions</th>
     </tr>
   </thead>
   <tbody>
-    <td colspan="4"><%# for aesthetic purposes %></td>
+    <td colspan="5"><%# for aesthetic purposes %></td>
     <% counter = 1 %>
     <% @projects.each do |project| %>
       <tr>
         <td><%= project.project_name %></td>
         <td><%= Course.find(project.course_id).course_name %></td>
         <td>
+          <%= link_to 'Add Team', "\#addTeam#{counter}", "data-bs-toggle":"collapse"%>
+        </td>
+        <td>
           <%= link_to 'Show Evaluations', "\#showEval#{counter}", "data-bs-toggle":"collapse"%>
         </td>
         <td><%= link_to 'Delete Project', project, method: :delete, data: { confirm: 'Are you sure you want to delete this project and its related data?' } %></td>
       </tr>
-      <%# Show Evaluations of student %>
       <tr >
-        <td colspan="4">
+        <td colspan="5">
+          <%# add team to project %>
+          <div class="collapse" id=<%= "addTeam#{counter}" %>>
+            <div class="card card-body">
+              <%= render 'projects/add_team', project: project %>
+            </div>
+          </div>
+          <%# Show Evaluations of student %>
           <div class="collapse" id=<%= "showEval#{counter}" %>>
             <div class="card card-body">
               <table class="table table-light table-striped table-bordered rounded text-center">

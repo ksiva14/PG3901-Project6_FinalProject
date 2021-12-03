@@ -14,7 +14,13 @@ Rails.application.routes.draw do
   resources :students do
     put 'edit', to: 'students#update'
   end
-  resources :projects
+  resources :projects do
+    get 'add-team', to: 'projects#create_project_team'
+    post 'add-team', to: 'projects#create_project_team', as: 'create_team'
+    delete 'remove-student', to: 'projects#remove_team', as: 'remove_team'
+    get 'update-project', to: 'projects#update'
+    patch 'update-project', to: 'projects#update', as: 'update'
+  end
   resources :evaluations
   resources :users
 

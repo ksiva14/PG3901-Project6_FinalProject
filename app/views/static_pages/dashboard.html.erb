@@ -2,7 +2,7 @@
 <table class="table table-light table-striped table-bordered rounded text-center">
   <thead>
     <tr>
-      <th scope="col" class="col-1">Activity</th>
+      <th scope="col" class="col-1">Project</th>
       <th scope="col" class="col-1">Action</th>
       <th scope="col" class="col-1">Class</th>
       <th scope="col" class="col-1">Team</th>
@@ -16,7 +16,7 @@
             <td><%= project.project_name %></td>
             <%= link_to 'View Evaluation', view_evaluations_path(project_id: project.id, student_id: student.id) %>
             <%# TODO: check if this works after linking the other pages %>
-            <% if evaluations_assigned?(student.team.evaluations) && !evaluations_all_filled?(student.team.evaluations)%>
+            <% if evaluations_assigned?(student.team.evaluations) %>
               <td><%= link_to 'Start Evaluation', evaluations_path(project_id: project.id, student_id: student.id) %></td>
             <% elsif evaluations_all_filled?(student.team.evaluations) %>
               <%= link_to 'View Evaluation', view_evaluations_path(project_id: project.id, student_id: student.id) %>

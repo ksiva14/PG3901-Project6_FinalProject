@@ -18,7 +18,8 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         format.html do
-          redirect_to projects_url(course_id: @project.course_id), notice: 'Project was successfully created.'
+          redirect_to projects_url(course_id: @project.course_id),
+                      notice: "#{@project.project_name} was successfully created."
         end
       end
     end
@@ -30,10 +31,23 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project_team.save
         project = Project.find(@project_team.project_id)
+        team = Team.find(@project_team.team_id)
         # create evaluations for the team for this project
         helpers.create_evaluations_for_project(@project_team)
         format.html do
-          redirect_to projects_url(course_id: project.course_id), notice: 'Team was successfully added to project.'
+          redirect_to projects_url(course_id: project.course_id),
+                      notice: "#{team.team_name} was successfully added to #{project.project_name}."
+        end
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @project.update(project_params)
+        format.html do
+          redirect_to projects_url(course_id: @project.course_id),
+                      notice: "#{@project.project_name} was successfully updated."
         end
       end
     end

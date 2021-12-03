@@ -6,27 +6,30 @@
   <thead>
     <tr>
       <th scope="col" class="col-2">Project Name</th>
-      <th scope="col" class="col-2">Course</th>
-      <th scope="col" class="col-4" colspan="3">Actions</th>
+      <th scope="col" class="col-1">Course</th>
+      <th scope="col" class="col-5" colspan="4">Actions</th>
     </tr>
   </thead>
   <tbody>
-    <td colspan="5"><%# for aesthetic purposes %></td>
+    <td colspan="6"><%# for aesthetic purposes %></td>
     <% counter = 1 %>
     <% @projects.each do |project| %>
       <tr>
         <td><%= project.project_name %></td>
         <td><%= Course.find(project.course_id).course_name %></td>
-        <td>
-          <%= link_to 'Add/Remove Team', "\#addTeam#{counter}", "data-bs-toggle":"collapse"%>
-        </td>
-        <td>
-          <%= link_to 'Show Evaluations', "\#showEval#{counter}", "data-bs-toggle":"collapse"%>
-        </td>
+        <td><%= link_to 'Edit Project', "\#editProject#{counter}", "data-bs-toggle":"collapse"%></td>
+        <td><%= link_to 'Add/Remove Team', "\#addTeam#{counter}", "data-bs-toggle":"collapse"%></td>
+        <td><%= link_to 'Show Evaluations', "\#showEval#{counter}", "data-bs-toggle":"collapse"%></td>
         <td><%= link_to 'Delete Project', project, method: :delete, data: { confirm: 'Are you sure you want to delete this project and its related data?' } %></td>
       </tr>
       <tr >
-        <td colspan="5">
+        <td colspan="6">
+          <%# edit project %>
+          <div class="collapse" id=<%= "editProject#{counter}" %>>
+            <div class="card card-body">
+              <%= render '/projects/update_project_form', project: project %>
+            </div>
+          </div>
           <%# add team to project %>
           <div class="collapse" id=<%= "addTeam#{counter}" %>>
             <div class="card card-body">

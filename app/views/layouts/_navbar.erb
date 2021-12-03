@@ -2,7 +2,9 @@
   <div class="container-fluid">
      
       <% if session[:user_id] %> 
-      <span class="navbar-brand">Hello, <%= User.find_by(id: session[:user_id]).name %>!</span>
+        <%if User.all.length > 0 %> 
+          <span class="navbar-brand">Hello, <%= User.find_by(id: session[:user_id]).name %>!</span>
+        <% end %>
        
         <button
               class="navbar-toggler"

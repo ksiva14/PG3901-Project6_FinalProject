@@ -39,6 +39,8 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1.json
   def destroy
     course_id = @project.course_id
+    # deletes all evaluations for this project
+    Evaluation.where(project_id: @project.id).destroy_all
     @project.destroy
     respond_to do |format|
       format.html { redirect_to projects_url(course_id: course_id), notice: 'Project was successfully destroyed.' }

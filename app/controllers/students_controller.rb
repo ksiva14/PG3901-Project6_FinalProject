@@ -40,12 +40,18 @@ class StudentsController < ApplicationController
     # remove all students of user from the course/team
     case params[:from]
     when 'course'
-      course_id = Team.all.find(@student.team_id).course_id
+      course_id = Team.find(@student.team_id).course_id
       helpers.remove_from_course @student.user_id, course_id
       redirect_to navigation_courses_path(id: course_id), notice: 'Student was successfully removed.'
     when 'team'
+      team_name = Team.find(@student.team_id).team_name
+      student_name = User.find(@student.user_id).name
+      # delete all evaluation by this student
+      Evaluation.where(by_student: @student.id).destroy_all
+      # delete all evaluation for this student
+      Evaluation.where(for_student: @student.id).destroy_all
       @student.destroy
-      redirect_to team_path(@student.team_id), notice: 'Student was successfully removed.'
+      redirect_to team_path(@student.team_id), notice: "#{student_name} was successfully removed #{team_name}."
     end
   end
 

@@ -36,7 +36,7 @@ class ProjectsController < ApplicationController
         helpers.create_evaluations_for_project(@project_team)
         format.html do
           redirect_to projects_url(course_id: project.course_id),
-                      notice: "#{team.team_name} was successfully added to #{project.project_name}."
+                      notice: "Team #{team.team_name} was successfully added to #{project.project_name}."
         end
       end
     end

@@ -19,4 +19,9 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Back', course_link(@team.course_id) %>
+<% backLink = course_link(@team.course_id) %>
+<form action=<%="/courses/" + Team.all.find(params[:id]).course.id.to_s + "/course_navigation"%> class="col-1">
+    <input class="btn btn-primary btn p-2 rounded" type="submit" value="&#8592 Back" />
+</form>
+
+

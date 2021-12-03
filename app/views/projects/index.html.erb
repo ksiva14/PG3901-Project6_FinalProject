@@ -65,4 +65,6 @@
   </tbody>
 </table>
 <br />
-<%= link_to 'Back', courses_path %>
+<form action=<%="/courses/" + params[:course_id].to_s + "/course_navigation"%> class="col-1">
+    <input class="btn btn-primary btn p-2 rounded" type="submit" value="&#8592 Back" />
+</form>

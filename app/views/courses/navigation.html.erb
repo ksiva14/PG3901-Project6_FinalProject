@@ -10,4 +10,6 @@
   <%= render '/courses/navigation_partials/select_student_team', student: Student.find(params[:student_id]) %>
 <% end %>
 <%= render '/courses/navigation_partials/students_table'%>
-<%= link_to 'Back', courses_path %>
+<form action=<%=courses_path%> class="col-1">
+    <input class="btn btn-primary btn p-2 rounded" type="submit" value="&#8592 Back" />
+</form>

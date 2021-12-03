@@ -26,9 +26,11 @@
               <li class="nav-item">
                 <a class="nav-link" href="/courses/index">Courses</a>
               </li>
-              <li class="nav-item">
-              <a class="nav-link" href="/projects">Projects</a>
-              </li>
+              <% if params[:id]%>
+                <li class="nav-item">
+                  <a class="nav-link" href=<%="/projects?course_id=" + params[:id].to_s%>>Projects</a>
+                </li>
+              <% end %>
             <% else %> 
               <%# TODO: insert links for students %>
             <% end %>

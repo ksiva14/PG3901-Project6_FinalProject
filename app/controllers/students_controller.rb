@@ -14,12 +14,19 @@ class StudentsController < ApplicationController
     @student = Student.new(student_params)
     # find user using their email
     student_users = User.where('email LIKE ?', params[:q])
+    # find user by name if couldnt find their email
+    student_users = User.where('name LIKE ?', params[:q]) if student_users.nil?
+    # update user_id
     @student.user_id = student_users[0].id unless student_users[0].nil?
     if !@student.user_id.nil? && @student.save
+      flash[:success] = "#{@student.user.name} found. Please select a team for #{@student.user.name}."
       redirect_to navigation_courses_path(id: params[:course_id], found: 'success', student_id: @student.id,
-                                          course_id: params[:course_id]), notice: 'User found. Please select a team.'
+                                          course_id: params[:course_id])
     else
-      redirect_to navigation_courses_path(id: params[:course_id]), notice: 'No user with that email was found.'
+      flash[:danger] =
+        "Unable to find any user with an email of \"#{params[:q]}\" or with the name of \"#{params[:q]}\".
+        Please enter their full email or full name"
+      redirect_to navigation_courses_path(id: params[:course_id])
     end
   end
 

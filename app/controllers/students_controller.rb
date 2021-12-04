@@ -16,8 +16,6 @@ class StudentsController < ApplicationController
     # find user using their email
     student_users = User.where('email LIKE ?', params[:q])
     @student.user_id = student_users[0].id unless student_users[0].nil?
-    # remove all student without a team
-    Student.all.where(user_id: @student.user_id, team_id: nil).destroy_all
     if !@student.user_id.nil? && @student.save
       redirect_to navigation_courses_path(id: params[:course_id], found: 'success', student_id: @student.id,
                                           course_id: params[:course_id]), notice: 'User found. Please select a team.'
@@ -29,15 +27,17 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1
   # PATCH/PUT /students/1.json
   def update
-    if @student.update(student_params_edit) 
-      stuList = @student.team.students.select{ |student| User.all.find(student.user_id).email == User.all.find(@student.user_id).email}
+    if @student.update(student_params_edit)
+      stuList = @student.team.students.select do |student|
+        User.all.find(student.user_id).email == User.all.find(@student.user_id).email
+      end
       if stuList.length > 1
-          Team.all.find(@student.team_id).students[0].destroy
-          courseNum = Team.all.find(@student.team_id).course_id.to_s
-          redirect_to "/courses/navigation?id=" + courseNum , notice: 'User already exists in team.'
+        Team.all.find(@student.team_id).students[0].destroy
+        courseNum = Team.all.find(@student.team_id).course_id.to_s
+        redirect_to '/courses/navigation?id=' + courseNum, notice: 'User already exists in team.'
       else
         redirect_to navigation_courses_path(id: @student.team.course.id), notice: 'Student was successfully added.'
-      end 
+      end
     end
   end
 

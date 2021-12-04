@@ -31,7 +31,7 @@ class StudentsController < ApplicationController
         User.all.find(student.user_id).email == User.all.find(@student.user_id).email
       end
       if stuList.length > 1
-        Team.all.find(@student.team_id).students[0].destroy
+        Team.all.find(@student.team_id).students.find(@student.id).destroy
         courseNum = Team.all.find(@student.team_id).course_id.to_s
         redirect_to '/courses/navigation?id=' + courseNum, notice: 'User already exists in team.'
       else

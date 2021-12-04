@@ -15,7 +15,7 @@ class StudentsController < ApplicationController
     # find user using their email
     student_users = User.where('email LIKE ?', params[:q])
     # find user by name if couldnt find their email
-    student_users = User.where('name LIKE ?', params[:q]) if student_users.nil?
+    student_users = User.where('name LIKE ?', params[:q]) if student_users.empty?
     # update user_id
     @student.user_id = student_users[0].id unless student_users[0].nil?
     if !@student.user_id.nil? && @student.save

@@ -4,9 +4,8 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.all
-    @teams = Team.all
-    @users = User.all
+    # all students of current user
+    @students = Student.where(user_id: current_user.id)
   end
 
   # POST /students

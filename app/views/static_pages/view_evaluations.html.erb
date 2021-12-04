@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @student.team.evaluations.each do |evaluation|%>
+    <% Evaluation.where(for_student: @for_student.id, project_id: @project.id).each do |evaluation|%>
       <tr>
         <td><%= evaluation.score %></td>
         <td><%= evaluation.comment %></td>

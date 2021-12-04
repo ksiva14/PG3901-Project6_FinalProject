@@ -21,7 +21,8 @@ Rails.application.routes.draw do
     get 'update-project', to: 'projects#update'
     patch 'update-project', to: 'projects#update', as: 'update'
   end
-  resources :evaluations
+  resources :evaluations do
+  end
   resources :users
 
   root 'sessions#new'
@@ -41,7 +42,7 @@ Rails.application.routes.draw do
   post '/signupprofessors', to: 'users#createProfessor'
   # ----------------------- evaluation ----------------------------
   get 'static_pages', to: 'static_pages#dashboard', as: :student_dashboard
-  get 'static_pages', to: 'static_pages#view', as: :view_evaluations
+  get 'static_pages/view_evaluations', to: 'static_pages#view_evaluations', as: :view_evaluations
   # ----------------------- admin ----------------------------
   post '/:id/search', to: 'students#create'
 

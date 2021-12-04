@@ -1,5 +1,4 @@
-<p id="notice"><%= notice %></p>
-<h1 class="text-center m-5">Evaluations for <%= Project.find(@project_id).project_name %></h1>
+<h1 class="text-center m-5">Evaluations for <%= @project.project_name %></h1>
 <table class="table table-light table-striped table-bordered rounded">
   <thead class="text-center">
     <tr>
@@ -11,11 +10,11 @@
   </thead>
   <tbody>
     <% @teammates.each do |student|%>
-      <% evaluation = Student.find(student.id).evaluations.find_by(project_id: @project_id, for_student: student.id) %>
+      <% evaluation = Student.find(student.id).evaluations.find_by(project_id: @project.id, for_student: student.id, by_student: @by_student.id) %>
       <tr>
         <td><%= student.user.name %></td>
         <% if evaluation.score.nil? %>
-          <td class="text-center"><%= link_to 'Start Evaluation', new_evaluation_path(student_id: student.id, project_id: evaluation.project_id) %></td>
+          <td class="text-center"><%= link_to 'Start Evaluation', new_evaluation_path(for_student: student.id, by_student: @by_student.id, project_id: evaluation.project_id) %></td>
         <% else %>
           <td class="text-center"><%= link_to 'Start Evaluation', "#", class:"visually-hidden" %></td>
         <% end %>

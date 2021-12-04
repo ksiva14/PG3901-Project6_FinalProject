@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     delete 'remove-student', to: 'projects#remove_team', as: 'remove_team'
     get 'update-project', to: 'projects#update'
     patch 'update-project', to: 'projects#update', as: 'update'
+    get 'change_average', to: 'projects#set_avg_score'
+    patch 'change_average', to: 'projects#set_avg_score', as: 'update_avg'
   end
   resources :evaluations do
   end

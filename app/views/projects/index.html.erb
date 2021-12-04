@@ -49,11 +49,12 @@
             <div class="card card-body">
               <table class="table table-light table-striped table-bordered rounded text-center">
                 <tr>
-                  <th>Team</th>
-                  <th>For Student</th>
-                  <th>Score</th>
-                  <th>Comment</th>
-                  <th>By Student</th>
+                  <th class="col-2">Team</th>
+                  <th class="col-4">For Student</th>
+                  <th class="col-1">Avg. Score</th>
+                  <th class="col-1">Score</th>
+                  <th class="col-2">Comment</th>
+                  <th class="col-2">By Student</th>
                 </tr>
                 <% project.project_teams.each do |project_team| %>
                   <%# this team is assigned the project %>

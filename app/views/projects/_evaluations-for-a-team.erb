@@ -8,13 +8,29 @@
   <% team.students.each do |student| %>
     <tr>
       <td rowspan=<%= num_student_in_team %> class="align-middle">Evaluations for <%= student.user.name %></td>
-      <% team.evaluations.where(project_id: project.id).each do |evaluation| %>
+      <td rowspan=<%= num_student_in_team %> class="align-middle">
+        <% prof_eval = Evaluation.where.not(score: nil).find_by(project_id: project.id, team_id: team.id, for_student: student.id, by_professor: true)%>
+        <%# display current avg. score %>
+        <%= prof_eval.score unless prof_eval.nil?%>
+        <%# form to change avg. score %>
+        <%= render 'projects/avg_score', prof_eval: prof_eval, project: project, team: team, student: student%>
+      </td>
+      <% team.evaluations.where(project_id: project.id).where.not(by_student: nil).each do |evaluation| %>
         <% if evaluation.for_student == student.id %>
-          <tr>
-            <td><%= evaluation.score %></td>
-            <td><%= evaluation.comment %></td>
-            <td>By <%= Student.find(evaluation.by_student).user.name %></td>
-          </tr>
+          <% if !evaluation.score.to_i.zero? && evaluation.score.to_i < 5 %>
+            <%# score lesser than 5 %>
+            <tr class="fw-bold fst-italic">
+              <td class="text-danger"><%= evaluation.score %></td>
+              <td class="text-danger"><%= evaluation.comment %></td>
+              <td class="text-danger">By <%= Student.find(evaluation.by_student).user.name %></td>
+            </tr>
+          <% else %>
+            <tr >
+              <td><%= evaluation.score %></td>
+              <td><%= evaluation.comment %></td>
+              <td>By <%= Student.find(evaluation.by_student).user.name %></td>
+            </tr>
+          <% end %>
         <% end %>
       <% end %>
     </tr>

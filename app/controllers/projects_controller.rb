@@ -25,6 +25,22 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def set_avg_score
+    @evaluation = Evaluation.find_by(project_id: params[:project_id], team_id: params[:team_id],
+                                     by_professor: true, for_student: params[:for_student])
+
+    user = Student.find(params[:for_student]).user
+    if params[:score].to_i <= 0
+      flash[:danger] = "Average score for #{user.name} cannot be 0 or less."
+    elsif params[:score].to_i > 10
+      flash[:danger] = "Average score for #{user.name} cannot more than 10."
+    else
+      @evaluation.update(params.permit(:score))
+      flash[:success] = "Average score for #{user.name} has been changed to #{params[:score]}."
+    end
+    redirect_to projects_url(course_id: params[:course_id], score: params[:evaluation_eval_score])
+  end
+
   def create_project_team
     @project_team = ProjectTeam.new(project_team_params)
     project = Project.find(@project_team.project_id)
@@ -39,9 +55,6 @@ class ProjectsController < ApplicationController
     else
       respond_to do |format|
         if @project_team.save
-          # project = Project.find(@project_team.project_id)
-          # team = Team.find(@project_team.team_id)
-
           # create evaluations for the team for this project
           helpers.create_evaluations_for_project(@project_team)
           format.html do

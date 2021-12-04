@@ -32,11 +32,21 @@ class ProjectsController < ApplicationController
       if @project_team.save
         project = Project.find(@project_team.project_id)
         team = Team.find(@project_team.team_id)
-        # create evaluations for the team for this project
-        helpers.create_evaluations_for_project(@project_team)
-        format.html do
-          redirect_to projects_url(course_id: project.course_id),
-                      notice: "Team #{team.team_name} was successfully added to #{project.project_name}."
+
+        if ProjectTeam.find_by(project_id: project.id, team_id: team.id).present?
+          @project_team.destroy
+          format.html do
+            redirect_to projects_url(course_id: project.course_id),
+                        notice: "Unable to add team.
+                        Team #{team.team_name} has already been added to #{project.project_name}."
+          end
+        else
+          # create evaluations for the team for this project
+          helpers.create_evaluations_for_project(@project_team)
+          format.html do
+            redirect_to projects_url(course_id: project.course_id),
+                        notice: "Team #{team.team_name} was successfully added to #{project.project_name}."
+          end
         end
       end
     end

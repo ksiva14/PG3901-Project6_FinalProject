@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2021_12_03_030609) do
     t.integer "team_id"
     t.integer "for_student"
     t.integer "by_student"
+    t.boolean "by_professor"
     t.integer "score"
     t.string "comment"
     t.boolean "is_assigned"

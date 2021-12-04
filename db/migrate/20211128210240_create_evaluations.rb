@@ -5,6 +5,7 @@ class CreateEvaluations < ActiveRecord::Migration[6.1]
       t.references :team, index: true
       t.integer :for_student
       t.integer :by_student
+      t.boolean :by_professor
       t.integer :score
       t.string :comment
       t.boolean :is_assigned

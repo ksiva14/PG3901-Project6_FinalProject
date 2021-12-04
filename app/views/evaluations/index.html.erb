@@ -24,12 +24,3 @@
     <% end %>
   </tbody>
 </table>
-<%# TODO: can delete %>
-<% Evaluation.all.each do |evaluation| %>
-  <tr>
-    <td><%= evaluation.project_id %></td>
-    <td><%= evaluation.score %></td>
-    <td><%= evaluation.comment %></td>
-    <td><%= link_to 'Destroy', evaluation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>

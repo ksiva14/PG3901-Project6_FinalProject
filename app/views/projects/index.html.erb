@@ -33,7 +33,11 @@
           <%# add team to project %>
           <div class="collapse" id=<%= "addTeam#{counter}" %>>
             <div class="card card-body">
-              <%= render 'projects/add_team', project: project %>
+              <% if Course.find(project.course_id).teams.present? %>
+                <%= render 'projects/add_team', project: project %>
+              <% else %>
+                <%= link_to "Create a team first", navigation_courses_path(id: project.course_id)%>
+              <% end %>
               <%# show teams currently in this project if there is any%>
               <% if ProjectTeam.where(project_id: project.id).present? %>
                 <%= render '/projects/show_teams_table', project: project, course_id: project.course_id %>
@@ -66,5 +70,5 @@
 </table>
 <br />
 <form action=<%="/courses/" + params[:course_id].to_s + "/course_navigation"%> class="col-1">
-    <input class="btn btn-primary btn p-2 rounded" type="submit" value="&#8592 Back" />
+  <input class="btn btn-primary btn p-2 rounded" type="submit" value="&#8592 Back" />
 </form>

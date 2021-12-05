@@ -20,8 +20,19 @@
   </tbody>
 </table>
 <% backLink = course_link(@team.course_id) %>
-<form action=<%="/courses/" + Team.all.find(params[:id]).course.id.to_s + "/course_navigation"%> class="col-1">
-    <input class="btn btn-primary btn p-2 rounded" type="submit" value="&#8592 Back" />
+
+<%# This Gives error, navbar_project_link is helper in application helpers. This is also same as link on navbar, which currently works %>
+<form action=<%= navbar_project_link%> class="col-1">
+    <input class="btn btn-primary btn p-2 rounded" type="submit" value="&#8592 Back"/>
 </form>
+
+<%# For some reason this works? %>
+<a href = <%= navbar_project_link %>> Back </a>
+
+
+
+
+
+
 
 

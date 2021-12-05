@@ -5,7 +5,7 @@ class ProfessorTest < ActiveSupport::TestCase
     professor = Professor.new(user_id: 5, course_id: 1)
     assert professor.valid?
   end
-  #check if things are being assigned and can be accessed.
+  # check if things are being assigned and can be accessed.
   test 'check name' do
     professor = Professor.new(user_id: 5, course_id: 1)
     assert_equal(5, professor.user_id)

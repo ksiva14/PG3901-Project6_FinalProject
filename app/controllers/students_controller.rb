@@ -44,6 +44,7 @@ class StudentsController < ApplicationController
         course_num = Team.all.find(@student.team_id).course_id.to_s
         redirect_to "/courses/navigation?id=#{course_num}"
       else
+        team = Team.find(@student.team_id)
         flash[:success] = "#{@student.user.name} is successfully added to #{team.team_name}."
         redirect_to navigation_courses_path(id: @student.team.course.id)
       end

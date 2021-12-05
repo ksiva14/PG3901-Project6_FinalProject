@@ -1,5 +1,5 @@
 module TeamsHelper
-  def course_link(courseID)
-    '/courses/' + courseID.to_s + '/course_navigation'
+  def course_link(course_id)
+    "/courses/#{course_id}/course_navigation"
   end
 end

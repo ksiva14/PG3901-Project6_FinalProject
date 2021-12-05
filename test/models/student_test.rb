@@ -5,7 +5,7 @@ class StudentTest < ActiveSupport::TestCase
     student = Student.new(user_id: 5, team_id: 1)
     assert student.valid?
   end
-  #check if things are being assigned and can be accessed.
+  # check if things are being assigned and can be accessed.
   test 'check user id' do
     student = Student.new(user_id: 5, team_id: 1)
     assert_equal(5, student.user_id)

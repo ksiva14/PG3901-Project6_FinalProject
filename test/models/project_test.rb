@@ -5,14 +5,14 @@ class ProjectTest < ActiveSupport::TestCase
     project = Project.new(project_name: 'Dan', course_id: 1)
     assert project.valid?
   end
-  #check if things are being assigned and can be accessed.
+  # check if things are being assigned and can be accessed.
   test 'check name' do
     project = Project.new(project_name: 'Dan', course_id: 1)
-    assert_equal("Dan", project.project_name)
+    assert_equal('Dan', project.project_name)
   end
   test 'check name wrong' do
     project = Project.new(project_name: 'Dan', course_id: 1)
-    refute_equal("Danny", project.project_name)
+    refute_equal('Danny', project.project_name)
   end
   test 'check id' do
     project = Project.new(project_name: 'Dan', course_id: 1)

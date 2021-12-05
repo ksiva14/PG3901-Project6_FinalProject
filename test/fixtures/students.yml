@@ -2,8 +2,8 @@
 
 one:
   user_id: 
-  course_id: 
+ # course_id: 
 
 two:
   user_id: 
-  course_id: 
+  #course_id: 

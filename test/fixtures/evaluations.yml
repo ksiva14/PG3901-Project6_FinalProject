@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  project: 
+  #project: 
   team: 
   score: 1
   comment: MyString
 
 two:
-  project: 
+  #project: 
   team: 
   score: 1
   comment: MyString

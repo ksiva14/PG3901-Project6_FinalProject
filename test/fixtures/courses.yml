@@ -3,9 +3,7 @@
 one:
   course_num: 1
   course_name: MyString
-  dept_name: MyString
 
 two:
   course_num: 1
   course_name: MyString
-  dept_name: MyString

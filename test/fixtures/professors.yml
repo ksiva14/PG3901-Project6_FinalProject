@@ -1,9 +1,8 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-#one:
-  #add_reference: 
-  #add_referece: 
-
-#two:
-  #add_reference: 
-  #add_referece: 
+one:
+  user_id: 
+  course_id:
+two:
+  user_id: 
+  course_id:

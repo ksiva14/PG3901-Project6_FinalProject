@@ -11,8 +11,8 @@
   <% end %>
   <div class="col-3"><%# for aesthetic purpose %></div>
   <div class="actions col-7">
-    <select class="form-select form-select-lg" aria-label="Select a team" name="student[team_id]">
-      <option selected>Select a team for <%= User.find(student.user_id).name %></option>
+    <select class="form-select form-select-lg" aria-label="Select a team" name="student[team_id]" required>
+      <option value="">Select a team for <%= User.find(student.user_id).name %></option>
       <% Team.all.where(course_id: params[:course_id]).each do |team| %>
         <option value=<%= team.id %>><%= team.team_name %></option>
       <% end %>

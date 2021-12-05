@@ -15,13 +15,13 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
 
-    respond_to do |format|
-      if @project.save
-        format.html do
-          redirect_to projects_url(course_id: @project.course_id),
-                      notice: "#{@project.project_name} was successfully created."
-        end
-      end
+    if @project.save
+      flash[:success] = "#{@project.project_name} was successfully created."
+      # redirects to the correct course project page
+      redirect_to projects_url(course_id: @project.course_id)
+    else
+      flash[:danger] = "Project could not be created. #{@project.errors.full_messages[0]}"
+      redirect_to projects_url(course_id: params[:course_id])
     end
   end
 
@@ -34,11 +34,10 @@ class ProjectsController < ApplicationController
       flash[:danger] = "Average score for #{user.name} cannot be 0 or less."
     elsif params[:score].to_i > 10
       flash[:danger] = "Average score for #{user.name} cannot more than 10."
-    else
-      @evaluation.update(params.permit(:score))
+    elsif @evaluation.update(params.permit(:score))
       flash[:success] = "Average score for #{user.name} has been changed to #{params[:score]}."
     end
-    redirect_to projects_url(course_id: params[:course_id], score: params[:evaluation_eval_score])
+    redirect_to projects_url(course_id: params[:course_id])
   end
 
   def create_project_team
@@ -48,55 +47,43 @@ class ProjectsController < ApplicationController
 
     if ProjectTeam.find_by(project_id: project.id, team_id: team.id).present?
       # team added more than once to the same project
-      redirect_to projects_url(course_id: project.course_id),
-                  notice: "Unable to add team.
-                      Team #{team.team_name} has already been added to #{project.project_name}."
-
-    else
-      respond_to do |format|
-        if @project_team.save
-          # create evaluations for the team for this project
-          helpers.create_evaluations_for_project(@project_team)
-          format.html do
-            redirect_to projects_url(course_id: project.course_id),
-                        notice: "Team #{team.team_name} was successfully added to #{project.project_name}."
-          end
-
-        end
-      end
+      flash[:danger] =  "Unable to add team. Team #{team.team_name} has already been added to #{project.project_name}."
+    elsif @project_team.save
+      # create evaluations for the team for this project
+      helpers.create_evaluations_for_project(@project_team)
+      flash[:success] = "#{team.team_name} was successfully added to #{project.project_name}."
     end
+    redirect_to projects_url(course_id: project.course_id)
   end
 
   def update
-    respond_to do |format|
-      if @project.update(project_params)
-        format.html do
-          redirect_to projects_url(course_id: @project.course_id),
-                      notice: "#{@project.project_name} was successfully updated."
-        end
-      end
+    old_name = @project.project_name
+    if @project.update(project_params)
+      flash[:success] = "#{old_name} was successfully updated to #{@project.project_name}."
     end
+    redirect_to projects_url(course_id: @project.course_id)
   end
 
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
+    flash[:success] = "#{@project.project_name} was successfully deleted."
     course_id = @project.course_id
     # deletes all evaluations for this project
     Evaluation.where(project_id: @project.id).destroy_all
     @project.destroy
-    respond_to do |format|
-      format.html { redirect_to projects_url(course_id: course_id), notice: 'Project was successfully destroyed.' }
-      # format.json { head :no_content }
-    end
+    redirect_to projects_url(course_id: course_id)
   end
 
   def remove_team
+    project_team = ProjectTeam.find_by(project_id: params[:project_id], team_id: params[:team])
+    team = Team.find(project_team.team_id)
+    project = Project.find(project_team.project_id)
+    flash[:success] = "#{team.team_name} was successfully removed from #{project.project_name}."
     # delete all evaluations related to this team in the project
     Evaluation.where(project_id: params[:project_id], team_id: params[:team]).destroy_all
     # remove team from project
-    ProjectTeam.find_by(project_id: params[:project_id], team_id: params[:team]).destroy
-
+    project_team.destroy
     redirect_to projects_url(course_id: params[:course_id])
   end
 

@@ -55,26 +55,20 @@ class EvaluationsController < ApplicationController
   # PATCH/PUT /evaluations/1
   # PATCH/PUT /evaluations/1.json
   def update
-    respond_to do |format|
-      if @evaluation.update(evaluation_params)
-        format.html do
-          redirect_to evaluations_url(project_id: @evaluation.project_id, by_student: @evaluation.by_student),
-                      notice: 'Evaluation was successfully updated.'
-        end
-      end
+    if @evaluation.update(evaluation_params)
+      for_student = Student.find(@evaluation.for_student)
+      flash[:success] = "Evaluation for #{for_student.user.name} was successfully updated."
     end
+    redirect_to evaluations_url(project_id: @evaluation.project_id, by_student: @evaluation.by_student)
   end
 
   # DELETE /evaluations/1
   # DELETE /evaluations/1.json
   def destroy
+    for_student = Student.find(@evaluation.for_student)
+    flash[:danger] = "Evaluation for #{for_student.user.name} was successfully deleted."
     @evaluation.destroy
-    respond_to do |format|
-      format.html do
-        redirect_to evaluations_url(project_id: @evaluation.project_id, student_id: @evaluation.by_student),
-                    notice: 'Evaluation was successfully destroyed.'
-      end
-    end
+    redirect_to evaluations_url(project_id: @evaluation.project_id, student_id: @evaluation.by_student)
   end
 
   private

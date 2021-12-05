@@ -1,16 +1,16 @@
-<%= form_with(model: @project, class:"row") do |form| %>
-  <div class="col">
+<%= form_with(model: @project, class:"row", url: "/projects?course_id=#{params[:course_id]}") do |form| %>
+  <div class="col-6">
     <input name="project[project_name]" type="text" class="form-control  form-control-lg" placeholder="Project Name">
   </div>
-  <div class="col">
-    <select name="project[course_id]" class="form-select form-select-lg mb-3 col">
-      <option selected>Select a course</option>
+  <div class="col-4">
+    <select name="project[course_id]" class="form-select form-select-lg mb-3 col" required>
+      <option value="">Select a course</option>
       <% Course.all.each do |course|%>
         <option value=<%= course.id%>><%= course.course_name %></option>
       <% end %>
     </select>
   </div>
-  <div class="actions col">
+  <div class="actions col-2">
     <%= form.submit "Create Project", class: "btn btn-primary btn-lg p-2 rounded" %>
   </div>
 <% end %>

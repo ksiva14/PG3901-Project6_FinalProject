@@ -13,11 +13,11 @@ class StudentsController < ApplicationController
   def create
     @student = Student.new(student_params)
     # find user using their email
-    student_users = User.where('email LIKE ?', params[:q])
+    student_users = User.where('email LIKE ?', params[:q].strip)
     # find user by name if couldnt find their email
-    student_users = User.where('name LIKE ?', params[:q]) if student_users.empty?
+    student_users = User.where('name LIKE ?', params[:q].strip) if student_users.empty?
     # update user_id
-    @student.user_id = student_users[0].id unless student_users[0].nil?
+    @student.user_id = student_users[0].id unless student_users.empty?
     if !@student.user_id.nil? && @student.save
       flash[:success] = "#{@student.user.name} found. Please select a team for #{@student.user.name}."
       redirect_to navigation_courses_path(id: params[:course_id], found: 'success', student_id: @student.id,
@@ -34,15 +34,18 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1.json
   def update
     if @student.update(student_params_edit)
-      stuList = @student.team.students.select do |student|
+      student_list = @student.team.students.select do |student|
         User.all.find(student.user_id).email == User.all.find(@student.user_id).email
       end
-      if stuList.length > 1
-        Team.all.find(@student.team_id).students.find(@student.id).destroy
-        courseNum = Team.all.find(@student.team_id).course_id.to_s
-        redirect_to '/courses/navigation?id=' + courseNum, notice: 'User already exists in team.'
+      if student_list.length > 1
+        team = Team.find(@student.team_id)
+        team.students.find(@student.id).destroy
+        flash[:danger] = "#{@student.user.name} already exists in #{team.team_name}."
+        course_num = Team.all.find(@student.team_id).course_id.to_s
+        redirect_to "/courses/navigation?id=#{course_num}"
       else
-        redirect_to navigation_courses_path(id: @student.team.course.id), notice: 'Student was successfully added.'
+        flash[:success] = "#{@student.user.name} is successfully added to #{team.team_name}."
+        redirect_to navigation_courses_path(id: @student.team.course.id)
       end
     end
   end
@@ -50,21 +53,23 @@ class StudentsController < ApplicationController
   # DELETE /students/1
   # DELETE /students/1.json
   def destroy
-    # remove all students of user from the course/team
     case params[:from]
     when 'course'
-      course_id = Team.find(@student.team_id).course_id
-      helpers.remove_from_course @student.user_id, course_id
-      redirect_to navigation_courses_path(id: course_id), notice: 'Student was successfully removed.'
+      flash[:success] =
+        "#{@student.user.name} was successfully removed from #{Course.find(params[:course_id]).course_name}."
+      # remove all students of user from the course & team
+      remove_from_course @student.user.id, params[:course_id]
+      redirect_to navigation_courses_path(id: params[:course_id])
     when 'team'
       team_name = Team.find(@student.team_id).team_name
       student_name = User.find(@student.user_id).name
+      flash[:success] = "#{student_name} was successfully removed from #{team_name}."
       # delete all evaluation by this student
       Evaluation.where(by_student: @student.id).destroy_all
       # delete all evaluation for this student
       Evaluation.where(for_student: @student.id).destroy_all
       @student.destroy
-      redirect_to team_path(@student.team_id), notice: "#{student_name} was successfully removed #{team_name}."
+      redirect_to team_path(@student.team_id)
     end
   end
 

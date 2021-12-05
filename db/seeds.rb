@@ -19,8 +19,10 @@ end
 end
 
 num = 3901
-2.times do
+2.times do |i|
+  user = User.find_by(email: 'professor.1@osu.edu')
   Course.create! course_name: "CSE #{num}", course_num: num
+  Professor.create! user_id: user.id, course_id: i + 1
   num += 1
 end
 

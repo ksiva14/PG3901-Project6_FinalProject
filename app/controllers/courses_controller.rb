@@ -4,7 +4,11 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = User.find(current_user.id).professors.all
+    professors = User.find(current_user.id).professors
+    @courses = []
+    professors.each do |professor|
+      @courses << Course.find(professor.course_id) unless professor.course_id.nil?
+    end
   end
 
   # POST /courses

@@ -10,7 +10,7 @@
   <tbody>
     <td colspan="5"><%# for aesthetic purposes %></td>
     <% counter = 1 %>
-    <% Course.all.each do |course| %>
+    <% @courses.each do |course| %>
       <tr>
         <td class="align-middle"><%= course.course_name %></td>
         <td class="align-middle"><%= link_to 'Enter Course', navigation_courses_path(id: course.id) %></td>

@@ -12,7 +12,7 @@
     <% @teammates.each do |student|%>
       <% evaluation = Student.find(student.id).evaluations.find_by(project_id: @project.id, for_student: student.id, by_student: @by_student.id) %>
       <tr>
-        <td><%= student.user.name %></td>
+        <td class="text-center"><%= student.user.name %></td>
         <% if evaluation.score.nil? %>
           <td class="text-center"><%= link_to 'Start Evaluation', new_evaluation_path(for_student: student.id, by_student: @by_student.id, project_id: evaluation.project_id) %></td>
         <% else %>
@@ -24,3 +24,5 @@
     <% end %>
   </tbody>
 </table>
+<%= link_to '&#8592 Back'.html_safe, "/static_pages", class:"btn btn-primary btn p-2 rounded col-1" %>
+

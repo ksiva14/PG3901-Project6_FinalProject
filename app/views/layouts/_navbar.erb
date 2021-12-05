@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
   <div class="container-fluid">
      
-      <% if session[:user_id] %> 
+      <% if !(current_page?('/'))%> 
         <%if User.all.length > 0 %> 
           <span class="navbar-brand">Hello, <%= User.find_by(id: session[:user_id]).name %>!</span>
         <% end %>
@@ -32,7 +32,9 @@
                 </li>
               <% end %>
             <% else %> 
-              <%# TODO: insert links for students %>
+              <% if request.original_url.include? "evaluations" %>
+              <a class="nav-link" href=<%="/static_pages"%>>Dashboard</a>
+              <% end %>
             <% end %>
           </ul>
         </div>

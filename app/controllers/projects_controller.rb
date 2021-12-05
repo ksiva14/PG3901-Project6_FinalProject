@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
     # get all projects for a particular course
     @projects = Project.all.where(course_id: params[:course_id])
     # create evaluations if not already created
-    helpers.create_evaluations_for_all_project_teams(params[:course_id])
+    create_evaluations_for_all_project_teams(params[:course_id])
   end
 
   # POST /projects

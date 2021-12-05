@@ -61,6 +61,8 @@ class CoursesController < ApplicationController
         @students << student
       end
     end
+    # create evaluations if not already created
+    create_evaluations_for_all_project_teams(params[:id])
   end
 
   private

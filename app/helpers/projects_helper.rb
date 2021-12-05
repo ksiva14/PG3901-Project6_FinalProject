@@ -50,7 +50,7 @@ module ProjectsHelper
         total_score += eval.score.to_i
         num_of_score += 1
       end
-      total_score / num_of_score
+      total_score / num_of_score unless num_of_score == 0
     end
   end
 

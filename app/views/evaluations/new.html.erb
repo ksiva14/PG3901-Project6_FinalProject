@@ -1,5 +1,5 @@
 <%# -------------------- Team Name --------------------------%>
-<h1 class="text-center mt-5">Evaluation for Project -- (<%= @team.team_name %>)</h1>
+<h1 class="text-center mt-5">Evaluation for <%="#{Project.find(params[:project_id]).project_name} (#{@team.team_name})"%></h1>
 <%# ------------------------ grade scale description ------------------------- %>
 <div class="row">
   <h2 class="text-center my-4">Grading Scale</h2>

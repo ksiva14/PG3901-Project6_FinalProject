@@ -6,7 +6,9 @@
     </tr>
   </thead>
   <tbody>
-    <td colspan="4"><%# for aesthetic purposes %></td>
+    <tr>
+      <td colspan="4"><%# for aesthetic purposes %></td>
+    </tr>
     <% counter = 1 %>
     <% project.project_teams.each do |project_team| %>
       <% team = Team.find(project_team.team_id)%>

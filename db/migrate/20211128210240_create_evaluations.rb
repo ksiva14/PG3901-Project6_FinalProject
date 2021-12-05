@@ -7,7 +7,7 @@ class CreateEvaluations < ActiveRecord::Migration[6.1]
       t.integer :by_student
       t.boolean :by_professor
       t.integer :score
-      t.string :comment
+      t.text :comment
       t.boolean :is_assigned
       t.boolean :can_view
 

@@ -17,9 +17,10 @@ gem 'turbolinks',                 '5.2.1'
 gem 'webpacker',                  '5.4.0'
 gem 'will_paginate',              '3.3.0'
 
+
 group :development, :test do
   gem 'byebug',  '11.1.3', platforms: %i[mri mingw x64_mingw]
-  gem 'sqlite3', '1.4.2'
+  gem 'pg'
 end
 
 group :development do
@@ -42,5 +43,5 @@ end
 
 group :production do
   gem 'aws-sdk-s3', '1.87.0', require: false
-  gem 'pg',         '1.2.3'
+  
 end

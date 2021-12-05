@@ -28,7 +28,7 @@
               </li>
               <% if params[:id]%>
                 <li class="nav-item">
-                  <a class="nav-link" href=<%="/projects?course_id=" + params[:id].to_s%>>Projects</a>
+                  <a class="nav-link" href=<%=navbar_project_link%>>Projects</a>
                 </li>
               <% end %>
             <% else %> 

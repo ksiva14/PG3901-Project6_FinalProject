@@ -1,41 +1,41 @@
-require "application_system_test_case"
+require 'application_system_test_case'
 
 class TeamsTest < ApplicationSystemTestCase
   setup do
     @team = teams(:one)
   end
 
-  test "visiting the index" do
+  test 'visiting the index' do
     visit teams_url
-    assert_selector "h1", text: "Teams"
+    assert_selector 'h1', text: 'Teams'
   end
 
-  test "creating a Team" do
+  test 'creating a Team' do
     visit teams_url
-    click_on "New Team"
+    click_on 'New Team'
 
-    click_on "Create Team"
+    click_on 'Create Team'
 
-    assert_text "Team was successfully created"
-    click_on "Back"
+    assert_text 'Team was successfully created'
+    click_on 'Back'
   end
 
-  test "updating a Team" do
+  test 'updating a Team' do
     visit teams_url
-    click_on "Edit", match: :first
+    click_on 'Edit', match: :first
 
-    click_on "Update Team"
+    click_on 'Update Team'
 
-    assert_text "Team was successfully updated"
-    click_on "Back"
+    assert_text 'Team was successfully updated'
+    click_on 'Back'
   end
 
-  test "destroying a Team" do
+  test 'destroying a Team' do
     visit teams_url
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_on 'Destroy', match: :first
     end
 
-    assert_text "Team was successfully destroyed"
+    assert_text 'Team was successfully destroyed'
   end
 end

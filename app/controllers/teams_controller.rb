@@ -1,6 +1,5 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: %i[show edit update destroy]
-  $currentCourse = 0
 
   # GET /teams
   # GET /teams.json
@@ -25,53 +24,33 @@ class TeamsController < ApplicationController
   # POST /teams.json
   def create
     @team = Team.new(team_params)
-    respond_to do |format|
-      if @team.save
-        format.html do
-          redirect_to navigation_courses_url(id: @team.course_id), notice: 'Team was successfully created.'
-        end
-        format.json { render :show, status: :created, location: @team }
-      else
-        format.html { render :new }
-        format.json { render json: @team.errors, status: :unprocessable_entity }
-      end
+
+    if @team.save
+      flash[:success] = "#{@team.team_name} was successfully created"
+    else
+      flash[:danger] = "Team could not be created. #{@team.errors.full_messages[0]}"
     end
+    redirect_to navigation_courses_url(id: params[:id])
   end
 
   # PATCH/PUT /teams/1
   # PATCH/PUT /teams/1.json
   def update
-    respond_to do |format|
-      if @team.update(team_params)
-        format.html do
-          redirect_to navigation_courses_path(id: @team.course_id), notice: 'Team was successfully updated.'
-        end
-        format.json { render :show, status: :ok, location: @team }
-      else
-        format.html { render :edit }
-        format.json { render json: @team.errors, status: :unprocessable_entity }
-      end
+    old_name = @team.team_name
+    if @team.update(team_params)
+      flash[:success] = "#{old_name} was successfully updated to #{@team.team_name}."
+    else
+      flash[:danger] = "#{@team.team_name} could not be updated. #{@team.errors.full_messages}"
     end
+    redirect_to navigation_courses_path(id: @team.course_id)
   end
 
   # DELETE /teams/1
   # DELETE /teams/1.json
   def destroy
-    indices = []
-    Student.all.each do |student|
-      indices << student.id if student.team_id == @team.id
-    end
-
-    indices.each do |studentID|
-      Student.all.find(studentID).destroy
-    end
-    redirectLink = '/courses/' + @team.course_id.to_s + '/course_navigation'
     @team.destroy
-
-    respond_to do |format|
-      format.html { redirect_to redirectLink, notice: 'Team was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:success] = "#{@team.team_name} was successfully destroyed."
+    redirect_to '/courses/' + @team.course_id.to_s + '/course_navigation'
   end
 
   private

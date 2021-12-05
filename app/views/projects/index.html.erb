@@ -5,9 +5,9 @@
 <table class="table table-light table-striped table-bordered rounded text-center">
   <thead>
     <tr>
-      <th scope="col" class="col-2">Project Name</th>
-      <th scope="col" class="col-1">Course</th>
-      <th scope="col" class="col-5" colspan="4">Actions</th>
+      <th class="col-2">Project Name</th>
+      <th class="col-1">Course</th>
+      <th class="col-5" colspan="4">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -50,18 +50,22 @@
           <div class="collapse" id=<%= "showEval#{counter}" %>>
             <div class="card card-body">
               <table class="table table-light table-striped table-bordered rounded text-center">
-                <tr>
-                  <th class="col-2">Team</th>
-                  <th class="col-4">For Student</th>
-                  <th class="col-1">Avg. Score</th>
-                  <th class="col-1">Score</th>
-                  <th class="col-2">Comment</th>
-                  <th class="col-2">By Student</th>
-                </tr>
-                <% project.project_teams.each do |project_team| %>
-                  <%# this team is assigned the project %>
-                  <%= render 'evaluations-for-a-team', team: Team.find(project_team.team_id), project: project %>
-                <% end %>
+                <thead>
+                  <tr>
+                    <th class="col-2">Team</th>
+                    <th class="col-4">For Student</th>
+                    <th class="col-1">Avg. Score</th>
+                    <th class="col-1">Score</th>
+                    <th class="col-2">Comment</th>
+                    <th class="col-2">By Student</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% project.project_teams.each do |project_team| %>
+                    <%# this team is assigned the project %>
+                    <%= render 'evaluations-for-a-team', team: Team.find(project_team.team_id), project: project %>
+                  <% end %>
+                </tbody>
               </table>
             </div>
           </div>
@@ -73,5 +77,5 @@
 </table>
 <br />
 <form action=<%="/courses/" + params[:course_id].to_s + "/course_navigation"%> class="col-1">
-  <input class="btn btn-primary btn p-2 rounded" type="submit" value="&#8592 Back" />
+  <input class="btn btn-primary btn p-2 rounded" type="submit" value="&#8592; Back" />
 </form>

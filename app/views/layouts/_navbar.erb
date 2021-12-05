@@ -8,14 +8,14 @@
               class="navbar-toggler"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
+              data-bs-target="#nav_bar"
+              aria-controls="nav_bar"
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse" id="nav_bar">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-5">
           <li class="nav-item">
             <a class="nav-link" href="/logout">Logout</a>
@@ -26,12 +26,14 @@
             </li>
             <% if params[:id]%>
               <li class="nav-item">
-                <a class="nav-link" href=<%=navbar_project_link%>>Projects</a>
+                <a class="nav-link" href="<%= navbar_project_link %>">Projects</a>
               </li>
             <% end %>
           <% else %>
             <% if request.original_url.include? "evaluations" %>
-              <a class="nav-link" href=<%="/static_pages"%>>Dashboard</a>
+              <li class="nav-item">
+                <a class="nav-link" href=<%="/static_pages"%>>Dashboard</a>
+              </li>
             <% end %>
           <% end %>
         </ul>

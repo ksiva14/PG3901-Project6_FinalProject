@@ -18,7 +18,7 @@
         <td class="align-middle"><%= link_to 'Enter Course', navigation_courses_path(id: course.id) %></td>
         <td class="align-middle"><%= link_to 'View Projects', projects_path(course_id: course.id) %></td>
         <td class="align-middle">
-          <%= link_to 'Edit Course', "#updateCourse#{counter}", "data-bs-toggle":"collapse", "aria-expanded":"false", "aria-controls":"update course #{counter}" %>
+          <%= link_to 'Edit Course', "#updateCourse#{counter}", "data-bs-toggle":"collapse", "aria-expanded":"false", "aria-controls":"updateCourse#{counter}" %>
         </td>
         <td class="align-middle"><%= link_to 'Delete Course', delete_courses_path(id: course.id), method: :delete, data: { confirm: 'Are you sure? Deleting this course will also delete all related data, including students and teams.' } %></td>
       </tr>

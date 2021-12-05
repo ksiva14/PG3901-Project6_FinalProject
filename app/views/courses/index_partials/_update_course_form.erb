@@ -1,10 +1,10 @@
 <%= form_with(url: update_courses_path(id: course.id), method: 'put') do |form| %>
   <div class="row">
     <div class="col">
-      <%= form.text_field :"course[course_name]", class:"form-control form-control", placeholder:"Course Name", value: course.course_name, id:"" %>
+      <%= form.text_field :"course[course_name]", class:"form-control form-control", placeholder:"Course Name", value: course.course_name, id:nil %>
     </div>
     <div class="col">
-      <%= form.text_field :"course[course_num]", class:"form-control form-control", placeholder:"Course Number", value: course.course_num, id:"" %>
+      <%= form.text_field :"course[course_num]", class:"form-control form-control", placeholder:"Course Number", value: course.course_num, id:nil %>
     </div>
     <div class="actions col">
       <%= form.submit "Update", class: "btn btn-primary btn p-2 rounded" %>

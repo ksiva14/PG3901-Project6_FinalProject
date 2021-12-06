@@ -4,7 +4,9 @@
     <h1 class="text-center mb-5 my-5">Log in</h1>
     <div class="row text-center">
       <%= form_with(url: login_path, scope: :session, local: true, class: "col-lg-6 col-10 m-auto") do |f| %>
+        <%= form.label :email, "Enter Email:", class:"form-label" %>
         <%= f.email_field :email, class: 'form-control col-12 mb-3', placeholder: "Email" %>
+        <%= form.label :email, "Enter Password:", class:"form-label" %>
         <%= f.password_field :password, class: 'form-control col-12 mb-3', placeholder:"Password" %>
         <%= f.submit "Log in", class: "btn btn-primary col-6 mb-3" %>
       <% end %>

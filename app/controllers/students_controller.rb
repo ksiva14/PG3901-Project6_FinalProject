@@ -42,24 +42,24 @@ class StudentsController < ApplicationController
     unless student_users.empty?
       # update user_id
       @student.user_id = student_users[0].id
-      #check if student is in same team
+      # check if student is in same team
       check_students = Student.where('user_id LIKE ?', @student.user_id)
       unless check_students.empty?
         check_students.each do |check|
           puts params[:team_id]
-          if check.team_id == params[:team_id].to_i
-            flash[:danger] = "#{check.user.name} already exists in #{check.team.team_name}."
-            redirect_to "/teams/#{params[:team_id]}"
-            repeat = true
-            break
-          end
-        end 
+          next unless check.team_id == params[:team_id].to_i
+
+          flash[:danger] = "#{check.user.name} already exists in #{check.team.team_name}."
+          redirect_to "/teams/#{params[:team_id]}"
+          repeat = true
+          break
+        end
       end
-      #update team_id
+      # update team_id
       @student.team_id = params[:team_id]
     end
     if !repeat && !@student.user_id.nil? && @student.save
-      flash[:success] = "#{@student.user.name} Chosen."
+      flash[:success] = "#{@student.user.name} is added to #{Team.find(params[:team_id]).team_name}."
       redirect_to "/teams/#{params[:team_id]}"
     elsif !repeat
       flash[:danger] =

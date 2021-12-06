@@ -1,4 +1,5 @@
 <h2 class="text-center my-5">Team: <%= @team.team_name %></h2>
+<%= render '/teams/team_partials/select_student'%>
 <table class="table table-light table-striped table-bordered rounded">
   <thead class="text-center">
     <tr>
@@ -19,7 +20,6 @@
     <% end %>
   </tbody>
 </table>
-<%= render '/teams/team_partials/select_student'%>
 <br/>
 <br/>
 <%= link_to '&#8592 Back'.html_safe, url_for("/courses/navigation?id=#{@team.course_id}"), class:"btn btn-primary btn p-2 rounded col-1" %>

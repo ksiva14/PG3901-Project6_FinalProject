@@ -8,6 +8,11 @@ class ProjectsController < ApplicationController
     @projects = Project.all.where(course_id: params[:course_id])
     # create evaluations if not already created
     create_evaluations_for_all_project_teams(params[:course_id])
+    professors = User.find(current_user.id).professors
+    @courses = []
+    professors.each do |professor|
+      @courses << Course.find(professor.course_id) unless professor.course_id.nil?
+    end
   end
 
   # POST /projects

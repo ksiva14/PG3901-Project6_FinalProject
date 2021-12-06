@@ -5,7 +5,7 @@
   <div class="col-4">
     <select name="project[course_id]" class="form-select form-select-lg mb-3 col" required>
       <option value="">Select a course</option>
-      <% Course.all.each do |course|%>
+      <% @courses.each do |course|%>
         <option value=<%= course.id%>><%= course.course_name %></option>
       <% end %>
     </select>

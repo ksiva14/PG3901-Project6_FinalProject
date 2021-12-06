@@ -4,9 +4,9 @@
     <div class="col-xl-7 col-12">
       <% if !params[:found].nil? && params[:found] = "success" %>
         <% user_id = Student.find(params[:student_id]).user_id %>
-        <%= form.text_field :"q", class:"form-control-lg", placeholder:"Search by student's email or name", value: User.find(user_id).email, required:true %>
+        <%= form.text_field :"q", class:"form-control-lg", placeholder:"Search by student's email or name", value: User.find(user_id).email, required:true, "aria-label":"Search by student's email or name" %>
       <% else %>
-        <%= form.text_field :"q", class:"form-control-lg", placeholder:"Search by student's email or name", required:true %>
+        <%= form.text_field :"q", class:"form-control-lg", placeholder:"Search by student's email or name", required:true, "aria-label":"Search by student's email or name" %>
       <% end %>
     </div>
     <div class="actions col-xl-2 col-12">

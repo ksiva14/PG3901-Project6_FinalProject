@@ -1,9 +1,9 @@
 <%= form_with(model: @project, class:"row g-3", url: "/projects?course_id=#{params[:course_id]}") do |form| %>
   <div class="col-xl-5 col-md-6 col-12">
-    <input name="project[project_name]" type="text" class="form-control  form-control-lg" placeholder="Project Name">
+    <input name="project[project_name]" type="text" class="form-control  form-control-lg" placeholder="Project Name" aria-label="Project Name" >
   </div>
   <div class="col-xl-5 col-md-6 col-12">
-    <select name="project[course_id]" class="form-select form-select-lg col" required>
+    <select name="project[course_id]" class="form-select form-select-lg col" aria-label="Select a course" required>
       <option value="">Select a course</option>
       <% @courses.each do |course|%>
         <option value=<%= course.id%>><%= course.course_name %></option>

@@ -2,7 +2,7 @@
   <div class="row justify-content-center align-items-center g-3 mx-0 p-1">
     <h3 class="col-xl-3 col-12 text-xl-end text-center align-middle mb-0 inline" >Add Student: </h3>
     <div class="actions col-xl-7 col-12">
-      <%= form.text_field :"q", class:"form-control-lg", placeholder:"Enter by student's email or name", required:true %>
+      <%= form.text_field :"q", class:"form-control-lg", placeholder:"Enter by student's email or name", required:true, "aria-label":"Enter by student's email or name" %>
     </div>
     <%= form.hidden_field :team_id, value:params[:id] %>
     <div class="actions col-xl-2 col-12 mx-0">

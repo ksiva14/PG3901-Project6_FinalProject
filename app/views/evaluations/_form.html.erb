@@ -10,7 +10,7 @@
             <span class="col-6 text-start">1</span>
             <span class="col-6 text-end">10</span>
           </div>
-          <input name="evaluation[score]" id="current_score_in" type="range" class="form-range row m-auto border-0" value="5" min="1" max="10" oninput="current_score_out.value = current_score_in.value">
+          <input name="evaluation[score]" aria-label="Score" id="current_score_in" type="range" class="form-range row m-auto border-0" value="5" min="1" max="10" oninput="current_score_out.value = current_score_in.value">
           <div class="row d-flex">
             <span class="fs-5 text col-md-6 col-12 text-md-end text-center">Current Score: </span>
             <output id="current_score_out" class="fs-5 text p-0 col-md-6 col-12 text-dark text-center">
@@ -20,7 +20,7 @@
         </div>
       </div>
       <textarea name="evaluation[comment]" class="form-control col-12" id="exampleFormControlTextarea1" rows="3" 
-                placeholder="Include specific comments about <%= @for_student.user.name %> that justify the quantitative evaluation given above." required></textarea>
+                placeholder="Include specific comments about <%= @for_student.user.name %> that justify the quantitative evaluation given above." aria-label="Include specific comments about <%= @for_student.user.name %> that justify the quantitative evaluation given above." required></textarea>
     </div>
   </div>
   <div class="actions row my-3 mx-0">

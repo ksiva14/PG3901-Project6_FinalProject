@@ -11,6 +11,7 @@ If there are issues with installing 'pg' gem during bundle install, running this
 sudo apt-get install postgresql-client libpq5 libpq-dev
 
 This arose after switching from sqlite to postgres.
+bandi.11@osu.edu and jenkins.1085@osu.edu are added as collaborators on our heroku app.
 
 ## Walkthrough of Features
 After running rails server and typing localhost:3000 into a browser, you are greeted with a log in page. student.1@osu.edu and professor.1@osu.edu with password  ***add password here*** are given to navigate our website. You can also create a new student or professor with the links under the log in section, and you will be asked for a name, email in standard osu format (name.#@osu.edu), and a password that is 6 characters long. There is link back to log in screen if you don't want to create a user. 

@@ -2,9 +2,9 @@
 <%= f.email_field :email, class: 'form-control col-12 mb-3', placeholder:"Email" %>
 <%= f.password_field :password, class: 'form-control col-12 mb-3',placeholder:"Password" %>
 <%= f.password_field :password_confirmation, class: 'form-control col-12 mb-4',placeholder:"Confirm Password" %>
-<div class="text-center mb-3">
-  <%= f.submit "Create account", class: "btn btn-primary col-6" %>
+<div class="text-center mb-3 col-md-12 m-auto d-flex justify-content-center">
+  <%= f.submit "Create account", class: "btn btn-primary col-12 col-lg-6 " %>
 </div>
-<div class="text-center">
+<div class="text-center col-12">
   <%= link_to 'Back To Login Page', root_path %>
 </div>

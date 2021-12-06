@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   get 'static_pages/view_evaluations', to: 'static_pages#view_evaluations', as: :view_evaluations
   # ----------------------- admin ----------------------------
   post '/:id/search', to: 'students#create'
+  post '/addstudent', to: 'students#createFromTeam'
 
   get '/:id/students/22/edit', to: 'students#create'
   get '/courses/:id/course_navigation', to: 'courses#navigation'

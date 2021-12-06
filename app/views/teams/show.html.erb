@@ -19,8 +19,7 @@
     <% end %>
   </tbody>
 </table>
-<% if url_for(:back).include? "/teams" %>
-  <%= link_to '&#8592; Back'.html_safe, navbar_project_link, class:"btn btn-primary btn p-2 rounded col-1" %>
-<% else %>
-  <%= link_to '&#8592; Back'.html_safe, url_for(:back), class:"btn btn-primary btn p-2 rounded col-1" %>
-<% end %>
+<%= render '/teams/team_partials/select_student'%>
+<br/>
+<br/>
+<%= link_to '&#8592 Back'.html_safe, url_for("/courses/navigation?id=#{@team.course_id}"), class:"btn btn-primary btn p-2 rounded col-1" %>

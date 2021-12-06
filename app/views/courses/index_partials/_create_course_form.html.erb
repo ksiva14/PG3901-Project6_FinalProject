@@ -1,11 +1,11 @@
-<%= form_with(url: create_courses_path, model: @course, class:"row") do |form| %>
-  <div class="col">
+<%= form_with(url: create_courses_path, model: @course, class:"row d-flex justify-content-center gy-3") do |form| %>
+  <div class="col-xl-5 col-md-6 col-12">
     <input name="course[course_name]" type="text" class="form-control form-control-lg" placeholder="Course Name">
   </div>
-  <div class="col">
+  <div class="col-xl-5 col-md-6 col-12">
     <input name="course[course_num]" type="text" class="form-control form-control-lg" placeholder="Course Number">
   </div>
-  <div class="actions col">
+  <div class="actions col-xl-2 col-12">
     <%= form.submit "Create Course", class: "btn btn-primary btn-lg p-2 rounded" %>
   </div>
 <% end %>

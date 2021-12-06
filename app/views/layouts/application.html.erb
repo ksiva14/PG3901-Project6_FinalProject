@@ -15,7 +15,7 @@
       <%= render 'layouts/navbar' %>
     <% end %>
     <!-- Displays flash messages (for example when invalid email/password)-->
-    <div class="w-75 m-auto">
+    <div class="w-75 m-auto container">
       <% flash.each do |message_type, message| %>
         <div class="alert alert-<%= message_type %>"><%= message %></div>
       <% end %>

@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top text-center">
+  <div class="container-fluid ">
     <% if !(current_page?('/'))%>
       <%if User.all.length > 0 %>
-        <span class="navbar-brand">Hello, <%= User.find_by(id: session[:user_id]).name %>!</span>
+        <span class="navbar-brand my-md-1 my-3">Hello, <%= User.find_by(id: session[:user_id]).name %>!</span>
       <% end %>
       <button
               class="navbar-toggler"
@@ -17,9 +17,6 @@
       </button>
       <div class="collapse navbar-collapse" id="nav_bar">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-5">
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
-          </li>
           <% if (Professor.where(user_id: session[:user_id]).length != 0) %>
             <li class="nav-item">
               <a class="nav-link" href="/courses/index">Courses</a>
@@ -36,6 +33,9 @@
               </li>
             <% end %>
           <% end %>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
         </ul>
       </div>
     <% end %>

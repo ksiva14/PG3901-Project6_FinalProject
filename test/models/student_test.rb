@@ -14,11 +14,11 @@ class StudentTest < ActiveSupport::TestCase
     student = Student.new(user_id: 5, team_id: 1)
     refute_equal(4, student.user_id)
   end
-  test 'check id' do
+  test 'check team id' do
     student = Student.new(user_id: 5, team_id: 1)
     assert_equal(1, student.team_id)
   end
-  test 'check id wrong' do
+  test 'check team id wrong' do
     student = Student.new(user_id: 5, team_id: 1)
     refute_equal(2, student.team_id)
   end

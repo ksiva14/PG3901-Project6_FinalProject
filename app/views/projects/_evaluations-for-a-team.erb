@@ -23,10 +23,10 @@
       <% if evaluation.for_student == student.id %>
         <% if !evaluation.score.to_i.zero? && evaluation.score.to_i < 5 %>
           <%# score lesser than 5 %>
-          <tr class="fw-bold fst-italic">
-            <td class="text-danger"><%= evaluation.score %></td>
-            <td class="text-danger"><%= evaluation.comment %></td>
-            <td class="text-danger">By <%= Student.find(evaluation.by_student).user.name %></td>
+          <tr class="fw-bold fst-italic table-danger">
+            <td><%= evaluation.score %></td>
+            <td><%= evaluation.comment %></td>
+            <td>By <%= Student.find(evaluation.by_student).user.name %></td>
           </tr>
         <% else %>
           <tr>

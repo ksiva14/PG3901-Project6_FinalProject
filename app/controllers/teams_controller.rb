@@ -26,16 +26,16 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
 
     if @team.save
-      flash[:success] = "#{@team.team_name} was successfully created"
       proposed_name = @team.team_name
       teams_with_name = Course.all.find(params[:id]).teams.where(team_name: proposed_name).length
       i = teams_with_name - 1
-      while teams_with_name > 1 do
-        @team.team_name = proposed_name + "(" + i.to_s + ")"
-        i = i + 1
+      while teams_with_name > 1
+        @team.team_name = "#{proposed_name} (#{i})"
+        i += 1
         teams_with_name = Course.all.find(@team.course_id).teams.where(team_name: @team.team_name).length + 1
       end
       @team.save
+      flash[:success] = "#{@team.team_name} was successfully created"
     else
       flash[:danger] = "Team could not be created. #{@team.errors.full_messages[0]}"
     end

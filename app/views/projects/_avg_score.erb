@@ -1,7 +1,0 @@
-<%= form_with(model:@evaluation, method:'patch', url: project_update_avg_path(id:project.id, project_id: project.id, team_id: team.id, for_student:student.id, course_id: project.course_id)) do |form| %>
-  <div class='form-group'>
-    <% unless prof_eval.nil? %>
-      <%= form.text_field :score, class:"form-control m-auto", placeholder:prof_eval.score, value: prof_eval.score, onchange: 'this.form.submit()', id:nil, "aria-label":"Average Score" %>
-    <% end %>
-  </div>
-<% end %>

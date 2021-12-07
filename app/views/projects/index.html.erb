@@ -1,6 +1,6 @@
 <h1 class="text-center my-5">Projects for <%= Course.find(params[:course_id]).course_name %></h1>
 <%# ----------------------------------- Create Project -------------------------------------%>
-<%= render 'create-project-form' %>
+<%= render 'projects/project_partials/create-project-form' %>
 <%# ----------------------------------- View Project -------------------------------------%>
 <div class="table-responsive">
   <table class="table table-light table-striped table-bordered rounded text-center">
@@ -30,20 +30,20 @@
             <%# edit project %>
             <div class="collapse" id=<%= "editProject#{counter}" %>>
               <div class="card card-body">
-                <%= render '/projects/update_project_form', project: project %>
+                <%= render 'projects/project_partials/update_project_form', project: project %>
               </div>
             </div>
             <%# add team to project %>
             <div class="collapse" id=<%= "addTeam#{counter}" %>>
               <div class="card card-body">
                 <% if Course.find(project.course_id).teams.present? %>
-                  <%= render 'projects/add_team', project: project %>
+                  <%= render 'projects/project_partials/add_team', project: project %>
                 <% else %>
                   <%= link_to "Create a team first", navigation_courses_path(id: project.course_id)%>
                 <% end %>
                 <%# show teams currently in this project if there is any%>
                 <% if ProjectTeam.where(project_id: project.id).present? %>
-                  <%= render '/projects/show_teams_table', project: project, course_id: project.course_id %>
+                  <%= render 'projects/project_partials/show_teams_table', project: project, course_id: project.course_id %>
                 <% end %>
               </div>
             </div>
@@ -64,7 +64,7 @@
                   <tbody>
                     <% project.project_teams.each do |project_team| %>
                       <%# this team is assigned the project %>
-                      <%= render 'evaluations-for-a-team', team: Team.find(project_team.team_id), project: project %>
+                      <%= render 'projects/project_partials/evaluations-for-a-team', team: Team.find(project_team.team_id), project: project %>
                     <% end %>
                   </tbody>
                 </table>

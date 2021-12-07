@@ -2,47 +2,18 @@ require 'test_helper'
 
 class CoursesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @course = courses(:one)
-  end
-
-  test 'should get index' do
-    get courses_url
-    assert_response :success
-  end
-
-  test 'should get new' do
-    get new_course_url
-    assert_response :success
-  end
-
-  test 'should create course' do
-    assert_difference('Course.count') do
-      post courses_url, params: { course: {} }
-    end
-
-    assert_redirected_to course_url(Course.last)
-  end
-
-  test 'should show course' do
-    get course_url(@course)
-    assert_response :success
-  end
-
-  test 'should get edit' do
-    get edit_course_url(@course)
-    assert_response :success
+    @course = courses(:course1)
   end
 
   test 'should update course' do
-    patch course_url(@course), params: { course: {} }
-    assert_redirected_to course_url(@course)
+    put update_courses_path(id: @course.id), params: { course: { course_name: 'Course 2', course_num: 5 } }
+    assert_redirected_to courses_url
   end
 
   test 'should destroy course' do
     assert_difference('Course.count', -1) do
-      delete course_url(@course)
+      delete courses_url(id: @course.id)
     end
-
     assert_redirected_to courses_url
   end
 end

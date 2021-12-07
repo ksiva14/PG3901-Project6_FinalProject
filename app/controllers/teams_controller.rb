@@ -59,7 +59,7 @@ class TeamsController < ApplicationController
   def destroy
     @team.destroy
     flash[:success] = "#{@team.team_name} was successfully destroyed."
-    redirect_to '/courses/' + @team.course_id.to_s + '/course_navigation'
+    redirect_to "/courses/#{@team.course_id}/course_navigation"
   end
 
   private

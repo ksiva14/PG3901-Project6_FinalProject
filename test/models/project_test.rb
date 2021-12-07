@@ -1,10 +1,14 @@
 require 'test_helper'
 
 class ProjectTest < ActiveSupport::TestCase
-  test 'valid project' do
-    project = Project.new(project_name: 'Dan', course_id: 1)
-    assert project.valid?
+  def setup
+    @project = Project.new(project_name: 'CSE 3901', course_id: 1)
   end
+
+  test 'should be valid' do
+    assert @project.valid?
+  end
+
   # check if things are being assigned and can be accessed.
   test 'check name' do
     project = Project.new(project_name: 'Dan', course_id: 1)

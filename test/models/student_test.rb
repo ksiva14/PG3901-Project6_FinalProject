@@ -1,10 +1,14 @@
 require 'test_helper'
 
 class StudentTest < ActiveSupport::TestCase
-  test 'valid student' do
-    student = Student.new(user_id: 5, team_id: 1)
-    assert student.valid?
+  def setup
+    @student = Student.new(user_id: 1, team_id: 1)
   end
+
+  test 'should be valid' do
+    assert @student.valid?
+  end
+
   # check if things are being assigned and can be accessed.
   test 'check user id' do
     student = Student.new(user_id: 5, team_id: 1)

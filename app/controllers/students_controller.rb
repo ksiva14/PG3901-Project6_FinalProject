@@ -33,7 +33,6 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def createFromTeam
-    repeat = false
     @student = Student.new(student_params)
     # find user using their email
     student_users = User.where('email LIKE ?', params[:q].strip)
@@ -42,22 +41,16 @@ class StudentsController < ApplicationController
     unless student_users.empty?
       # update user_id
       @student.user_id = student_users[0].id
-      # check if student is in same team
-      check_students = Student.where('user_id LIKE ?', @student.user_id)
-      unless check_students.empty?
-        check_students.each do |check|
-          puts params[:team_id]
-          next unless check.team_id == params[:team_id].to_i
-
-          flash[:danger] = "#{check.user.name} already exists in #{check.team.team_name}."
-          redirect_to "/teams/#{params[:team_id]}"
-          repeat = true
-          break
-        end
+      # check if student is already in the team
+      if Team.find(params[:team_id]).students.find_by(user_id: @student.user_id, team_id: params[:team_id]).present?
+        flash[:danger] = "#{check.user.name} already exists in #{check.team.team_name}."
+        redirect_to "/teams/#{params[:team_id]}"
+        repeat = true
       end
       # update team_id
       @student.team_id = params[:team_id]
     end
+
     if !repeat && !@student.user_id.nil? && @student.save
       flash[:success] = "#{@student.user.name} is added to #{Team.find(params[:team_id]).team_name}."
       redirect_to "/teams/#{params[:team_id]}"

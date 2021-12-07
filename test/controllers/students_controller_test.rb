@@ -2,47 +2,20 @@ require 'test_helper'
 
 class StudentsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @student = students(:one)
+    @user = users(:zj)
   end
 
-  test 'should get index' do
-    get students_url
-    assert_response :success
-  end
-
-  test 'should get new' do
-    get new_student_url
-    assert_response :success
-  end
-
-  test 'should create student' do
+  test 'should create student from email' do
     assert_difference('Student.count') do
-      post students_url, params: { student: {} }
+      post students_url, params: { q: 'tan.955@osu.edu' }
     end
-
-    assert_redirected_to student_url(Student.last)
+    assert_redirected_to navigation_courses_path(found: 'success', student_id: @user.students[0].id)
   end
 
-  test 'should show student' do
-    get student_url(@student)
-    assert_response :success
-  end
-
-  test 'should get edit' do
-    get edit_student_url(@student)
-    assert_response :success
-  end
-
-  test 'should update student' do
-    patch student_url(@student), params: { student: {} }
-    assert_redirected_to student_url(@student)
-  end
-
-  test 'should destroy student' do
-    assert_difference('Student.count', -1) do
-      delete student_url(@student)
+  test 'should create student from name' do
+    assert_difference('Student.count') do
+      post students_url, params: { q: 'zj' }
     end
-
-    assert_redirected_to students_url
+    assert_redirected_to navigation_courses_path(found: 'success', student_id: @user.students[0].id)
   end
 end

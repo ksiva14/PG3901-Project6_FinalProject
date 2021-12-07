@@ -77,8 +77,11 @@ Here you can see what evaluations are assigned, and what team and class they are
 
 ## Future Features
 If we had more time, we would like to add more features
+* With a little more time, we would add more styling to make things even prettier. 
+* Also, end dates for the evaluations would be a nice addition.
 * A way for students in the class to evaluate us as we present would be a nice touch.
 * A way for students to customize themselves, adding profile pictures and ways to contact them so group members can find them easier. 
+* Also, notifications for students and professors when evals are turned in. 
 * With a lot more time, a tool similar to catme to create balanced groups based on availability and personal preferences.
 * Looking very far down the road, after a class is done using a team, a way to rate that team overall, and have the tool learn how you work with the team it gave you, so it can better assign you teams in next projects and classes.
 

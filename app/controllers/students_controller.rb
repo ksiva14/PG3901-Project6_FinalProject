@@ -41,9 +41,10 @@ class StudentsController < ApplicationController
     unless student_users.empty?
       # update user_id
       @student.user_id = student_users[0].id
+      team = Team.find(params[:team_id])
       # check if student is already in the team
-      if Team.find(params[:team_id]).students.find_by(user_id: @student.user_id, team_id: params[:team_id]).present?
-        flash[:danger] = "#{check.user.name} already exists in #{check.team.team_name}."
+      if team.students.find_by(user_id: @student.user_id, team_id: team.id).present?
+        flash[:danger] = "#{@student.user.name} already exists in #{team.team_name}."
         redirect_to "/teams/#{params[:team_id]}"
         repeat = true
       end

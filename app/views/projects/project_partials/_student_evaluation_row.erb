@@ -1,0 +1,14 @@
+<% if !evaluation.score.to_i.zero? && evaluation.score.to_i < 5 %>
+  <%# score lesser than 5 %>
+  <tr class="fw-bold fst-italic table-danger">
+    <td><%= evaluation.score %></td>
+    <td><%= evaluation.comment %></td>
+    <td>By <%= Student.find(evaluation.by_student).user.name %></td>
+  </tr>
+<% else %>
+  <tr>
+    <td><%= evaluation.score %></td>
+    <td><%= evaluation.comment %></td>
+    <td>By <%= Student.find(evaluation.by_student).user.name %></td>
+  </tr>
+<% end %>

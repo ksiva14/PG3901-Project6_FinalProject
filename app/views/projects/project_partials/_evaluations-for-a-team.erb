@@ -1,0 +1,52 @@
+<% student_rowspan = get_student_rowspan team %>
+<% team_rowspan = get_team_rowspan team, project %>
+<% if team.students.length > 2 %>
+  <tr>
+    <td rowspan=<%= team_rowspan %> class="align-middle"><%= team.team_name %></td>
+  </tr>
+  <% team.students.each do |student| %>
+    <tr>
+      <td rowspan=<%= student_rowspan + 1 %> class="align-middle">Evaluations for <%= student.user.name %></td>
+    </tr>
+    <tr>
+      <% prof_eval = Evaluation.where.not(score: nil).find_by(project_id: project.id, team_id: team.id, for_student: student.id, by_professor: true)%>
+      <td rowspan=<%= student_rowspan %> class="align-middle">
+        <%# form to change avg. score %>
+        <%= render 'projects/project_partials/avg_score', prof_eval: prof_eval, project: project, team: team, student: student%>
+      </td>
+    </tr>
+    <% team.evaluations.where(project_id: project.id).where.not(by_student: nil).each do |evaluation| %>
+      <% if evaluation.for_student == student.id %>
+        <%= render 'projects/project_partials/student_evaluation_row', evaluation: evaluation %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% elsif team.students.length > 1 %>
+  <tr>
+    <td rowspan=3 class="align-middle"><%= team.team_name %></td>
+  </tr>
+  <% team.students.each do |student| %>
+    <tr>
+      <td class="align-middle">Evaluations for <%= student.user.name %></td>
+      <% prof_eval = Evaluation.where.not(score: nil).find_by(project_id: project.id, team_id: team.id, for_student: student.id, by_professor: true)%>
+      <td class="align-middle">
+        <%# form to change avg. score %>
+        <%= render 'projects/project_partials/avg_score', prof_eval: prof_eval, project: project, team: team, student: student%>
+      </td>
+      <% team.evaluations.where(project_id: project.id).where.not(by_student: nil).each do |evaluation| %>
+        <% if evaluation.for_student == student.id %>
+          <% if !evaluation.score.to_i.zero? && evaluation.score.to_i < 5 %>
+            <%# score lesser than 5 %>
+            <td class="fw-bold fst-italic table-danger"><%= evaluation.score %></td>
+            <td class="fw-bold fst-italic table-danger"><%= evaluation.comment %></td>
+            <td class="fw-bold fst-italic table-danger">By <%= Student.find(evaluation.by_student).user.name %></td>
+          <% else %>
+            <td><%= evaluation.score %></td>
+            <td><%= evaluation.comment %></td>
+            <td>By <%= Student.find(evaluation.by_student).user.name %></td>
+          <% end %>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+<% end %>

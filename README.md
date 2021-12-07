@@ -1,7 +1,7 @@
 # README
 
 ## Model
-In our model, we start with a user, who has many students and professors, depending on who logs in. In this class, the name, email, and password entered are validated. Students are users, on a team, and have many evaluations. A professor(our admin) is a user and in a course. Courses have many professors, teams, and projects. Teams belong in a class and have many evaluations, projects, project teams, and students. Projects belong in a course, and has many teams that are doing that project, as well as project teams. Project teams belong to projects and teams. Evaluations belong to teams, assigned by admins. 
+In our model, we start with auser, who has many students and professors, depending on who logs in. In this class, the name, email, and password entered are validated. Students are users, on a team, and in a course. A professor(our admin) is a user and in a course. Courses have many students, professors, teams, and projects. Teams belong in a class and have many evaluations, projects, and students. Projects belong in a course, and has many teams that are doing that project. Evaluations belong to teams, assigned by admins. 
 
 ## Running program and tests
 There are two ways to run our project, running rails server and connecting locally, or using or heroku deployment by runnning heroku open -a project6-3901.
@@ -14,17 +14,61 @@ This arose after switching from sqlite to postgres.
 bandi.11@osu.edu and jenkins.1085@osu.edu are added as collaborators on our heroku app.
 
 ## Walkthrough of Features
-Opening our app greets you with a log in page. Here you can create a new student or professor with the links under the log in section, and you will be asked for a name, email in standard osu format (name.#@osu.edu), and a password that is 6 characters long. There is link back to log in screen if you don't want to create a user. 
+* Project is deploy on [heroku](https://project6-3901.herokuapp.com/) (Database has been seeded. Refer to `Additional Information` for more details)
+* Alternatively, run `rails server` and type `localhost:3000` on a browser
+#### Login & Signup
+* Users can signup as a student or a professor with the links in the login page
+  * Users would be asked for a name, email in standard osu format (name.#@osu.edu), and a password that is 6 characters long. 
+  * There is a link back to log in screen if users decides not to sign up
+#### Professor
+* Logging in as a professor will greet you with the professor dashboard
+  * Professors can add, edit, and delete courses.
+  * On the dashboard, there is also a link to projects for the course
+* On the projects page, one can add, edit and delete projects
+  * All evaluations for the projects are shown here (evaluations would be display when a team is added to a project and there is at least 2 people on the team)
+  * Professor would be able to add/remove a team from the project
+    * If no team is added to the project, `Add/Remove Team` would redirect professor to create a team
+  * Team that are added to the project would also be shown
+  * Professor would be able to edit average scores of students after all students have filled up their evaluations for each other
+  * If a student has a score of under 5, the row of that evaluation would be highlighted in red
+* On the course page
+  * Professor can create, view, edit and delete a team
+    * `View Team` allows professor to see all students that are in the team
+    * Professor would also be able to add/remove students to/from the team directly
+    * Removing a student on the team page removes the student from the team but not the course
+  * Professor can add, remove, and view which team a student is on
+    * Professor can search by a student's full email or full name
+    * A student needs to be added to a team in order to be added to the course 
+    * A list of all teams the student is on would also be shown
+    * Removing a student on the course page deletes the student from the course
+#### Student
+* Logging in as a student will greet you with the student dashboard
 
-Logging in as a professor will greet you with the courses page, where a professor can add, edit, and delete courses. There is also a link to projects, where you can add, delete, and show what evaluations for that project are active, and once they are filled out, the professor can seethe comments and scores from the students. Here you can assign these evaluations by adding a team to the project. If you press enter course on the courses page, the professor can then create teams, and add students by searching for them on the add students link, either by name or email.  
+Here you can see what evaluations are assigned, and what team and class they are from. Clicking on the action for that evaluation will take you to the evaluation page where the student can select each other student on their team and evaluate them.
 
-Logging in as a student will take you to the student dashboard. Here you can see what projects you have as a student to work on, what team and project that class is for, and the ability to start that evaluation. Clicking on that link will take you to a page where you can start your evaulations for your teammates. You can rate your teammate from 1-10, and leave them a comment. After submitting your evaluation, it will take you back to the evaluation page, and you can see the score and comment you left for them. 
+// TODO: add and check over this walkthrough once all changes are final
+// TODO: add a student and professor for grader to use.
+
+## Additional Information
+#### Seed Information 
+* 10 Students (student.1@osu.edu through student.10@osu.edu)
+  * the password for their account is their email address
+* 2 Professors (professor.1@osu.edu through professor.20@osu.edu)
+  * the password for their account is their email address
+* 2 Courses (CSE 3901 & CSE 3902) for professor.1@osu.edu
+* 1 Team for CSE 3901 with no students added to the team
+
+#### To reset Postgesql Database on Heroku
+* Step 1: `heroku restart`
+* Step 2: `heroku pg:reset DATABASE` (no need to change the DATABASE)
+* Step 3: `heroku run rake db:migrate`
+* Step 4: `heroku run rake db:seed` (to seed the database)
 
 ## Ruby Version
 2.6.6
 
 ## Challenges Overcome
-One big challenge we overcame was switching to postgres to deploy to heroku. Sqlite is no longer supported by heroku, so this switch was necesary. The change in syntax and the way migrations were handled took some time to get used to. We were also having issues on the student side of things with evaluations, mainly having projects have many teams and students have many teams, so we added project teams to make that easier. 
+
 
 ## Future Features
 If we had more time, we would like to add more features
@@ -33,4 +77,22 @@ If we had more time, we would like to add more features
 * With a lot more time, a tool similar to catme to create balanced groups based on availability and personal preferences.
 * Looking very far down the road, after a class is done using a team, a way to rate that team overall, and have the tool learn how you work with the team it gave you, so it can better assign you teams in next projects and classes.
 
+Things you may want to cover:
 
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...

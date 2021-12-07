@@ -15,12 +15,14 @@ This arose after switching from sqlite to postgres.
 bandi.11@osu.edu and jenkins.1085@osu.edu are added as collaborators on our heroku app.
 
 ## Walkthrough of Features
-* Project is deploy on [heroku](https://project6-3901.herokuapp.com/) (Database has been seeded. Refer to `Additional Information` for more details)
+* Project is deployed on [heroku](https://project6-3901.herokuapp.com/) (Database has been seeded. Refer to `Additional Information` for more details)
 * Alternatively, run `rails server` and type `localhost:3000` on a browser
+* Tested for accessibility with [WAVE](https://wave.webaim.org/)
 #### Login & Signup
 * Users can signup as a student or a professor with the links in the login page
   * Users would be asked for a name, email in standard osu format (name.#@osu.edu), and a password that is 6 characters long. 
-  * There is a link back to log in screen if users decides not to sign up
+  * Professor would only be able to add a student after then have signed up
+  * A link back to log in screen if users decides not to sign up
 #### Professor
 * Logging in as a professor will greet you with the professor dashboard
   * Professors can add, edit, and delete courses.
@@ -28,7 +30,7 @@ bandi.11@osu.edu and jenkins.1085@osu.edu are added as collaborators on our hero
 * On the projects page, one can add, edit and delete projects
   * All evaluations for the projects are shown here (evaluations would be display when a team is added to a project and there is at least 2 people on the team)
   * Professor would be able to add/remove a team from the project
-    * If no team is added to the project, `Add/Remove Team` would redirect professor to create a team
+    * If no team is added to the project, `Add/Remove Team` would redirect the professor to create a team
   * Team that are added to the project would also be shown
   * Professor would be able to edit average scores of students after all students have filled up their evaluations for each other
   * If a student has a score of under 5, the row of that evaluation would be highlighted in red
@@ -46,6 +48,8 @@ bandi.11@osu.edu and jenkins.1085@osu.edu are added as collaborators on our hero
 * Logging in as a student will greet you with the student dashboard
 
 Here you can see what evaluations are assigned, and what team and class they are from. Clicking on the action for that evaluation will take you to the evaluation page where the student can select each other student on their team and evaluate them.
+
+
 
 // TODO: add and check over this walkthrough once all changes are final
 // TODO: add a student and professor for grader to use.
@@ -65,7 +69,7 @@ Here you can see what evaluations are assigned, and what team and class they are
 * Step 3: `heroku run rake db:migrate`
 * Step 4: `heroku run rake db:seed` (to seed the database)
 
-## Ruby Version
+#### Ruby Version
 2.6.6
 
 ## Challenges Overcome

@@ -1,10 +1,11 @@
 # README
 
 ## Model
-In our model, we start with auser, who has many students and professors, depending on who logs in. In this class, the name, email, and password entered are validated. Students are users, on a team, and in a course. A professor(our admin) is a user and in a course. Courses have many students, professors, teams, and projects. Teams belong in a class and have many evaluations, projects, and students. Projects belong in a course, and has many teams that are doing that project. Evaluations belong to teams, assigned by admins. 
+![image](https://user-images.githubusercontent.com/54641137/144972870-57352e3e-8d51-450b-b3f5-c5eea27fb5cb.png)
+In our model, we start with a user, who has many students and professors, depending on who logs in. In this class, the name, email, and password entered are validated. Students are users, on a team, and in a course. A professor(our admin) is a user and in a course. Courses have many students, professors, teams, and projects. Teams belong in a class and have many evaluations, projects, and students. Projects belong in a course, and has many teams that are doing that project. Evaluations belong to teams, assigned by admins. 
 
 ## Running program and tests
-There are two ways to run our project, running rails server and connecting locally, or using or heroku deployment by runnning heroku open -a project6-3901.
+There are two ways to run our project, running rails server and connecting locally, or using or heroku deployment by running heroku open -a project6-3901.
 Rake test will run our test suite.
 If there are issues with installing 'pg' gem during bundle install, running this command fixed that issue.
 

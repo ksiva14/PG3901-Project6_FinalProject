@@ -97,6 +97,8 @@ class StudentsController < ApplicationController
     when 'course'
       flash[:success] =
         "#{@student.user.name} was successfully removed from #{Course.find(params[:course_id]).course_name}."
+      # remove all evaluations of this user in the course & team
+      remove_student_evaluations @student.user.id, params[:course_id]
       # remove all students of user from the course & team
       remove_from_course @student.user.id, params[:course_id]
       redirect_to navigation_courses_path(id: params[:course_id])

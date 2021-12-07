@@ -10,10 +10,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should get new' do
-    get new_team_url
-    assert_response :success
-  end
+  
 
   test 'should create team' do
     assert_difference('Team.count') do
@@ -28,10 +25,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should get edit' do
-    get edit_team_url(@team)
-    assert_response :success
-  end
+  
 
   test 'should update team' do
     patch team_url(@team), params: { team: {} }

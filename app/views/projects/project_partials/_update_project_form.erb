@@ -1,0 +1,10 @@
+<%= form_with(url: project_update_path(id: project.id, project_id: project.id, course_id: project.course_id), method: 'patch', model: project) do |form| %>
+  <div class="row justify-content-center g-3">
+    <div class="col-xl-7 col-9">
+      <%= form.text_field :project_name, class:"form-control form-control-lg", placeholder:"Course Name", value: project.project_name, id:nil, "aria-label":"Course Name" %>
+    </div>
+    <div class="actions col-xl-2 col-9">
+      <%= form.submit "Update", class: "btn btn-lg btn-primary p-2 rounded" %>
+    </div>
+  </div>
+<% end %>

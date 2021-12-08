@@ -8,6 +8,8 @@ In our model, we start with a user, who has many students and professors, depend
 * There are two ways to run our project, running rails server and connecting locally, or using or heroku deployment by running heroku open -a project6-3901. Alternatively, use the link below in the feature walkthrough
 * Rake test will run our test suite.
 If there are issues with installing 'pg' gem during bundle install, running this command fixed that issue.
+* Main cannot be deployed to heroku but is able to run `rails server`
+* Heroku is deployed on the `heroku` branch
 
 sudo apt-get install postgresql-client libpq5 libpq-dev
 
@@ -17,7 +19,8 @@ bandi.11@osu.edu and jenkins.1085@osu.edu are added as collaborators on our hero
 ## Walkthrough of Features
 * Project is deployed on [heroku](https://project6-3901.herokuapp.com/) (Database has been seeded. Refer to `Additional Information` for more details)
 * Alternatively, run `rails server` and type `localhost:3000` on a browser
-* Tested for accessibility with [WAVE](https://wave.webaim.org/)
+* Website is accessible and has been tested for accessibility with [WAVE](https://wave.webaim.org/)
+* Website is responsive and can be viewed on different screen sizes, including mobile
 #### Login & Signup
 * Users can signup as a student or a professor with the links in the login page
   * Users would be asked for a name, email in standard osu format (name.#@osu.edu), and a password that is 6 characters long. 
@@ -51,7 +54,9 @@ bandi.11@osu.edu and jenkins.1085@osu.edu are added as collaborators on our hero
 * Logging in as a student will greet you with the student dashboard
     * Here you can see what evaluations are assigned, and what team and class they are from. Clicking on the action for that evaluation will take you to the evaluation page
 * Evaluations dashboard
-    * On this page, all students on the team for the project you selected will show up, and you can start the evaluation and view the score/comment you left them.
+    * On this page, all students on the team for the project you selected will show up, and you can start the evaluation
+    * After the student has filled all evaluations for their teammates, they will no longer see the `Start Evaluation`
+    * Student will be able to view the score/comment by their teammates after everyone has finished the evaluations
 * Evaluations
     * After a student selects start evaluation, they will be greeted with the grading scale, and below it, a slider from 1-10 that they can rate a teammate, and leave them a comment as well.
     * Students can only evaluate other students on their team, and have to evaluate each teammates individually.

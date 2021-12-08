@@ -30,28 +30,3 @@ end
 
 # 1 team for 3901
 Team.create! team_name: Faker::Game.unique.title, course_id: 1
-
-# # 29 students
-# 29.times do
-#   Student.create! user_id: Faker::Number.unique.between(from: 1, to: 29),
-#                   team_id: Faker::Number.between(from: 1, to: 5)
-# end
-
-# # 1 professor
-# Professor.create! user_id: 30, course_id: 1
-
-# # ------------------------------ For Testing out project page ---------------------------------------------
-# 3.times do
-#   Student.create! user_id: Faker::Number.unique.between(from: 1, to: 29),
-#                   course_id: 1, team_id: 1
-# end
-# 3.times do
-#   Student.create! user_id: Faker::Number.unique.between(from: 1, to: 29),
-#                   course_id: 1, team_id: 2
-# end
-
-# Team.create! team_name: Faker::Game.unique.title, course_id: 1
-# Team.create! team_name: Faker::Game.unique.title, course_id: 1
-
-# Project.create! project_name: 'Project 1', course_id: 1
-# Project.create! project_name: 'Project 2', course_id: 1

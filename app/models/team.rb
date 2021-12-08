@@ -7,7 +7,4 @@ class Team < ApplicationRecord
   has_many :students, dependent: :delete_all
 
   validates :team_name, presence: true, uniqueness: false
-
-  #Association Validations
-  #validates_associated :course
 end

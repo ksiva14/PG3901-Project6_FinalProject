@@ -46,11 +46,11 @@ ActiveRecord::Schema.define(version: 20_211_203_030_609) do
     t.index ['user_id'], name: 'index_professors_on_user_id'
   end
 
-  create_table 'project_teams', force: :cascade do |t|
-    t.integer 'project_id'
-    t.integer 'team_id'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+  create_table "project_teams", force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "team_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table 'projects', force: :cascade do |t|
@@ -85,4 +85,5 @@ ActiveRecord::Schema.define(version: 20_211_203_030_609) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
   end
+
 end

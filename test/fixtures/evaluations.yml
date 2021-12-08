@@ -1,15 +1,23 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  project_id: 1
-  student_id: 1
-  team_id: 1
+  project_id:
+  team_id:
+  for_student:
+  by_student:
+  by_professor:
   score: 1
   comment: MyString
+  is_assigned:
+  can_view:
 
 two:
-  project_id: 1
-  student_id: 1
-  team_id: 1
+  project_id:
+  team_id:
+  for_student:
+  by_student:
+  by_professor:
   score: 1
   comment: MyString
+  is_assigned:
+  can_view:

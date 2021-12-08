@@ -1,0 +1,18 @@
+<h1 class="text-center my-5"> <%= @course.course_name %> </h1>
+<%#----------------------------- Teams Table -----------------------------%>
+<%= render '/courses/navigation_partials/create_team_form' %>
+<div class="table-responsive mt-3">
+  <%= render '/courses/navigation_partials/teams_table'%>
+</div>
+<%#----------------------------- Students Table -----------------------------%>
+<%= render '/courses/navigation_partials/search_student'%>
+<%# show the select team only if email is found %>
+<% if !params[:found].nil? && params[:found] = "success" %>
+  <%= render '/courses/navigation_partials/select_student_team', student: Student.find(params[:student_id]) %>
+<% end %>
+<div class="table-responsive">
+  <%= render '/courses/navigation_partials/students_table'%>
+</div>
+<form action=<%=courses_path%>>
+  <input class="btn btn-primary btn p-2 rounded mb-5 col-md-1 col-12" type="submit" value="&#8592; Back" />
+</form>

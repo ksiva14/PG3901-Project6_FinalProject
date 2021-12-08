@@ -1,37 +1,29 @@
-<%= form_with(model: evaluation) do |form| %>
-  <% if evaluation.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(evaluation.errors.count, "error") %> prohibited this evaluation from being saved:</h2>
-
-      <ul>
-        <% evaluation.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<%= form_with(model: evaluation, class: "container-fluid g-3 m-auto mb-5 mt-5 border-light bg-light p-4 rounded col-lg-9 col-md-10 col-xs-12")  do |form| %>
+  <div class="row m-auto">
+    <div class="col-12 mb-3 ">
+      <div class="row mb-3 ">
+        <div class="col-lg-6 col-12 g-3 text-center">
+          <h4><%= @for_student.user.name %></h4>
+        </div>
+        <div class="col-lg-6 col-12">
+          <div class="row">
+            <span class="col-6 text-start">1</span>
+            <span class="col-6 text-end">10</span>
+          </div>
+          <input name="evaluation[score]" aria-label="Score" id="current_score_in" type="range" class="form-range row m-auto border-0" value="5" min="1" max="10" oninput="current_score_out.value = current_score_in.value">
+          <div class="row d-flex">
+            <span class="fs-5 text col-md-6 col-12 text-md-end text-center">Current Score: </span>
+            <output id="current_score_out" class="fs-5 text p-0 col-md-6 col-12 text-dark text-center">
+              5
+            </output>
+          </div>
+        </div>
+      </div>
+      <textarea name="evaluation[comment]" class="form-control col-12" id="exampleFormControlTextarea1" rows="3" 
+                placeholder="Include specific comments about <%= @for_student.user.name %> that justify the quantitative evaluation given above." aria-label="Include specific comments about <%= @for_student.user.name %> that justify the quantitative evaluation given above." required></textarea>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :project_id %>
-    <%= form.number_field :project_id %>
   </div>
-
-  <div class="field">
-    <%= form.label :student_id %>
-    <%= form.number_field :student_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :score %>
-    <%= form.number_field :score %>
-  </div>
-
-  <div class="field">
-    <%= form.label :comment %>
-    <%= form.text_field :comment %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions row my-3 mx-0">
+    <%= form.submit "Submit", class: "bg-btn btn-primary m-auto col-12 col-md-4 col-lg-3 p-2 mb-3 rounded", data: { confirm: 'Are you sure you want to submit this evaluation? You would not be able to edit this evaluation after submitting.' }%>
   </div>
 <% end %>

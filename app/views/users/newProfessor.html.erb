@@ -1,0 +1,10 @@
+<% provide(:title, 'Sign up') %>
+<div class="vh-100 d-flex align-items-center justify-content-center">
+  <div class="row g-4 m-auto p-3 border border-5 border-light rounded bg-light d-flex align-items-center w-100 h-75">
+    <h1 class="col-md-6 col-12 text-center">Professor Sign Up</h1>
+    <%= form_with(:url => url_for(:controller => 'users', :action => 'createProfessor'), model: @professor, local: true, class:"col-md-6 col-12 align-items-center") do |f| %>
+      <%= render 'users/error_prof' %>
+      <%= render 'users/signup_form_body', f: f %>
+    <% end %>
+  </div>
+</div>

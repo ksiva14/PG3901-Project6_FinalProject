@@ -1,0 +1,39 @@
+<h1 class="my-5 text-center">Courses for <%= current_user.name %></h1>
+<%= render '/courses/index_partials/create_course_form' %>
+<div class="table-responsive mt-4">
+  <table class="table table-light table-striped table-bordered rounded text-center align-middle">
+    <thead>
+      <tr>
+        <th colspan="1">Course Name</th>
+        <th colspan="4"> Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="5"><%# for aesthetic purposes %></td>
+      </tr>
+      <% counter = 1 %>
+      <% @courses.each do |course| %>
+        <tr>
+          <td class="align-middle"><%= course.course_name %></td>
+          <td class="align-middle"><%= link_to 'Enter Course', navigation_courses_path(id: course.id) %></td>
+          <td class="align-middle"><%= link_to 'View Projects', projects_path(course_id: course.id) %></td>
+          <td class="align-middle">
+            <%= link_to 'Edit Course', "#updateCourse#{counter}", "data-bs-toggle":"collapse", "aria-expanded":"false", "aria-controls":"updateCourse#{counter}" %>
+          </td>
+          <td class="align-middle"><%= link_to 'Delete Course', delete_courses_path(id: course.id), method: :delete, data: { confirm: 'Are you sure? Deleting this course will also delete all related data, including students and teams.' } %></td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <div class="collapse" id="updateCourse<%= counter %>">
+              <div class="card card-body">
+                <%= render '/courses/index_partials/update_course_form', course: course%>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <% counter += 1 %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

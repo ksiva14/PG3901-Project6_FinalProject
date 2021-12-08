@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top text-center">
+  <div class="container-fluid ">
+    <% if !(current_page?('/'))%>
+      <%if User.all.length > 0 %>
+        <span class="navbar-brand my-md-1 my-3">Hello, <%= User.find_by(id: session[:user_id]).name %>!</span>
+      <% end %>
+      <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#nav_bar"
+              aria-controls="nav_bar"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav_bar">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-5">
+          <% if (Professor.where(user_id: session[:user_id]).length != 0) %>
+            <li class="nav-item">
+              <a class="nav-link" href="/courses/index">Courses</a>
+            </li>
+            <% if params[:id]%>
+              <li class="nav-item">
+                <a class="nav-link" href="<%= navbar_project_link %>">Projects</a>
+              </li>
+            <% end %>
+          <% else %>
+            <% if request.original_url.include? "evaluations" %>
+              <li class="nav-item">
+                <a class="nav-link" href=<%="/static_pages"%>>Dashboard</a>
+              </li>
+            <% end %>
+          <% end %>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</nav>

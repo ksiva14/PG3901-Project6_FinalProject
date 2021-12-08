@@ -1,33 +1,29 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Evaluations</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Project</th>
-      <th>Student</th>
-      <th>Score</th>
-      <th>Comment</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @evaluations.each do |evaluation| %>
+<h1 class="text-center my-5">Evaluations for <%= @project.project_name %></h1>
+<div class="table-responsive">
+  <table class="table table-light table-striped table-bordered rounded">
+    <thead class="text-center">
       <tr>
-        <td><%= evaluation.project_id %></td>
-        <td><%= evaluation.student_id %></td>
-        <td><%= evaluation.score %></td>
-        <td><%= evaluation.comment %></td>
-        <td><%= link_to 'Show', evaluation %></td>
-        <td><%= link_to 'Edit', edit_evaluation_path(evaluation) %></td>
-        <td><%= link_to 'Destroy', evaluation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th scope="col" class="col-2">Student</th>
+        <th scope="col" class="col-2">Action</th>
+        <th scope="col" class="col-1">Score</th>
+        <th scope="col" class="col-5">Comment</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Evaluation', new_evaluation_path %>
+    </thead>
+    <tbody>
+      <% @teammates.each do |student|%>
+        <% evaluation = Student.find(student.id).evaluations.find_by(project_id: @project.id, for_student: student.id, by_student: @by_student.id) %>
+        <tr>
+          <td class="text-center"><%= student.user.name %></td>
+          <% if evaluation.score.nil? %>
+            <td class="text-center"><%= link_to 'Start Evaluation', new_evaluation_path(for_student: student.id, by_student: @by_student.id, project_id: evaluation.project_id) %></td>
+          <% else %>
+            <td class="text-center"><%= link_to 'Start Evaluation', "#", class:"visually-hidden" %></td>
+          <% end %>
+          <td class="text-center"><%= evaluation.score %></td>
+          <td><%= evaluation.comment %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= link_to '&#8592; Back'.html_safe, "/static_pages", class:"btn btn-primary btn p-2 rounded col-md-1 col-12 mb-5" %>

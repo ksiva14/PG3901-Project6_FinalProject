@@ -1,0 +1,14 @@
+<%= form_with(model: student, class:"row mb-3 g-3") do |form| %>
+  <div class="col-xl-3"><%# for aesthetic purpose %></div>
+  <div class="actions col-xl-7 col-12">
+    <select class="form-select form-select-lg" aria-label="Select a team" name="student[team_id]" required>
+      <option value="">Select a team for <%= User.find(student.user_id).name %></option>
+      <% Team.all.where(course_id: params[:course_id]).each do |team| %>
+        <option value=<%= team.id %>><%= team.team_name %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="actions col-xl-2 col-12">
+    <%= form.submit "Add Student", class: "btn btn-primary btn-lg p-2 rounded" %>
+  </div>
+<% end %>

@@ -1,0 +1,83 @@
+<h1 class="text-center my-5">Projects for <%= Course.find(params[:course_id]).course_name %></h1>
+<%# ----------------------------------- Create Project -------------------------------------%>
+<%= render 'projects/project_partials/create-project-form' %>
+<%# ----------------------------------- View Project -------------------------------------%>
+<div class="table-responsive">
+  <table class="table table-light table-striped table-bordered rounded text-center">
+    <thead>
+      <tr>
+        <th class="col-2">Project Name</th>
+        <th class="col-1">Course</th>
+        <th class="col-5" colspan="4">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="6"><%# for aesthetic purposes %></td>
+      </tr>
+      <% counter = 1 %>
+      <% @projects.each do |project| %>
+        <tr>
+          <td><%= project.project_name %></td>
+          <td><%= Course.find(project.course_id).course_name %></td>
+          <td><%= link_to 'Edit Project', "\#editProject#{counter}", "data-bs-toggle":"collapse"%></td>
+          <td><%= link_to 'Add/Remove Team', "\#addTeam#{counter}", "data-bs-toggle":"collapse"%></td>
+          <td><%= link_to 'Show Evaluations', "\#showEval#{counter}", "data-bs-toggle":"collapse"%></td>
+          <td><%= link_to 'Delete Project', project, method: :delete, data: { confirm: 'Are you sure you want to delete this project and its related data?' } %></td>
+        </tr>
+        <tr >
+          <td colspan="6">
+            <%# edit project %>
+            <div class="collapse" id=<%= "editProject#{counter}" %>>
+              <div class="card card-body">
+                <%= render 'projects/project_partials/update_project_form', project: project %>
+              </div>
+            </div>
+            <%# add team to project %>
+            <div class="collapse" id=<%= "addTeam#{counter}" %>>
+              <div class="card card-body">
+                <% if Course.find(project.course_id).teams.present? %>
+                  <%= render 'projects/project_partials/add_team', project: project %>
+                <% else %>
+                  <%= link_to "Create a team first", navigation_courses_path(id: project.course_id)%>
+                <% end %>
+                <%# show teams currently in this project if there is any%>
+                <% if ProjectTeam.where(project_id: project.id).present? %>
+                  <%= render 'projects/project_partials/show_teams_table', project: project, course_id: project.course_id %>
+                <% end %>
+              </div>
+            </div>
+            <%# Show Evaluations of student %>
+            <div class="collapse" id=<%= "showEval#{counter}" %>>
+              <div class="card card-body">
+                <table class="table table-light table-striped table-bordered rounded text-center">
+                  <thead>
+                    <tr>
+                      <th class="col-2">Team</th>
+                      <th class="col-4">For Student</th>
+                      <th class="col-1">Avg. Score</th>
+                      <th class="col-1">Score</th>
+                      <th class="col-2">Comment</th>
+                      <th class="col-2">By Student</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% project.project_teams.each do |project_team| %>
+                      <%# this team is assigned the project %>
+                      <%= render 'projects/project_partials/evaluations-for-a-team', team: Team.find(project_team.team_id), project: project %>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <% counter += 1 %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<br />
+<form action=<%="/courses/" + params[:course_id].to_s + "/course_navigation"%>>
+  <input class="btn btn-primary btn p-2 rounded mb-5 col-md-1 col-12" type="submit" value="&#8592; Back" />
+</form>

@@ -1,0 +1,14 @@
+<%= form_with(url: project_create_team_path(project_id: project.id), class:"row my-3 justify-content-center g-3") do |form| %>
+  <div class="actions col-xl-7 col-9">
+    <select class="form-select form-select-lg" aria-label="Select a team" name="team_id" required>
+      <option value="">Select a team</option>
+      <% Team.all.where(course_id: params[:course_id]).each do |team| %>
+        <option value=<%= team.id %>><%= team.team_name %></option>
+      <% end %>
+    </select>
+  </div>
+  <%= form.hidden_field :project_id, value: project.id, id:nil %>
+  <div class="actions col-xl-2 col-9">
+    <%= form.submit "Add Team", class: "btn btn-primary btn-lg p-2 rounded" %>
+  </div>
+<% end %>

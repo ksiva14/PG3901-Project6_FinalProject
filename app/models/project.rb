@@ -6,4 +6,7 @@ class Project < ApplicationRecord
 
   validates :project_name, presence: true
   validates :course_id, presence: true
+
+  #Association Validations
+  validates_associated :course, :teams
 end

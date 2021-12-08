@@ -1,10 +1,14 @@
 require 'test_helper'
 
 class EvaluationTest < ActiveSupport::TestCase
-  test 'valid eval' do
-    eval = Evaluation.new(project_id: 1, team_id: 2, for_student: 1, by_student: 2, score: 1, comment: 'hi')
-    assert eval.valid?
+  def setup
+    @evaluation = Evaluation.new(project_id: 5, team_id: 1, for_student: 2, by_student: 3, score: 1, comment: 'hi')
   end
+
+  test 'should be valid' do
+    assert @evaluation.valid?
+  end
+
   # check if things are being assigned and can be accessed.
   test 'check project' do
     eval = Evaluation.new(project_id: 5, team_id: 1, for_student: 2, by_student: 3, score: 1, comment: 'hi')

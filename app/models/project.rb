@@ -8,5 +8,5 @@ class Project < ApplicationRecord
   validates :course_id, presence: true
 
   #Association Validations
-  validates_associated :course, :teams
+  #validates_associated :course, :teams
 end

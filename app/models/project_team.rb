@@ -7,5 +7,5 @@ class ProjectTeam < ApplicationRecord
 
 
   #Association Validations
-  validates_associated :project, :team
+  #validates_associated :project, :team
 end

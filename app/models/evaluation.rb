@@ -6,5 +6,5 @@ class Evaluation < ApplicationRecord
   validates :for_student, presence: true
 
   #Association Validations
-  validates_associated :team
+  #validates_associated :team
 end

@@ -4,5 +4,5 @@ class Student < ApplicationRecord
 
   has_many :evaluations, through: :team
   #Association Validations
-  validates_associated :user, :team
+  #validates_associated :user, :team
 end

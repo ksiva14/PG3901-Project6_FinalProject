@@ -9,5 +9,5 @@ class Team < ApplicationRecord
   validates :team_name, presence: true, uniqueness: false
 
   #Association Validations
-  validates_associated :course
+  #validates_associated :course
 end

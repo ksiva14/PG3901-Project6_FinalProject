@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ProjectsHelper
   # do not create the evaluation if it is already created
   def create_evaluation(project_id, team_id, for_student_id, by_student_id, is_assigned)
@@ -50,7 +52,7 @@ module ProjectsHelper
         total_score += eval.score.to_i
         num_of_score += 1
       end
-      total_score / num_of_score unless num_of_score == 0
+      total_score / num_of_score unless num_of_score.zero?
     end
   end
 

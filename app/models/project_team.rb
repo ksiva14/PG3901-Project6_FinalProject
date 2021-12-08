@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProjectTeam < ApplicationRecord
   belongs_to :project, optional: true
   belongs_to :team, optional: true

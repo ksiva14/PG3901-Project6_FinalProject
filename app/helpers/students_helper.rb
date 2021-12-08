@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module StudentsHelper
   def remove_from_course(user_id, course_id)
     Student.where(user_id: user_id).where.not(team_id: nil).each do |student|

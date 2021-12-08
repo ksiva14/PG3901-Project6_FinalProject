@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EvaluationsHelper
   def get_team_rowspan(team, project)
     if team.students.length > 2

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StudentsController < ApplicationController
   before_action :set_student, only: %i[show edit update destroy]
 
@@ -70,14 +72,13 @@ class StudentsController < ApplicationController
       student_list = @student.team.students.select do |student|
         User.all.find(student.user_id).email == User.all.find(@student.user_id).email
       end
+      team = Team.find(@student.team_id)
       if student_list.length > 1
-        team = Team.find(@student.team_id)
         team.students.find(@student.id).destroy
         flash[:danger] = "#{@student.user.name} already exists in #{team.team_name}."
         course_num = Team.all.find(@student.team_id).course_id.to_s
         redirect_to "/courses/navigation?id=#{course_num}"
       else
-        team = Team.find(@student.team_id)
         flash[:success] = "#{@student.user.name} is successfully added to #{team.team_name}."
         redirect_to navigation_courses_path(id: @student.team.course.id)
       end

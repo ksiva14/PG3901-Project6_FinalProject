@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Course < ApplicationRecord
   has_many :professors, dependent: :delete_all
   has_many :teams, dependent: :delete_all

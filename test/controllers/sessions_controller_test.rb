@@ -5,4 +5,11 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     get login_path
     assert_response :success
   end
+
+  test 'should get delete' do
+    get logout_path
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+  end
 end

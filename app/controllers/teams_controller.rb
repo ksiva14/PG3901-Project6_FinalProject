@@ -71,7 +71,6 @@ class TeamsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def team_params
-    # TODO: error with param.require(:team)
     # params.require(:teams).permit(:team_name, :course_id)
     params.permit(:team_name, :course_id)
   end

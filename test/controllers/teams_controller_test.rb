@@ -5,19 +5,11 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
     @team = teams(:one)
   end
 
-  test 'should get index' do
-    get teams_url
-    assert_response :success
-  end
-
-  
-
   test 'should create team' do
-    assert_difference('Team.count') do
-      post teams_url, params: { team: {} }
-    end
-
-    assert_redirected_to team_url(Team.last)
+    post teams_url, params: { team: {} }
+    assert_response :redirect
+    assert_redirected_to '/courses/navigation'
+    
   end
 
   test 'should show team' do
@@ -25,11 +17,9 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  
-
   test 'should update team' do
     patch team_url(@team), params: { team: {} }
-    assert_redirected_to team_url(@team)
+    assert_redirected_to '/courses/navigation'
   end
 
   test 'should destroy team' do
@@ -37,6 +27,6 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
       delete team_url(@team)
     end
 
-    assert_redirected_to teams_url
+    assert_redirected_to '/courses//course_navigation'
   end
 end

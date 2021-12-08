@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# helper methods for sessions
 module SessionsHelper
   # Logs in the given user.
   def log_in(user)

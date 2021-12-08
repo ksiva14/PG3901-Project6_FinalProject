@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# model for users
 class User < ApplicationRecord
   has_many :students
   has_many :professors

@@ -12,12 +12,12 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
-    studentIDs = Student.all.select { |student| student.team_id == @team.id }
-    @teamMembers = []
+    student_ids = Student.all.select { |student| student.team_id == @team.id }
+    @team_members = []
     @students = Student.all
     @users = User.all
-    studentIDs.each do |student|
-      @teamMembers << User.all.find(student.user_id)
+    student_ids.each do |student|
+      @team_members << User.all.find(student.user_id)
     end
     @courses = Course.all
   end

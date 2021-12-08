@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# controller for evaluations
 class EvaluationsController < ApplicationController
   before_action :set_evaluation, only: %i[edit update destroy]
 
@@ -32,13 +33,15 @@ class EvaluationsController < ApplicationController
         grade: '3-4',
         title: 'Fair team-mate',
         description: ['Worked hard at contributing to the project', 'Struggled to carry out assigned responsibilities',
-                      'Made minor contributions to the final product', 'You would **prefer not to partner** with this person in a future course']
+                      'Made minor contributions to the final product',
+                      'You would **prefer not to partner** with this person in a future course']
       }, {
         grade: '5-6',
         title: 'Good team-mate',
         description: ['Carried out their assigned responsibilities', 'Contributed to the final product',
                       'Room for improvement in communication, initiative, effort, or skills',
-                      "You would be **willing to partner** with them in a future course, though you wouldn't seek them out"]
+                      "You would be **willing to partner** with them in a future course,
+                      though you wouldn't seek them out"]
       }, {
         grade: '7-8',
         title: 'Very good team-mate',

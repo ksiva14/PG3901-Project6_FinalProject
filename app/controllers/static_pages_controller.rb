@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# static_pages controller
 class StaticPagesController < ApplicationController
   def dashboard
     @user = current_user

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# helper methods for application
 module ApplicationHelper
   def navbar_project_link
     if request.original_url.include? 'teams'

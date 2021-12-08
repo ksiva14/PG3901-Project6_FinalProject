@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# controller for users
 class UsersController < ApplicationController
   # before_action :set_student, only: [:show, :edit, :update, :destroy]
 

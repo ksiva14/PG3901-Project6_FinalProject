@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# controller for courses
 class CoursesController < ApplicationController
   before_action :set_course, only: %i[update destroy]
 

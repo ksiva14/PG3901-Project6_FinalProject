@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# helper methods for projects
 module ProjectsHelper
   # do not create the evaluation if it is already created
   def create_evaluation(project_id, team_id, for_student_id, by_student_id, is_assigned)

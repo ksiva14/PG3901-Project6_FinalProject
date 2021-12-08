@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
-
   test 'should get signupstudents' do
     get '/signupstudents'
     assert_response :success
@@ -16,7 +15,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get '/signupstudents'
     assert_response :success
 
-    post '/signupstudents', params: {user: { name: "Student", email: "student.1@osu.edu", password_digest: "1234" }}
+    post '/signupstudents', params: { user: { name: 'Student', email: 'student.1@osu.edu', password_digest: '1234' } }
     assert_response :success
   end
 
@@ -24,7 +23,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get '/signupprofessors'
     assert_response :success
 
-    post '/signupprofessors', params: {user: { name: "Professor", email: "professor.1@osu.edu", password_digest: "1234" }}
+    post '/signupprofessors',
+         params: { user: { name: 'Professor', email: 'professor.1@osu.edu', password_digest: '1234' } }
     assert_response :success
   end
 end
